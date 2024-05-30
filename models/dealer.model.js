@@ -1,7 +1,8 @@
 const { DataTypes } = require('sequelize');
 const connection = require('../configs/connection');
+const UsersModel = require('./user.model');
 
-const UsersModel = connection.define('users', {
+const DealerModel = connection.define('dealers', {
     name: {
         type: DataTypes.STRING,
         allowNull: true
@@ -31,15 +32,35 @@ const UsersModel = connection.define('users', {
         allowNull: true,
     },
     role: {
-        type: DataTypes.ENUM('super-admin', 'admin'),
+        type: DataTypes.ENUM('distributor', 'dealer'),
         allowNull: false,
-        defaultValue: 'super-admin' // Default role set to 'super-admin'
+        defaultValue: 'dealer' // Default role set to 'dealer'
     },
     userToken: {
         type: DataTypes.TEXT
     },
+    adminID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: UsersModel,
+            key: 'id',
+        },
+    }
 }, {
     timestamps: true
 });
 
-module.exports = UsersModel;
+DealerModel.belongsTo(UsersModel, {
+    foreignKey: 'userID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+})
+
+UsersModel.hasMany(DealerModel, {
+    foreignKey: 'userID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+})
+
+module.exports = DealerModel;

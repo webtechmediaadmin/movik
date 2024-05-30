@@ -1,3 +1,4 @@
+const UserLogoutService = require("../services/users/userLogout.service");
 const UserRegisterService = require("../services/users/userRegister.service");
 const UserLoginService = require("../services/users/userlogin.service");
 
@@ -54,4 +55,28 @@ async function EmailLoginController(req, res) {
     }
 }
 
-module.exports = { EmailRegistrationController, EmailLoginController };
+async function UserLogoutController(req, res) {
+    try {
+        const result = await UserLogoutService();
+
+        // Clear the token cookie
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'Strict'
+        });
+
+        return res.status(result.status ? 200 : 500).json({
+            status: result.status,
+            message: result.message
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+module.exports = { EmailRegistrationController, EmailLoginController, UserLogoutController };
