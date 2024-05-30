@@ -9,18 +9,70 @@
 </head>
 
 
-<body>
+<body style="background-color:#2c323a">
     <div id="preloader">
         <div id="loader">
-            <img src="images/movik.jpeg" alt="Loading...">
+            <img src="images/movik-logo.png" alt="Loading...">
         </div>
     </div>
+
+    <!-- navbar-start -->
+    <!-- <nav class="navbar">
+        <div class="navbar-container container">
+            <input type="checkbox" name="" id="">
+            <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <ul class="menu-items">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Category</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Testimonial</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <h1 class="logo">
+                <img src="images/movik-logo.png" alt="">
+            </h1>
+        </div>
+    </nav> -->
+
+    <!-- navbar-end -->
 
     <!-- Main Content -->
     <div id="main-content" style="display: none;">
         <!-- Your main content goes here -->
-        <h1>Welcome to My Website</h1>
-        <p>This is the index page content.</p>
+        <div class="form-sec">
+            <form class="container-2" onsubmit="onSubmit(event)" novalidate>
+                <div>
+                    <h3>Welcome Back</h3>
+                    <div class='greeting'>We're so excited to see you again!</div>
+                </div>
+                <div>
+                    <div>
+                        <label for='username' minlength="4">Username or Email</label>
+                        <span class="error" aria-live="polite"></span>
+                    </div>
+                    <input id='username' type="text" required />
+                </div>
+                <div>
+                    <div>
+                        <label for='password'>Password</label>
+                        <span class="error" aria-live="polite"></span>
+                    </div>
+                    <input id='password' type='password' required minlength="8" />
+                    <a href='#'>Forgot your password?</a>
+                </div>
+                <button type="submit">
+                    Login
+                </button>
+                <span aria-live="assertive" id="js-loadingMsg" class="sr-only">
+                    <!-- Use JavaScript to inject the the loading message -->
+                </span>
+            </form>
+        </div>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
