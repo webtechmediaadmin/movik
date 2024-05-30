@@ -6,5 +6,5 @@ $(document).ready(function () {
         $('#preloader').fadeOut('slow', function () {
             $('#main-content').fadeIn('slow');
         });
-    }, 5000);
+    }, 2000);
 });
