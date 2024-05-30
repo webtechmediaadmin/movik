@@ -8,7 +8,6 @@
     <title>Home</title>
 </head>
 
-
 <body style="background-color:#2c323a">
     <div id="preloader">
         <div id="loader">
@@ -38,14 +37,13 @@
             </h1>
         </div>
     </nav> -->
-
     <!-- navbar-end -->
 
     <!-- Main Content -->
     <div id="main-content" style="display: none;">
         <!-- Your main content goes here -->
         <div class="form-sec">
-            <form class="container-2" onsubmit="onSubmit(event)" novalidate>
+            <form class="container-2" id="login-form" novalidate>
                 <div>
                     <h3>Welcome Back</h3>
                     <div class='greeting'>We're so excited to see you again!</div>
@@ -65,17 +63,63 @@
                     <input id='password' type='password' required minlength="8" />
                     <a href='#'>Forgot your password?</a>
                 </div>
-                <button type="submit">
+                <button type="submit" id="submit-btn">
                     Login
                 </button>
                 <span aria-live="assertive" id="js-loadingMsg" class="sr-only">
-                    <!-- Use JavaScript to inject the the loading message -->
+                    <!-- Use JavaScript to inject the loading message -->
                 </span>
             </form>
         </div>
     </div>
+
+    <script>
+        // Function to simulate loading time and hide preloader
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                document.getElementById('preloader').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            }, 2000); // Simulate a 2-second loading time
+        });
+
+        function loginpanel() {
+            let username = document.getElementById("username").value;
+            let pass = document.getElementById("password").value;
+
+            fetch("http://localhost:9000/api/users/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: username, password: pass }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    if (data.status) {
+                        if (data.data.role === "super-admin") {
+                            window.location.href = "./super-data.html";
+                        } else if (data.data.role === "admin") {
+                            window.location.href = "./admin-data.html";
+                        } else {
+                            window.location.href = "./dealer-distributer.html";
+                        }
+                    } else {
+                        alert("Your credentials are wrong");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    alert("An error occurred. Please try again.");
+                });
+        }
+
+        document.getElementById('login-form').addEventListener("submit", (e) => {
+            e.preventDefault();
+            loginpanel();
+        });
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="js/script.js"></script>
 
 </html>
