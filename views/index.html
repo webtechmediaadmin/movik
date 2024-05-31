@@ -93,15 +93,16 @@
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);
                     if (data.status) {
-                        if (data.data.role === "super-admin") {
-                            window.location.href = "./super-data.html";
-                        } else if (data.data.role === "admin") {
-                            window.location.href = "./admin-data.html";
-                        } else {
-                            window.location.href = "./dealer-distributer.html";
-                        }
+                        console.log(data)
+                        sessionStorage.setItem('token', data.token)
+                        // if (data.data.role === "super-admin") {
+                        //     window.location.href = "./super-data.html";
+                        // } else if (data.data.role === "admin") {
+                        //     window.location.href = "./admin-data.html";
+                        // } else {
+                        //     window.location.href = "./dealer-distributer.html";
+                        // }
                     } else {
                         alert("Your credentials are wrong");
                     }
