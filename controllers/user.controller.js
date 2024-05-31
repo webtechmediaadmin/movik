@@ -38,6 +38,7 @@ async function EmailLoginController(req, res) {
             return res.status(200).json({
                 status: true,
                 message: emailLogin.message,
+                token: emailLogin.token,
                 data: emailLogin.data
             });
         } else {
