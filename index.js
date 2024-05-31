@@ -11,6 +11,7 @@ const path = require('path');
 const connection = require('./configs/connection');
 const userRoutes = require('./routers/user.routes');
 const { authentication } = require('./middleware/authentication.middleware');
+const dealerRoutes = require('./routers/dealer.routes');
 
 
 
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, './views'))); // Add the missing par
 
 /*Routes*/
 app.use('/api/users', userRoutes);
+app.use('/api/dealers', dealerRoutes);
 
 
 // Synchronize the database connection and start the server
