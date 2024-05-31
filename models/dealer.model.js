@@ -52,13 +52,13 @@ const DealerModel = connection.define('dealers', {
 });
 
 DealerModel.belongsTo(UsersModel, {
-    foreignKey: 'userID',
+    foreignKey: 'adminID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
 })
 
 UsersModel.hasMany(DealerModel, {
-    foreignKey: 'userID',
+    foreignKey: 'adminID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
 })
