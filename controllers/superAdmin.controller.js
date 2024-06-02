@@ -1,0 +1,68 @@
+const CreateAdmin = require("../services/admin/createAdmin.service");
+const LoginSuperAdmin = require("../services/super-admin/loginSuperAdmin.service");
+const RegisterSuperAdmin = require("../services/super-admin/registerSuperAdmin.service");
+
+async function RegisterSuperAdminController(req, res) {
+    try {
+        const { email, password } = req.body;
+
+        const registerSuccess = await RegisterSuperAdmin(email, password);
+
+        return res.status(registerSuccess.status ? 200 : 404).json({
+            status: registerSuccess.status,
+            message: registerSuccess.message,
+            data: registerSuccess.status ? registerSuccess.data : null
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+async function LoginSuperAdminController(req, res) {
+    try {
+        const { email, password } = req.body;
+
+        const loginSuccess = await LoginSuperAdmin(email, password);
+
+        return res.status(loginSuccess.status ? 200 : 404).json({
+            status: loginSuccess.status,
+            message: loginSuccess.message,
+            token: loginSuccess.status ? loginSuccess.token : null,
+            data: loginSuccess.status ? loginSuccess.data : null
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+
+async function CreateAdminController(req, res) {
+    try {
+        const { name, email, password } = req.body;
+
+        const registerSuccess = await CreateAdmin(name, email, password);
+
+        return res.status(registerSuccess.status ? 200 : 404).json({
+            status: registerSuccess.status,
+            message: registerSuccess.message,
+            data: registerSuccess.status ? registerSuccess.data : null
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+
+module.exports = { RegisterSuperAdminController, LoginSuperAdminController, CreateAdminController };

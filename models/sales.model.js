@@ -1,7 +1,7 @@
 const connection = require("../configs/connection");
 const ManagerModel = require("./users.model");
 
-const OrderModel = connection.define('sales', {
+const SalesModel = connection.define('sales', {
     managerID: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -14,4 +14,4 @@ const OrderModel = connection.define('sales', {
 });
 
 
-module.exports = OrderModel;
+module.exports = SalesModel;

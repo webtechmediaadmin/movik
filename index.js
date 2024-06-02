@@ -4,14 +4,13 @@ require('dotenv').config();
 // Import necessary modules
 const express = require('express');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
 const path = require('path');
 
 // Import database connection configuration
 const connection = require('./configs/connection');
-const userRoutes = require('./routers/user.routes');
-const { authentication } = require('./middleware/authentication.middleware');
-const dealerRoutes = require('./routers/dealer.routes');
+const superAdminRoutes = require('./routes/superAdmin.routes');
+const adminRoutes = require('./routes/admin.routes');
+const managerRoutes = require('./routes/manager.routes');
 
 
 
@@ -28,14 +27,15 @@ app.use(cors());
 
 // Parse incoming JSON requests
 app.use(express.json());
-app.use(cookieParser());
+
 
 // Fix the missing parenthesis in the following line
 app.use(express.static(path.join(__dirname, './views'))); // Add the missing parenthesis and close the 'path.join' function call
 
-/*Routes*/
-app.use('/api/users', userRoutes);
-app.use('/api/dealers', dealerRoutes);
+app.use('/api', superAdminRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/manager', managerRoutes);
+
 
 
 // Synchronize the database connection and start the server
@@ -45,3 +45,5 @@ connection.sync().then(() => {
         console.log(`Server is running on port ${PORT}`);
     });
 });
+
+

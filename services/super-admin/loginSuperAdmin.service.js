@@ -1,20 +1,20 @@
-const UsersModel = require("../../models/user.model");
 const bcrypt = require('bcrypt');
-const JsonTokenGenerator = require("./JsonTokenGenerator.service");
+const SuperAdminModel = require('../../models/superAdmin.model');
+const JsonTokenGenerator = require('../../utils/JsonTokenGenerator.utils');
 
-async function UserLoginService(username, password) {
+async function LoginSuperAdmin(email, password) {
     try {
 
         // Input validation
-        if (!username || !password) {
+        if (!email || !password) {
             return {
                 status: false,
-                message: "Username and password are required."
+                message: "Email and password are required."
             };
 
         }
 
-        const isUser = await UsersModel.findOne({ where: { username: username } });
+        const isUser = await SuperAdminModel.findOne({ where: { email: email } });
 
         if (!isUser) {
             return {
@@ -48,4 +48,4 @@ async function UserLoginService(username, password) {
     }
 }
 
-module.exports = UserLoginService;
+module.exports = LoginSuperAdmin;

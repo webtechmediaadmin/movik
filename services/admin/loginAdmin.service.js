@@ -1,37 +1,37 @@
-const UsersModel = require("../../models/user.model");
 const bcrypt = require('bcrypt');
-const JsonTokenGenerator = require("../users/JsonTokenGenerator.service");
-const DealerModel = require("../../models/dealer.model");
+const JsonTokenGenerator = require('../../utils/JsonTokenGenerator.utils');
+const AdminModel = require('../../models/admin.model');
 
-async function DealerLoginService(username, password) {
+async function LoginAdmin(email, password) {
     try {
 
         // Input validation
-        if (!username || !password) {
+        if (!email || !password) {
             return {
                 status: false,
-                message: "Username and password are required."
+                message: "Email and password are required."
             };
+
         }
 
-        const isUser = await DealerModel.findOne({ where: { username: username } });
+        const isAdmin = await AdminModel.findOne({ where: { email: email } });
 
-        if (!isUser) {
+        if (!isAdmin) {
             return {
                 status: false,
                 message: "User does not exist!"
             };
         }
 
-        const passwordMatch = await bcrypt.compare(password, isUser.password);
+        const passwordMatch = await bcrypt.compare(password, isAdmin.password);
 
         if (passwordMatch) {
-            const token = JsonTokenGenerator(isUser.id, isUser.role);
+            const token = JsonTokenGenerator(isAdmin.id, isAdmin.role);
             return {
                 status: true,
                 message: "Login successful",
                 token: token,
-                data: isUser
+                data: isAdmin
             };
         } else {
             return {
@@ -48,4 +48,4 @@ async function DealerLoginService(username, password) {
     }
 }
 
-module.exports = DealerLoginService;
+module.exports = LoginAdmin;
