@@ -19,6 +19,14 @@ const ManagerModel = connection.define('managers', {
         type: DataTypes.ENUM("dealer", "distributor"),
         defaultValue: 'dealer'
     },
+    address: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     adminID: {
         type: DataTypes.INTEGER,
         allowNull: false,
