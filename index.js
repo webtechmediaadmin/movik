@@ -12,6 +12,7 @@ const superAdminRoutes = require('./routes/superAdmin.routes');
 const adminRoutes = require('./routes/admin.routes');
 const managerRoutes = require('./routes/manager.routes');
 const productRoutes = require('./routes/product.routes');
+const orderRoutes = require('./routes/order.routes');
 
 
 
@@ -37,6 +38,7 @@ app.use('/api', superAdminRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/manager', managerRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
 
 
 // Synchronize the database connection and start the server

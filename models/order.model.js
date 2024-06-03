@@ -1,7 +1,9 @@
 const connection = require("../configs/connection");
-const ManagerModel = require("./users.model");
+const ManagerModel = require("./manager.model");
+const ProductModel = require("./product.model");
+const { DataTypes } = require("sequelize");
 
-const OrderModel = connection.define('sales', {
+const OrderModel = connection.define('orders', {
     managerID: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -10,7 +12,26 @@ const OrderModel = connection.define('sales', {
             key: 'id',
         }
     },
-    
+    productID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: ProductModel,
+            key: 'id',
+        }
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    date: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+    },
+    status: {
+        type: DataTypes.ENUM("pending", "in-transit", "delivered", "cancelled"),
+        defaultValue: "pending",
+    }
 });
 
 
