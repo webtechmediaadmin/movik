@@ -2,7 +2,7 @@ const OrderModel = require("../../models/order.model");
 
 async function CreateOrderService(managerID, productID, quantity, date) {
     try {
-        const orderCreation = await OrderModel.create(managerID, productID, quantity, date);
+        const orderCreation = await OrderModel.create({managerID, productID, quantity, date});
 
         return {
             status: true,

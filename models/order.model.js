@@ -34,5 +34,28 @@ const OrderModel = connection.define('orders', {
     }
 });
 
+OrderModel.belongsTo(ManagerModel,{
+    foreignKey: 'managerID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+ManagerModel.belongsTo(OrderModel,{
+    foreignKey: 'managerID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+OrderModel.belongsTo(ProductModel,{
+    foreignKey: 'productID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
+
+ProductModel.belongsTo(OrderModel,{
+    foreignKey: 'productID',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
 
 module.exports = OrderModel;

@@ -23,7 +23,7 @@ async function GetOrderService(id, managerID, productID, status) {
         }
 
         const orderList = await OrderModel.findAll({
-            where: whereClause,
+            where: whereQuery,
             include: [
                 { model: ProductModel },
                 { model: ManagerModel }
