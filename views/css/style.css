@@ -159,7 +159,7 @@ h1.logo img {
 
 /* registration page css */
 .container {
-    max-width: 700px;
+    max-width: 700px !important;
     width: 100%;
     background: #fff;
     padding: 25px 30px;
@@ -170,16 +170,6 @@ h1.logo img {
     font-size: 31px;
     font-weight: 500;
     position: relative;
-}
-
-.container .title::before {
-    content: "";
-    position: absolute;
-    height: 3.5px;
-    width: 30px;
-    background: linear-gradient(135deg, #71b7e6, #9b59b6);
-    left: 0;
-    bottom: 0;
 }
 
 .container form .user__details {
@@ -303,4 +293,110 @@ form .button input:hover {
     .user__details::-webkit-scrollbar {
         width: 0;
     }
+}
+
+/* Side Navigation Bar Styles */
+
+#sideNav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    /* z-index: 1; */
+    top: 0;
+    left: 0;
+    background-color: #46154f;
+    overflow-x: hidden;
+    padding-top: 6%;
+    padding-left: 13px;
+    transition: 0.5s;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+#sideNav a {
+    padding: 10px 15px;
+    text-decoration: none;
+    /* font-size: 25px; */
+    color: white;
+    display: block;
+    font-size: 18px;
+    transition: 0.5s;
+}
+
+#sideNav a:hover {
+    background-color: #555;
+}
+
+#sideNav .closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* topnav-bar */
+#topNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: black;
+    padding: 5px 35px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+#topNav h1 {
+    margin: 0;
+}
+
+#profileImg {
+    width: 69px;
+    height: 61px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#profileImg:hover {
+    cursor: pointer;
+}
+
+#hiddenFeatures {
+    display: none;
+    position: absolute;
+    top: 50px;
+    /* Adjust position as needed */
+    right: 8px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px;
+    z-index: 1;
+    /* Ensure it's above other elements */
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+div#hamburger {
+    background: white;
+    padding: 0px 11px;
+    border-radius: 2px;
+}
+
+label span {
+    color: black;
+    font-weight: 500;
 }
