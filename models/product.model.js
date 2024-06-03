@@ -2,17 +2,25 @@ const { DataTypes } = require("sequelize");
 const connection = require("../configs/connection");
 
 const ProductModel = connection.define('products', {
-    name : {
+    name: {
         type: DataTypes.STRING,
-        allowNull : true
+        allowNull: true
     },
-    slug : {
+    slug: {
         type: DataTypes.STRING,
-        allowNull : true
+        allowNull: true
     },
-    inventoryCount : {
+    inventoryCount: {
         type: DataTypes.INTEGER,
-        allowNull : true
+        allowNull: true
+    },
+    images: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
     }
 })
 
