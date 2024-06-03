@@ -569,3 +569,7 @@ label span {
 .status-indicator--new {
     background: #febf02;
 }
+
+.responsive-table__body img {
+    width: 127px;
+}
