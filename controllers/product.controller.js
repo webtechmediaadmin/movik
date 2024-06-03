@@ -1,4 +1,6 @@
 const CreateProductsService = require("../services/products/CreateProducts.service");
+const DeleteProductsService = require("../services/products/DeleteProduct.service");
+const EditProductsService = require("../services/products/EditProduct.service");
 const GetProductsService = require("../services/products/GetProducts.service");
 const multer = require('multer');
 
@@ -35,7 +37,7 @@ async function GetProductController(req, res) {
 
 async function CreateProductController(req, res) {
     try {
-        let { name, slug, inventoryCount } = req.body;
+        const { name, slug, inventoryCount } = req.body;
 
         let image = '';
 
@@ -60,7 +62,20 @@ async function CreateProductController(req, res) {
 
 async function EditProductController(req, res) {
     try {
+        let id = req.params.id;
 
+        let { name, slug, inventoryCount } = req.body;
+        if (req.file) {
+            image = 'uploads/products/' + req.file.filename;
+        }
+
+        const editProduct = await EditProductsService(id, name, slug, inventoryCount, image);
+
+        return res.status(editProduct.status ? 200 : 404).json({
+            status: editProduct.status,
+            message: editProduct.message,
+            data: editProduct.data
+        })
     } catch (error) {
         console.error(error);
         return res.status(500).json({
@@ -73,7 +88,14 @@ async function EditProductController(req, res) {
 
 async function DeleteProductController(req, res) {
     try {
+        const id = req.params.id;
 
+        const deleteProduct = await DeleteProductsService(id);
+
+        return res.status(deleteProduct.status ? 200 : 404).json({
+            status: deleteProduct.status,
+            message: deleteProduct.message
+        })
     } catch (error) {
         console.error(error);
         return res.status(500).json({
@@ -84,4 +106,4 @@ async function DeleteProductController(req, res) {
 }
 
 
-module.exports = { GetProductController, CreateProductController, EditProductController, DeleteProductController };
+module.exports = { GetProductController, CreateProductController, EditProductController, DeleteProductController, upload };

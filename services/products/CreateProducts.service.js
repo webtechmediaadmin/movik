@@ -2,7 +2,7 @@ const ProductModel = require("../../models/product.model");
 
 async function CreateProductsService(name, slug, inventoryCount, image) {
     try {
-        const newProduct = await ProductModel.create(name, slug, inventoryCount, image);
+        const newProduct = await ProductModel.create({name, slug, inventoryCount, image});
 
         // Return successful response
         return {

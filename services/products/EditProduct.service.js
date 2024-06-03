@@ -1,6 +1,6 @@
 const ProductModel = require("../../models/product.model");
 
-async function EditProductsService(id, name, slug, inventoryCount, images, status) {
+async function EditProductsService(id, name, slug, inventoryCount, image, status) {
     try {
         let fetchProduct = await ProductModel.findOne({ where: { id: id } });
 
@@ -14,7 +14,7 @@ async function EditProductsService(id, name, slug, inventoryCount, images, statu
         fetchProduct.name = name;
         fetchProduct.slug = slug;
         fetchProduct.inventoryCount = inventoryCount;
-        fetchProduct.images = images;
+        fetchProduct.image = image;
         fetchProduct.status = status;
 
         await fetchProduct.save();

@@ -11,6 +11,7 @@ const connection = require('./configs/connection');
 const superAdminRoutes = require('./routes/superAdmin.routes');
 const adminRoutes = require('./routes/admin.routes');
 const managerRoutes = require('./routes/manager.routes');
+const productRoutes = require('./routes/product.routes');
 
 
 
@@ -35,7 +36,7 @@ app.use(express.static(path.join(__dirname, './views'))); // Add the missing par
 app.use('/api', superAdminRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/manager', managerRoutes);
-
+app.use('/api/products', productRoutes);
 
 
 // Synchronize the database connection and start the server

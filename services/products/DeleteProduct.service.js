@@ -1,4 +1,5 @@
 const ProductModel = require("../../models/product.model");
+const fs = require('fs').promises;
 
 async function DeleteProductsService(id) {
     try {
@@ -8,6 +9,14 @@ async function DeleteProductsService(id) {
             return {
                 status: false,
                 message: "Product not found"
+            }
+        }
+
+        if (fetchProduct.image) {
+            try {
+                await fs.unlink(fetchProduct.image);
+            } catch (error) {
+                console.error(`Error deleting image file: ${error.message}`);
             }
         }
 

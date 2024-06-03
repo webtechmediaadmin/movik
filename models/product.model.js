@@ -14,7 +14,7 @@ const ProductModel = connection.define('products', {
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    images: {
+    image: {
         type: DataTypes.STRING,
         allowNull: true
     },
