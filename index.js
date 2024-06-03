@@ -33,7 +33,7 @@ app.use(express.json());
 
 // Fix the missing parenthesis in the following line
 app.use(express.static(path.join(__dirname, './views'))); // Add the missing parenthesis and close the 'path.join' function call
-
+app.use('/uploads', express.static('uploads'));
 app.use('/api', superAdminRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/manager', managerRoutes);
