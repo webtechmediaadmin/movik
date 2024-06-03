@@ -89,20 +89,37 @@
             let role = document.querySelector('input[name="role"]:checked').value;
 
             if (pass === cpass) {
-                axios.post('http://localhost:9000/api/dealers/register', {
-                    name: name,
-                    username: username,
-                    password: pass,
-                    role: role
-                })
-                    .then(response => {
-                        console.log("Registration successful:", response.data);
-                        alert("Registration successful");
+                fetch("http://localhost:9000/api/dealers/register", {
+                    method: "POST",
+                    headers: {
+                        Authorization: sessionStorage.getItem("token"),
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        username: username,
+                        password: pass,
+                        role: role
                     })
-                    .catch(error => {
-                        console.error("Registration failed:", error);
-                        alert("Registration failed");
-                    });
+                })
+                    .then(res => res.json())
+                    .then((data) => {
+                        console.log(data)
+                    })
+                // axios.post('http://localhost:9000/api/dealers/register', {
+                //     name: name,
+                //     username: username,
+                //     password: pass,
+                //     role: role
+                // })
+                //     .then(response => {
+                //         console.log("Registration successful:", response.data);
+                //         alert("Registration successful");
+                //     })
+                //     .catch(error => {
+                //         console.error("Registration failed:", error);
+                //         alert("Registration failed");
+                //     });
             } else {
                 console.log("Passwords do not match");
                 alert("Passwords do not match");
@@ -113,6 +130,7 @@
             e.preventDefault();
             register();
         });
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

@@ -86,25 +86,46 @@
             let username = document.getElementById("username").value;
             let pass = document.getElementById("password").value;
 
-            fetch("http://localhost:9000/api/users/login", {
+            fetch("http://localhost:9000/api/super-admin-login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username: username, password: pass }),
+                body: JSON.stringify({ email: username, password: pass }),
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    if (data.status) {
-                        console.log(data)
-                        sessionStorage.setItem('token', data.token)
-                        // if (data.data.role === "super-admin") {
-                        //     window.location.href = "./super-data.html";
-                        // } else if (data.data.role === "admin") {
-                        //     window.location.href = "./admin-data.html";
-                        // } else {
-                        //     window.location.href = "./dealer-distributer.html";
-                        // }
+                    if (data.status == false && data.message == "User does not exist!") {
+                        console.log("super admin data credentials false");
+
+                        // Perform the second fetch call to create the admin
+                        fetch("http://localhost:9000/api/create-admin", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ email: username, password: pass }),
+                        })
+                            .then((res) => res.json())
+                            .then((data) => {
+                                if (data.status == false && data.message == "User does not exist!") {
+                                    console.log("admin data credentials false");
+
+                                    fetch("http://localhost:9000/api/admin/create-manager", {
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({ email: username, password: pass }),
+                                    })
+                                        .then((res) => res.json())
+                                        .then((data) => {
+                                            if (data.status == false && data.message == "User does not exist!") {
+                                                console.log("admin data credentials false");
+                                            }
+                                        })
+                                }
+                            })
+
+                    } else if (data.status == true) {
+                        sessionStorage.setItem('token', data.token);
+                        window.location.href = "./super-data.html";
                     } else {
-                        alert("Your credentials are wrong");
+                        alert("Login failed: " + data.message);
                     }
                 })
                 .catch((error) => {
