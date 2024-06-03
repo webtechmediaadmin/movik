@@ -1,5 +1,6 @@
 const CreateAdmin = require("../services/admin/createAdmin.service");
 const LoginSuperAdmin = require("../services/super-admin/loginSuperAdmin.service");
+const GetMyProfileService = require("../services/super-admin/myProfile.service");
 const RegisterSuperAdmin = require("../services/super-admin/registerSuperAdmin.service");
 
 async function RegisterSuperAdminController(req, res) {
@@ -44,6 +45,27 @@ async function LoginSuperAdminController(req, res) {
 }
 
 
+async function GetMyProfileController(req, res) {
+    try {
+        const userID = req.userID;
+
+        const fetchProfile = await GetMyProfileService(userID);
+
+        return res.status(fetchProfile.status ? 200 : 404).json({
+            status: fetchProfile.status,
+            message: fetchProfile.message,
+            data: fetchProfile.data
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+
 async function CreateAdminController(req, res) {
     try {
         const { name, email, password } = req.body;
@@ -65,4 +87,4 @@ async function CreateAdminController(req, res) {
 }
 
 
-module.exports = { RegisterSuperAdminController, LoginSuperAdminController, CreateAdminController };
+module.exports = { RegisterSuperAdminController, LoginSuperAdminController, GetMyProfileController, CreateAdminController };

@@ -3,7 +3,16 @@ const jwt = require('jsonwebtoken');
 
 async function authentication(req, res, next) {
     try {
-        const token = req.headers.authorization;
+        const authHeader = req.headers.authorization;
+
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({
+                status: 401,
+                message: "Please provide a valid Bearer token."
+            });
+        }
+
+        const token = authHeader.split(' ')[1];
 
         jwt.verify(token, process.env.SECRET_KEY, async (err, decode) => {
             if (decode) {
