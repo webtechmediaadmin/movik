@@ -86,52 +86,60 @@
             let username = document.getElementById("username").value;
             let pass = document.getElementById("password").value;
 
+
             fetch("http://localhost:9000/api/super-admin-login", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({ email: username, password: pass }),
             })
-                .then((res) => res.json())
+
+                .then(res => res.json())
                 .then((data) => {
-                    if (data.status == false && data.message == "User does not exist!") {
-                        console.log("super admin data credentials false");
-
-                        // Perform the second fetch call to create the admin
-                        fetch("http://localhost:9000/api/create-admin", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ email: username, password: pass }),
-                        })
-                            .then((res) => res.json())
-                            .then((data) => {
-                                if (data.status == false && data.message == "User does not exist!") {
-                                    console.log("admin data credentials false");
-
-                                    fetch("http://localhost:9000/api/admin/create-manager", {
-                                        method: "POST",
-                                        headers: { "Content-Type": "application/json" },
-                                        body: JSON.stringify({ email: username, password: pass }),
-                                    })
-                                        .then((res) => res.json())
-                                        .then((data) => {
-                                            if (data.status == false && data.message == "User does not exist!") {
-                                                console.log("admin data credentials false");
-                                            }
-                                        })
-                                }
+                    if (data.status == false) {
+                        if (data.message == "Wrong Credentials") {
+                            alert(data.message)
+                        } else {
+                            fetch("http://localhost:9000/api/admin/login-admin", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({ email: username, password: pass }),
                             })
+                                .then(res => res.json())
+                                .then((data) => {
+                                    if (data.status == false) {
+                                        if (data.message == "Wrong Credentials") {
+                                            alert(data.message)
+                                        } else {
+                                            fetch("http://localhost:9000/api/manager/login-manager", {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type": "application/json"
+                                                },
+                                                body: JSON.stringify({ email: username, password: pass }),
+                                            })
+                                                .then(res => res.json())
+                                                .then((data) => {
+                                                    if (data.status == false) {
+                                                        alert(data.message)
+                                                    } else {
+                                                        window.location.href = './manager-data.html';
+                                                    }
+                                                })
+                                        }
+                                    } else {
+                                        window.location.href = './admin-data.html';
 
-                    } else if (data.status == true) {
-                        sessionStorage.setItem('token', data.token);
-                        window.location.href = "./super-data.html";
+                                    }
+                                })
+                        }
                     } else {
-                        alert("Login failed: " + data.message);
+                        window.location.href = './super-data.html';
                     }
                 })
-                .catch((error) => {
-                    console.error("Error:", error);
-                    alert("An error occurred. Please try again.");
-                });
         }
 
         document.getElementById('login-form').addEventListener("submit", (e) => {
