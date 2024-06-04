@@ -50,7 +50,8 @@
                         <th class="responsive-table__head__title responsive-table__head__title--name">S.No</th>
                         <th class="responsive-table__head__title responsive-table__head__title--status">Name</th>
                         <th class="responsive-table__head__title responsive-table__head__title--country">Image</th>
-                        <th class="responsive-table__head__title responsive-table__head__title--types">Inventory Count</th>
+                        <th class="responsive-table__head__title responsive-table__head__title--types">Inventory Count
+                        </th>
                         <th class="responsive-table__head__title responsive-table__head__title--update">Slug</th>
                         <th class="responsive-table__head__title responsive-table__head__title--country">Actions</th>
                     </tr>
@@ -87,7 +88,7 @@
                         <td class="responsive-table__body__text responsive-table__body__text--types">${product.inventoryCount}</td>
                         <td class="responsive-table__body__text responsive-table__body__text--update">${product.slug}</td>
                         <td>
-                            <button type="button" class="btn btn-success" id="editBtn">Edit</button>
+                            <button type="button" onClick="deleteRow(this)"  class="btn btn-success" id="editBtn">Edit</button>
                             <button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
                         </td>
                     `;
@@ -98,8 +99,15 @@
                 console.error("There was a problem with the fetch operation:", error);
             }
         }
-
         document.addEventListener("DOMContentLoaded", fetchProducts);
+    </script>
+
+    <script>
+        function deleteRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+        window.onload = loadProducts;
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
