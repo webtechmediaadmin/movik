@@ -573,3 +573,10 @@ label span {
 .responsive-table__body img {
     width: 127px;
 }
+
+.modal-body input {
+    border: 1px solid #737272;
+    margin: 8px -1px;
+    padding: 5px;
+    border-radius: 3px;
+}
