@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="title">Manager Registration</div>
-                    <form id="RegistrationForm">
+                    <form id="ManagerRegistration">
                         <div class="user__details">
                             <div class="input__box">
                                 <span class="details">Name</span>
@@ -102,7 +102,7 @@
     <script src="js/navcss.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        function register() {
+        function managerRegis() {
             let name = document.getElementById("name").value;
             let username = document.getElementById("username").value;
             let pass = document.getElementById("password").value;
@@ -110,15 +110,15 @@
             let role = document.querySelector('input[name="role"]:checked').value;
 
             if (pass === cpass) {
-                fetch("http://localhost:9000/api/dealers/register", {
+                fetch("http://localhost:9000/api/admin/create-manager", {
                     method: "POST",
                     headers: {
-                        Authorization: sessionStorage.getItem("token"),
+                        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcxNzUwMDc3MX0.JD6JoL9qtibmp9rw_KsjgTC7MgG28swJL61R_FBD1bM`,
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                         name: name,
-                        username: username,
+                        email: username,
                         password: pass,
                         role: role
                     })
@@ -127,29 +127,15 @@
                     .then((data) => {
                         console.log(data)
                     })
-                // axios.post('http://localhost:9000/api/dealers/register', {
-                //     name: name,
-                //     username: username,
-                //     password: pass,
-                //     role: role
-                // })
-                //     .then(response => {
-                //         console.log("Registration successful:", response.data);
-                //         alert("Registration successful");
-                //     })
-                //     .catch(error => {
-                //         console.error("Registration failed:", error);
-                //         alert("Registration failed");
-                //     });
             } else {
                 console.log("Passwords do not match");
                 alert("Passwords do not match");
             }
         }
 
-        document.getElementById('RegistrationForm').addEventListener('submit', (e) => {
+        document.getElementById('ManagerRegistration').addEventListener('submit', (e) => {
             e.preventDefault();
-            register();
+            managerRegis();
         });
 
     </script>

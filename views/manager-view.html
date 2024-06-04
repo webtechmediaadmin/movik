@@ -73,83 +73,55 @@
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
-            <tbody class="responsive-table__body">
-                <tr class="responsive-table__row">
-                    <td class="responsive-table__body__text responsive-table__body__text--name">
-                        01.
-                    </td>
-                    <td class="responsive-table__body__text responsive-table__body__text--status">Sanjuu</td>
-                    <td class="responsive-table__body__text responsive-table__body__text--country"><img
-                            src="images/movik.jpeg" alt=""></td>
-                    <td class="responsive-table__body__text responsive-table__body__text--types">452</td>
-                    <td class="responsive-table__body__text responsive-table__body__text--update">Slug Name</td>
-
-                    <td colspan="2">
-                        <button type="button" class="btn btn-success">Edit</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
-
-                    </td>
-
-                </tr>
+            <tbody class="responsive-table__body" id="managerBody">
             </tbody>
         </table>
     </div>
     </div>
 
-
     <script src="js/navcss.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        function register() {
-            let name = document.getElementById("name").value;
-            let username = document.getElementById("username").value;
-            let pass = document.getElementById("password").value;
-            let cpass = document.getElementById("cpassword").value;
-            let role = document.querySelector('input[name="role"]:checked').value;
+        async function fetchManagerData() {
+            try {
+                const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInJvbGUiOiJzdXBlci1hZG1pbiIsImlhdCI6MTcxNzQ5ODgyNn0.gj1B6sWQtZHB_a0_v17iWPt4vZyuaRx3kJxIPDdMfq4';
 
-            if (pass === cpass) {
-                fetch("http://localhost:9000/api/dealers/register", {
-                    method: "POST",
+                const response = await fetch("http://localhost:9000/api/manager", {
                     headers: {
-                        Authorization: sessionStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        username: username,
-                        password: pass,
-                        role: role
-                    })
-                })
-                    .then(res => res.json())
-                    .then((data) => {
-                        console.log(data)
-                    })
-                // axios.post('http://localhost:9000/api/dealers/register', {
-                //     name: name,
-                //     username: username,
-                //     password: pass,
-                //     role: role
-                // })
-                //     .then(response => {
-                //         console.log("Registration successful:", response.data);
-                //         alert("Registration successful");
-                //     })
-                //     .catch(error => {
-                //         console.error("Registration failed:", error);
-                //         alert("Registration failed");
-                //     });
-            } else {
-                console.log("Passwords do not match");
-                alert("Passwords do not match");
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const mgData = await response.json();
+                const managerBody = document.getElementById("managerBody");
+
+                console.log(mgData)
+                mgData.data.forEach((mgData, index) => {
+                    const row = document.createElement("tr");
+                    row.classList.add("responsive-table__row");
+
+                    row.innerHTML = `
+                        <td class="responsive-table__body__text responsive-table__body__text--name">${index + 1}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--status">${mgData.name}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--country"><img src='http://localhost:9000/${mgData.image}' alt="${mgData.name}" style="width: 50px; height: 50px;"></td>
+                        <td class="responsive-table__body__text responsive-table__body__text--types">${mgData.inventoryCount}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">${mgData.slug}</td>
+                        <td>
+                            <button type="button"  class="btn btn-success" onClick="editData('${mgData.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
+                            <button type="button" onClick="deleteProduct('${mgData.id}')" class="btn btn-danger" id="deleteBtn">Delete</button>
+                        </td>
+                    `;
+
+                    productTableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("There was a problem with the fetch operation:", error);
             }
         }
-
-        document.getElementById('RegistrationForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            register();
-        });
-
+        document.addEventListener("DOMContentLoaded", fetchManagerData);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

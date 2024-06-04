@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="title">Admin Registration</div>
-                    <form id="RegistrationForm">
+                    <form id="createAdminData">
                         <div class="user__details">
                             <div class="input__box">
                                 <span class="details">Name</span>
@@ -87,54 +87,40 @@
     <script src="js/navcss.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        function register() {
+        function createAdmin() {
             let name = document.getElementById("name").value;
             let username = document.getElementById("username").value;
             let pass = document.getElementById("password").value;
             let cpass = document.getElementById("cpassword").value;
-            let role = document.querySelector('input[name="role"]:checked').value;
+            // let role = document.querySelector('input[name="role"]:checked').value;
+
+            let obj = {
+                name: name,
+                email: username,
+                password: pass,
+            }
 
             if (pass === cpass) {
-                fetch("http://localhost:9000/api/dealers/register", {
+                fetch("http://localhost:9000/api/create-admin", {
                     method: "POST",
                     headers: {
-                        Authorization: sessionStorage.getItem("token"),
+                        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInJvbGUiOiJzdXBlci1hZG1pbiIsImlhdCI6MTcxNzQ5ODgyNn0.gj1B6sWQtZHB_a0_v17iWPt4vZyuaRx3kJxIPDdMfq4`,
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({
-                        name: name,
-                        username: username,
-                        password: pass,
-                        role: role
-                    })
+                    body: JSON.stringify(obj)
                 })
                     .then(res => res.json())
                     .then((data) => {
                         console.log(data)
                     })
-                // axios.post('http://localhost:9000/api/dealers/register', {
-                //     name: name,
-                //     username: username,
-                //     password: pass,
-                //     role: role
-                // })
-                //     .then(response => {
-                //         console.log("Registration successful:", response.data);
-                //         alert("Registration successful");
-                //     })
-                //     .catch(error => {
-                //         console.error("Registration failed:", error);
-                //         alert("Registration failed");
-                //     });
             } else {
-                console.log("Passwords do not match");
                 alert("Passwords do not match");
             }
         }
 
-        document.getElementById('RegistrationForm').addEventListener('submit', (e) => {
+        document.getElementById('createAdminData').addEventListener('submit', (e) => {
             e.preventDefault();
-            register();
+            createAdmin();
         });
 
     </script>
