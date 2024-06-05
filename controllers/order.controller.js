@@ -1,6 +1,7 @@
 const CreateOrderService = require("../services/orders/CreateOrder.service");
 const DeleteOrderService = require("../services/orders/DeleteOrder.service");
 const EditOrderService = require("../services/orders/EditOrder.service");
+const EditOrderSuperAdminService = require("../services/orders/EditOrderSuperAdmin.service");
 const GetOrderService = require("../services/orders/GetOrder.service");
 
 async function CreateOrderController(req, res) {
@@ -23,6 +24,7 @@ async function CreateOrderController(req, res) {
         });
     }
 }
+
 async function GetOrderController(req, res) {
     try {
         const { id, managerID, productID, status } = req.query;
@@ -42,6 +44,7 @@ async function GetOrderController(req, res) {
         });
     }
 }
+
 async function EditOrderController(req, res) {
     try {
         const id = req.params.id;
@@ -61,6 +64,27 @@ async function EditOrderController(req, res) {
         });
     }
 }
+
+async function EditOrderSuperAdminController(req, res) {
+    try {
+        const id = req.params.id;
+        const status = req.body;
+
+        const editOrder = await EditOrderSuperAdminService(id, status);
+
+        return res.status(editOrder.status ? 200 : 404).json({
+            status: editOrder.status,
+            message: editOrder.message
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
 async function DeleteOrderController(req, res) {
     try {
         const id = req.params.id;
@@ -81,4 +105,4 @@ async function DeleteOrderController(req, res) {
 }
 
 
-module.exports = { CreateOrderController, GetOrderController, EditOrderController, DeleteOrderController };
+module.exports = { CreateOrderController, GetOrderController, EditOrderController, EditOrderSuperAdminController, DeleteOrderController };
