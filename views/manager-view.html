@@ -98,7 +98,6 @@
                 const mgData = await response.json();
                 const managerBody = document.getElementById("managerBody");
 
-                console.log(mgData)
                 mgData.data.forEach((mgData, index) => {
                     const row = document.createElement("tr");
                     row.classList.add("responsive-table__row");
@@ -115,7 +114,7 @@
                         </td>
                     `;
 
-                    productTableBody.appendChild(row);
+                    managerBody.appendChild(row);
                 });
             } catch (error) {
                 console.error("There was a problem with the fetch operation:", error);
