@@ -13,6 +13,7 @@ const adminRoutes = require('./routes/admin.routes');
 const managerRoutes = require('./routes/manager.routes');
 const productRoutes = require('./routes/product.routes');
 const orderRoutes = require('./routes/order.routes');
+const salesRoutes = require('./routes/sales.routes');
 
 
 // Set the port for the server to run on, defaulting to 9000 if not specified in the environment
@@ -36,6 +37,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/manager', managerRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/sales', salesRoutes);
 
 
 // Synchronize the database connection and start the server
