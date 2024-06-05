@@ -6,7 +6,7 @@ const { authorize } = require('../middleware/authorization.middleware');
 const managerRoutes = express.Router();
 
 managerRoutes.post('/login-manager', LoginManagerController);
-managerRoutes.get('/my-profile', authentication, authorize(["admin"]), GetMyProfileController);
+managerRoutes.get('/my-profile', authentication, authorize(["manager"]), GetMyProfileController);
 managerRoutes.get('/', authentication, authorize(["super-admin", "admin"]), GetManagerController);
 
 
