@@ -15,9 +15,6 @@ const productRoutes = require('./routes/product.routes');
 const orderRoutes = require('./routes/order.routes');
 
 
-
-
-
 // Set the port for the server to run on, defaulting to 9000 if not specified in the environment
 const PORT = process.env.PORT || 9000;
 
