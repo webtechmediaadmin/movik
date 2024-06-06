@@ -1,4 +1,5 @@
 const ManagerModel = require("../../models/manager.model");
+const ProductModel = require("../../models/product.model");
 const SalesModel = require("../../models/sales.model");
 
 async function GetSalesService(id, managerID) {
@@ -15,9 +16,10 @@ async function GetSalesService(id, managerID) {
 
         const salesData = await SalesModel.findAll({
             where: whereClause,
-            include: [{
-                model: ManagerModel
-            }]
+            include: [
+                { model: ManagerModel },
+                { model: ProductModel }
+            ]
         });
 
         return {

@@ -46,10 +46,10 @@ async function GetMyProfileController(req, res) {
 
 async function CreateManagerController(req, res) {
     try {
-        const { name, email, password, role } = req.body;
+        const { name, email, password, role, address } = req.body;
         const adminID = req.userID;
 
-        const registerSuccess = await CreateManagerService(name, email, password, role, adminID);
+        const registerSuccess = await CreateManagerService(name, email, password, address, role, adminID);
 
         return res.status(registerSuccess.status ? 200 : 404).json({
             status: registerSuccess.status,
