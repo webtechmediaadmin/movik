@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const ManagerModel = require("../../models/manager.model");
 
-async function CreateManagerService(name, email, password, role, adminID) {
+async function CreateManagerService(name, email, password, address, role, adminID) {
     try {
         // Check if the super admin with the given email already exists
         const isManager = await ManagerModel.findOne({ where: { email: email } });
@@ -18,7 +18,7 @@ async function CreateManagerService(name, email, password, role, adminID) {
         const hashPassword = await bcrypt.hash(password, 6);
 
         // Create a new super admin entry in the database
-        const manager = await ManagerModel.create({ name, email: email, password: hashPassword, role, adminID });
+        const manager = await ManagerModel.create({ name, email: email, password: hashPassword, address, role, adminID });
 
         // Return a success status
         return {
