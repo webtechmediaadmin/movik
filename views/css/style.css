@@ -428,6 +428,14 @@ label span {
     .responsive-table__row {
         grid-template-columns: 1fr 1fr 1fr 2fr 2fr 2fr;
     }
+
+    .table-grid {
+        grid-template-columns: 1fr 2fr 1fr 2fr 1fr 1fr 1fr !important;
+    }
+
+    .manager-view {
+        grid-template-columns: 1fr 2fr 2fr 2fr 2fr !important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
