@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
-const SuperAdminModel = require('../../models/superAdmin.model');
 const JsonTokenGenerator = require('../../utils/JsonTokenGenerator.utils');
+const AdminModel = require('../../models/admin.model');
 
 async function LoginSuperAdmin(email, password) {
     try {
@@ -14,7 +14,7 @@ async function LoginSuperAdmin(email, password) {
 
         }
 
-        const isUser = await SuperAdminModel.findOne({ where: { email: email } });
+        const isUser = await AdminModel.findOne({ where: { email: email } });
 
         if (!isUser) {
             return {

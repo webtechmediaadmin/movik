@@ -3,6 +3,7 @@ const DeleteOrderService = require("../services/orders/DeleteOrder.service");
 const EditOrderService = require("../services/orders/EditOrder.service");
 const EditOrderSuperAdminService = require("../services/orders/EditOrderSuperAdmin.service");
 const GetOrderService = require("../services/orders/GetOrder.service");
+const GetOrderAsPerManager = require("../services/orders/GetOrderAsPerManager.service");
 
 async function CreateOrderController(req, res) {
     try {
@@ -30,6 +31,25 @@ async function GetOrderController(req, res) {
         const { id, managerID, productID, status } = req.query;
 
         const fetchOrder = await GetOrderService(id, managerID, productID, status);
+
+        return res.status(fetchOrder.status ? 200 : 404).json({
+            status: fetchOrder.status,
+            message: fetchOrder.message,
+            data: fetchOrder.data
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+async function GetOrderAsPerManagerController(req, res) {
+    try {
+        const managerID = req.userID;
+        const fetchOrder = await GetOrderAsPerManager(managerID);
 
         return res.status(fetchOrder.status ? 200 : 404).json({
             status: fetchOrder.status,
@@ -105,4 +125,4 @@ async function DeleteOrderController(req, res) {
 }
 
 
-module.exports = { CreateOrderController, GetOrderController, EditOrderController, EditOrderSuperAdminController, DeleteOrderController };
+module.exports = { CreateOrderController, GetOrderController, GetOrderAsPerManagerController, EditOrderController, EditOrderSuperAdminController, DeleteOrderController };
