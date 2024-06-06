@@ -57,13 +57,10 @@
                                 d="M374.176,110.386l-104-104.504c-0.006-0.006-0.013-0.011-0.019-0.018c-7.818-7.832-20.522-7.807-28.314,0.002c-0.006,0.006-0.013,0.011-0.019,0.018l-104,104.504c-7.791,7.829-7.762,20.493,0.068,28.285    c7.829,7.792,20.492,7.762,28.284-0.067L236,68.442V492c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20V68.442l69.824,70.162c7.792,7.829,20.455,7.859,28.284,0.067C381.939,130.878,381.966,118.214,374.176,110.386z" />
                         </svg>
                     </th>
-                    <th class="responsive-table__head__title responsive-table__head__title--status">Product Name</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--status">Role</th>
                     <th class="responsive-table__head__title responsive-table__head__title--update">Date</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--update">Address</th>
                     <th class="responsive-table__head__title responsive-table__head__title--country">Quantity</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--types">Total Price</th>
-                    <!-- <th rowspan="2" class="responsive-table__head__title responsive-table__head__title--country">Dealers
-                    </th> -->
+
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
@@ -96,7 +93,7 @@
 
                     row.innerHTML = `
                         <td class="responsive-table__body__text responsive-table__body__text--name">${orders.id}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--status">${orders.productID}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--status">${orders.role}</td>
                         <td class="responsive-table__body__text responsive-table__body__text--update">${orders.date}</td>
                         <td class="responsive-table__body__text responsive-table__body__text--update">${orders.quantity}</td>
                     `;
