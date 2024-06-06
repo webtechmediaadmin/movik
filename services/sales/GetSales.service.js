@@ -16,9 +16,10 @@ async function GetSalesService(id, managerID) {
 
         const salesData = await SalesModel.findAll({
             where: whereClause,
-            include: [{
-                model: ManagerModel
-            }, { model: ProductModel }]
+            include: [
+                { model: ManagerModel },
+                { model: ProductModel }
+            ]
         });
 
         return {
