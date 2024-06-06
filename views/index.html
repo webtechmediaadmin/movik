@@ -2,16 +2,16 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Home</title>
 </head>
 
-<body style="background-color:#2c323a">
+<body style="background-color: #2c323a">
     <div id="preloader">
         <div id="loader">
-            <img src="images/movik-logo.png" alt="Loading...">
+            <img src="images/movik-logo.png" alt="Loading..." />
         </div>
     </div>
 
@@ -40,32 +40,30 @@
     <!-- navbar-end -->
 
     <!-- Main Content -->
-    <div id="main-content" style="display: none;">
+    <div id="main-content" style="display: none">
         <!-- Your main content goes here -->
         <div class="form-sec">
             <form class="container-2" id="login-form" novalidate>
                 <div>
                     <h3>Welcome Back</h3>
-                    <div class='greeting'>We're so excited to see you again!</div>
+                    <div class="greeting">We're so excited to see you again!</div>
                 </div>
                 <div>
                     <div>
-                        <label for='username' minlength="4">Username or Email</label>
+                        <label for="username" minlength="4">Username or Email</label>
                         <span class="error" aria-live="polite"></span>
                     </div>
-                    <input id='username' type="text" required />
+                    <input id="username" type="text" required />
                 </div>
                 <div>
                     <div>
-                        <label for='password'>Password</label>
+                        <label for="password">Password</label>
                         <span class="error" aria-live="polite"></span>
                     </div>
-                    <input id='password' type='password' required minlength="8" />
-                    <a href='#'>Forgot your password?</a>
+                    <input id="password" type="password" required minlength="8" />
+                    <a href="#">Forgot your password?</a>
                 </div>
-                <button type="submit" id="submit-btn">
-                    Login
-                </button>
+                <button type="submit" id="submit-btn">Login</button>
                 <span aria-live="assertive" id="js-loadingMsg" class="sr-only">
                     <!-- Use JavaScript to inject the loading message -->
                 </span>
@@ -75,10 +73,10 @@
 
     <script>
         // Function to simulate loading time and hide preloader
-        window.addEventListener('load', function () {
+        window.addEventListener("load", function () {
             setTimeout(function () {
-                document.getElementById('preloader').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
+                document.getElementById("preloader").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
             }, 2000); // Simulate a 2-second loading time
         });
 
@@ -86,64 +84,72 @@
             let username = document.getElementById("username").value;
             let pass = document.getElementById("password").value;
 
-
             fetch("http://localhost:9000/api/super-admin-login", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ email: username, password: pass }),
             })
-
-                .then(res => res.json())
+                .then((res) => res.json())
                 .then((data) => {
                     if (data.status == false) {
                         if (data.message == "Wrong Credentials") {
-                            alert(data.message)
+                            alert(data.message);
                         } else {
                             fetch("http://localhost:9000/api/admin/login-admin", {
                                 method: "POST",
                                 headers: {
-                                    "Content-Type": "application/json"
+                                    "Content-Type": "application/json",
                                 },
                                 body: JSON.stringify({ email: username, password: pass }),
                             })
-                                .then(res => res.json())
+                                .then((res) => res.json())
                                 .then((data) => {
                                     if (data.status == false) {
                                         if (data.message == "Wrong Credentials") {
-                                            alert(data.message)
+                                            alert(data.message);
                                         } else {
-                                            fetch("http://localhost:9000/api/manager/login-manager", {
-                                                method: "POST",
-                                                headers: {
-                                                    "Content-Type": "application/json"
-                                                },
-                                                body: JSON.stringify({ email: username, password: pass }),
-                                            })
-                                                .then(res => res.json())
+                                            fetch(
+                                                "http://localhost:9000/api/manager/login-manager",
+                                                {
+                                                    method: "POST",
+                                                    headers: {
+                                                        "Content-Type": "application/json",
+                                                    },
+                                                    body: JSON.stringify({
+                                                        email: username,
+                                                        password: pass,
+                                                    }),
+                                                }
+                                            )
+                                                .then((res) => res.json())
                                                 .then((data) => {
                                                     if (data.status == false) {
-                                                        alert(data.message)
+                                                        alert(data.message);
                                                     } else {
-                                                        window.location.href = './manager-home.html';
+                                                        sessionStorage.setItem("token", data.token);
+                                                        sessionStorage.setItem("role", data.data.role);
+                                                        window.location.href = "./manager-home.html";
                                                     }
-                                                })
+                                                });
                                         }
                                     } else {
-                                        window.location.href = './admin-home.html';
-
+                                        sessionStorage.setItem("token", data.token);
+                                        sessionStorage.setItem("role", data.data.role);
+                                        window.location.href = "./admin-home.html";
                                     }
-                                })
+                                });
                         }
                     } else {
-                        sessionStorage.setItem('token', data.token)
-                        window.location.href = './home.html';
+                        sessionStorage.setItem("token", data.token);
+                        sessionStorage.setItem("role", data.data.role);
+                        window.location.href = "./home.html";
                     }
-                })
+                });
         }
 
-        document.getElementById('login-form').addEventListener("submit", (e) => {
+        document.getElementById("login-form").addEventListener("submit", (e) => {
             e.preventDefault();
             loginpanel();
         });

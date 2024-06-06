@@ -42,7 +42,7 @@ app.use('/api/sales', salesRoutes);
 
 // Synchronize the database connection and start the server
 connection.sync().then(() => {
-    app.listen(PORT, () => {
+    app.listen(PORT, () => { 
         // Log a message when the server is successfully running
         console.log(`Server is running on port ${PORT}`);
     });
