@@ -11,7 +11,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Admin Home Page</title>
 </head>
-
+<script src="js/istocken.js"></script>
 <body>
     <div id="main-container">
         <!-- Top Navigation Bar -->
@@ -44,27 +44,7 @@
     <div id="content">
     </div>
     </div>
-    <script>
-        let welcomeName = document.getElementsById("welcomeName");
-        const token = sessionStorage.getItem('token');
-        // Fetch data of the User
-        function fetchUsersData() {
-            fetch("http://localhost:9000/api/my-profile", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    welcomeName.innerText = data.data.name;
-                });
-        }
-
-        fetchUsersData(); 
-    </script>
     <script src="js/navcss.js"></script>
-    <script src="js/istocken.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
