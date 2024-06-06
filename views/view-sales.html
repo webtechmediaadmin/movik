@@ -62,8 +62,8 @@
                     <th class="responsive-table__head__title responsive-table__head__title--update">Address</th>
                     <th class="responsive-table__head__title responsive-table__head__title--country">Quantity</th>
                     <th class="responsive-table__head__title responsive-table__head__title--types">Total Price</th>
-                    <th rowspan="2" class="responsive-table__head__title responsive-table__head__title--country">Dealers
-                    </th>
+                    <!-- <th rowspan="2" class="responsive-table__head__title responsive-table__head__title--country">Dealers
+                    </th> -->
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
@@ -86,22 +86,22 @@
                     throw new Error("Network response was not ok");
                 }
                 const sales = await response.json();
+                console.log(sales);
                 const salesData = document.getElementById("salesData");
 
                 sales.data.forEach((sales, index) => {
+                    console.log(sales)
                     const row = document.createElement("tr");
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                        <td class="responsive-table__body__text responsive-table__body__text--name">${index + 1}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--status">${sales.name}</td>``
-                        <td class="responsive-table__body__text responsive-table__body__text--country"><img src='http://localhost:9000/${sales.image}' alt="${sales.name}" style="width: 50px; height: 50px;"></td>
-                        <td class="responsive-table__body__text responsive-table__body__text--types">${sales.quantity}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--update">${sales.slug}</td>
-                        <td>
-                            <button type="button"  class="btn btn-success" onClick="editData('${sales.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
-                            <button type="button" onClick="deleteProduct('${sales.id}')" class="btn btn-danger" id="deleteBtn">Delete</button>
-                        </td>
+                        <td class="responsive-table__body__text responsive-table__body__text--name">${sales.id}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--status">${sales.product.name}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">${sales.date}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--types">${sales.manager.address}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">${sales.quantity}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">${sales.totalPrice}</td>
+
                     `;
 
                     salesData.appendChild(row);
