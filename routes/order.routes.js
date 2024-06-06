@@ -6,7 +6,7 @@ const { CreateOrderController, GetOrderController, EditOrderController, EditOrde
 const orderRoutes = express.Router();
 
 orderRoutes.post('/create-orders', authentication, authorize(["dealer", "distributor"]), CreateOrderController);
-orderRoutes.get('/get-orders', authentication, authorize(["dealer", "distributor"]), GetOrderController);
+orderRoutes.get('/get-orders', authentication, authorize(["super-admin","admin","dealer", "distributor"]), GetOrderController);
 orderRoutes.patch('/edit-orders/:id', authentication, authorize(["dealer", "distributor"]), EditOrderController);
 orderRoutes.patch('/order-update/:id', authentication, authorize(["super-admin", "admin"]), EditOrderSuperAdminController);
 
