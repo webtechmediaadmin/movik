@@ -1,10 +1,10 @@
-const SuperAdminModel = require("../../models/superAdmin.model");
 const bcrypt = require('bcrypt');
+const AdminModel = require('../../models/admin.model');
 
 async function RegisterSuperAdmin(email, password) {
     try {
         // Check if the super admin with the given email already exists
-        const isSuperAdmin = await SuperAdminModel.findOne({ where: { email: email } });
+        const isSuperAdmin = await AdminModel.findOne({ where: { email: email } });
 
         if (isSuperAdmin) {
             // If the super admin already exists, return a failure status
@@ -18,7 +18,7 @@ async function RegisterSuperAdmin(email, password) {
         const hashPassword = await bcrypt.hash(password, 6);
 
         // Create a new super admin entry in the database
-        const superAdmin = await SuperAdminModel.create({ email: email, password: hashPassword });
+        const superAdmin = await AdminModel.create({ email: email, password: hashPassword, role: 'super-admin' });
 
         // Return a success status
         return {

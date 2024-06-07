@@ -1,8 +1,8 @@
-const SuperAdminModel = require("../../models/superAdmin.model");
+const AdminModel = require("../../models/admin.model");
 
 async function GetMyProfileService(userID) {
     try {
-        const user = await SuperAdminModel.findOne({ where: { id: userID } });
+        const user = await AdminModel.findOne({ where: { id: userID } });
 
         if (!user) {
             return {
