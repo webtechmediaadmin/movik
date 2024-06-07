@@ -20,7 +20,7 @@ async function GetSpecificMangersService(adminID) {
         console.error("Error in fetching managers:", error.message);
         return {
             status: false,
-            message: "An error occurred while fetching managers. Please try again later."
+            message: "An error occurred while fetching manage.rs. Please try again later."
         };
     }
 }

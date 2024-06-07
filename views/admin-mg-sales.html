@@ -11,8 +11,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <script src="js/istocken.js"></script>
-
-    <title>Admin View Manager</title>
+    <title>Admin Manager Sales</title>
 </head>
 
 <body>
@@ -36,25 +35,20 @@
             <button class="closeBtn">&times;</button>
             <ul>
                 <li><i class="fas fa-home"></i><a href="./home.html">Home</a></li>
-                <li><i class="fab fa-salesforce"></i><a href="./admin-mg-sales.html">View Orders</a></li>
-                <li><i class="fab fa-first-order-alt"></i> <a href="./admin-mg-orders.html">View Sales</a></li>
-
+                <li><i class="fas fa-user-cog"></i> <a href="./manager-create.html">Create Manager</a></li>
+                <li><i class="fas fa-eye"></i><a href="./manager-view.html">View Manager</a></li>
+                <li><i class="fab fa-salesforce"></i><a href="./view-sales.html">View Sales</a></li>
+                <li><i class="fab fa-first-order-alt"></i><a href="./view-orders.html">View Orders</a></li>
             </ul>
         </div>
-        <!-- MAIN CONTENT OF THE HOME PAGE -->
-        <!-- <div id="content">
-            <div class="content-box blu">
-                <img src="img/video-posted.png" alt="">
-                <h1>Total Video Posted</h1>
-                <p id="videoPostedCount"></p>
-            </div> -->
     </div>
     </div>
+
     <div id="content">
         <table class="responsive-table">
             <!-- Responsive Table Header Section -->
             <thead class="responsive-table__head">
-                <tr class="responsive-table__row manager-view">
+                <tr class="responsive-table__row table-grid">
                     <th class="responsive-table__head__title responsive-table__head__title--name">Id
                         <svg version="1.1" class="up-arrow" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
@@ -63,26 +57,26 @@
                                 d="M374.176,110.386l-104-104.504c-0.006-0.006-0.013-0.011-0.019-0.018c-7.818-7.832-20.522-7.807-28.314,0.002c-0.006,0.006-0.013,0.011-0.019,0.018l-104,104.504c-7.791,7.829-7.762,20.493,0.068,28.285    c7.829,7.792,20.492,7.762,28.284-0.067L236,68.442V492c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20V68.442l69.824,70.162c7.792,7.829,20.455,7.859,28.284,0.067C381.939,130.878,381.966,118.214,374.176,110.386z" />
                         </svg>
                     </th>
-                    <th class="responsive-table__head__title responsive-table__head__title--status">Name</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--status">Email Id</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--types">Address</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--update">Role</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--country">Actions</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--status">Product Name</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--update">Date</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--update">Address</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--country">Quantity</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--types">Total Price</th>
+                    <!-- <th rowspan="2" class="responsive-table__head__title responsive-table__head__title--country">Dealers
+                    </th> -->
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
-            <tbody class="responsive-table__body" id="adminView-Mng">
+            <tbody class="responsive-table__body" id="salesData">
             </tbody>
         </table>
     </div>
     </div>
 
-    <script src="js/navcss.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        async function fetchManagerView() {
+        async function fetchSales() {
             try {
-                const response = await fetch("http://localhost:9000/api/manager/specific-manager", {
+                const response = await fetch("http://localhost:9000/api/sales/get-sales", {
                     headers: {
                         'Authorization': `Bearer ${sessionToken}`,
                         'Content-Type': 'application/json'
@@ -91,34 +85,36 @@
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
-                const mgView = await response.json();
-                const adminViewMng = document.getElementById("adminView-Mng");
+                const sales = await response.json();
+                console.log(sales);
+                const salesData = document.getElementById("salesData");
 
-                mgView.data.forEach((mgView, index) => {
-                    console.log(mgView)
+                sales.data.forEach((sales, index) => {
+                    console.log(sales)
                     const row = document.createElement("tr");
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                        <td class="responsive-table__body__text responsive-table__body__text--name">${mgView.id}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--status">${mgView.name}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--status">${mgView.email}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--update">${mgView.address}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--update">${mgView.role}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--update">
-                            <button type="button"  class="btn btn-success" onClick="editData('${mgView.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
-                            <button type="button" onClick="deleteProduct('${mgView.id}')" class="btn btn-danger" id="deleteBtn">Delete</button>
-                        </td>
+                        <td class="responsive-table__body__text responsive-table__body__text--name">${sales.id}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--status">${sales.product.name}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">${sales.date}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--types">${sales.manager.address}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">${sales.quantity}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">${sales.totalPrice}</td>
+
                     `;
 
-                    adminViewMng.appendChild(row);
+                    salesData.appendChild(row);
                 });
             } catch (error) {
                 console.error("There was a problem with the fetch operation:", error);
             }
         }
-        document.addEventListener("DOMContentLoaded", fetchManagerView);
+        document.addEventListener("DOMContentLoaded", fetchSales);
     </script>
+    <script src="js/script.js"></script>
+    <script src="js/navcss.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
