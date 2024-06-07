@@ -91,6 +91,7 @@ form button {
     transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
     font-size: 1em;
     padding: var(--spacing1);
+    width: 100%;
 }
 
 form button:hover {
@@ -408,140 +409,86 @@ label span {
 /* product view css */
 
 /* Responsive Table Style */
-.responsive-table {
-    background-color: #fefefe;
+table {
+    border: 1px solid #ccc;
     border-collapse: collapse;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.02);
-    width: 87%;
-    margin: 42px auto;
-    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
 }
 
-.responsive-table__row {
-    display: grid;
-    border-bottom: 1px solid #edeef2;
-    padding: 0 1.5rem;
+table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
 }
 
-@media (min-width: 768px) {
-    .responsive-table__row {
-        grid-template-columns: 1fr 1fr 1fr 2fr 2fr 2fr;
-    }
-
-    .table-grid {
-        grid-template-columns: 1fr 2fr 1fr 2fr 1fr 1fr 1fr !important;
-    }
-
-    .manager-view {
-        grid-template-columns: 1fr 1fr 2fr 2fr 1fr 1fr !important;
-    }
+table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
-    .responsive-table__row {
-        grid-template-columns: 1fr 2fr 1fr;
-    }
+table th,
+table td {
+    padding: .625em;
+    text-align: center;
 }
 
-.responsive-table__row th,
-.responsive-table__row td {
-    padding: 1rem;
-}
-
-.responsive-table__head {
-    background-color: #e1e8f2;
-}
-
-@media (max-width: 991px) {
-    .responsive-table__head {
-        display: none;
-    }
-}
-
-.responsive-table__head__title {
-    display: flex;
-    align-items: center;
-    font-weight: 500;
+table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-align: left;
     text-transform: capitalize;
-}
-
-.responsive-table__body .responsive-table__row {
-    transition: 0.1s linear;
-    transition-property: color;
-}
-
-.responsive-table__body .responsive-table__row:last-child {
-    border-bottom: none;
-}
-
-.responsive-table__body .responsive-table__row:hover {
-    color: #ffffff;
-    background-color: #fb4f83;
-}
-
-.responsive-table__body__text {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.responsive-table__body__text::before {
-    margin-right: 1rem;
+    font-size: 21px;
     font-weight: 600;
-    text-transform: capitalize;
+    font-family: system-ui;
 }
 
-@media (max-width: 991px) {
-    .responsive-table__body__text::before {
-        content: attr(data-title) " :";
+@media screen and (max-width: 600px) {
+    table {
+        border: 0;
     }
-}
 
-@media (max-width: 400px) {
-    .responsive-table__body__text::before {
-        width: 100%;
-        margin-bottom: 1rem;
+    table caption {
+        font-size: 1.3em;
     }
-}
 
-.responsive-table__body__text--name {
-    font-weight: 600;
-}
-
-@media (min-width: 768px) {
-    .responsive-table__body__text--name::before {
-        display: none;
+    table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
     }
-}
 
-@media (min-width: 768px) and (max-width: 991px) {
-    .responsive-table__body__text--name {
-        grid-column: 1/2;
-        flex-direction: column;
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
     }
-}
 
-@media (min-width: 768px) and (max-width: 991px) {
-
-    .responsive-table__body__text--status,
-    .responsive-table__body__text--types,
-    .responsive-table__body__text--update {
-        grid-column: 2/3;
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        display: flex;
+        font-size: .8em;
+        text-align: right;
+        justify-content: space-between;
     }
-}
 
-@media (min-width: 768px) and (max-width: 991px) {
-    .responsive-table__body__text--country {
-        grid-column: 3/-1;
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: capitalize;
     }
-}
 
-@media (min-width: 768px) and (max-width: 991px) {
-
-    .responsive-table__body__text--name,
-    .responsive-table__body__text--country {
-        grid-row: 2;
+    table td:last-child {
+        border-bottom: 0;
     }
 }
 
@@ -603,4 +550,18 @@ div#sideNav ul li i {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+}
+
+.responsive-table {
+    margin-top: 4%;
+}
+
+#content {
+    padding: 0px 40px 40px 40px;
+}
+
+.responsive-table td,
+th {
+    font-size: 15px;
+    text-align: left;
 }

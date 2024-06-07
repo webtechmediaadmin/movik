@@ -49,15 +49,14 @@
         <div id="content">
             <table class="responsive-table table table-striped table-bordered">
                 <!-- Responsive Table Header Section -->
-                <thead class="responsive-table__head">
-                    <tr class="responsive-table__row">
-                        <th class="responsive-table__head__title responsive-table__head__title--name">S.No</th>
-                        <th class="responsive-table__head__title responsive-table__head__title--status">Name</th>
-                        <th class="responsive-table__head__title responsive-table__head__title--country">Image</th>
-                        <th class="responsive-table__head__title responsive-table__head__title--types">Inventory Count
-                        </th>
-                        <th class="responsive-table__head__title responsive-table__head__title--update">Slug</th>
-                        <th class="responsive-table__head__title responsive-table__head__title--country">Actions</th>
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Inventory Count</th>
+                        <th scope="col">Slug</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <!-- Responsive Table Body Section -->
@@ -106,12 +105,12 @@
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                        <td class="responsive-table__body__text responsive-table__body__text--name">${index + 1}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--status">${product.name}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--country"><img src='http://localhost:9000/${product.image}' alt="${product.name}" style="width: 50px; height: 50px;"></td>
-                        <td class="responsive-table__body__text responsive-table__body__text--types">${product.inventoryCount}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--update">${product.slug}</td>
-                        <td>
+                         <td data-label="Id">${index + 1}</td>
+                         <td data-label="Name">${product.name}</td>
+                         <td data-label="Image"><img src='http://localhost:9000/${product.image}' alt="${product.name}" style="width: 50px; height: 50px;"></td>
+                         <td data-label="Inventory Count">${product.inventoryCount}</td>
+                         <td data-label="Slug">${product.slug}</td>
+                       <td data-label="Actions">
                             <button type="button"  class="btn btn-success" onClick="editData('${product.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
                             <button type="button" onClick="deleteProduct('${product.id}')" class="btn btn-danger" id="deleteBtn">Delete</button>
                         </td>
