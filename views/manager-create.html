@@ -88,12 +88,12 @@
                             <span class="gender__title">Role</span>
                             <div class="category" id="role">
                                 <label for="dealer">
-                                    <input type="radio" id="dealer" name="role" value="Dealer" required>
+                                    <input type="radio" id="dealer" name="role" value="dealer" required>
                                     <!-- <span class="dot one"></span> -->
                                     &nbsp; <span>Dealer</span>
                                 </label>
                                 <label for="distributor">
-                                    <input type="radio" id="distributor" name="role" value="Distributor" required>
+                                    <input type="radio" id="distributor" name="role" value="distributor" required>
                                     <!-- <span class="dot two"></span> -->
                                     &nbsp; <span>Distributor</span>
                                 </label>
@@ -120,18 +120,23 @@
             let address = document.getElementById("address").value;
             let role = document.querySelector('input[name="role"]:checked').value;
 
+            let obj = {
+                name: name,
+                email: username,
+                address: address,
+                password: pass,
+                role: role
+            }
+
             if (pass === cpass) {
+                console.log(obj)
                 fetch("http://localhost:9000/api/admin/create-manager", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${sessionToken}`,
+                        "Content-type": "application/json"
                     },
-                    body: JSON.stringify({
-                        name: name,
-                        email: username,
-                        password: pass,
-                        role: role
-                    })
+                    body: JSON.stringify(obj)
                 })
                     .then(res => res.json())
                     .then((data) => {
