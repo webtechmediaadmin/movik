@@ -12,6 +12,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <title>Super Admin Home</title>
 </head>
+<style>
+    #content{
+        padding: 1%;
+        display: flex;
+        gap: 5%;
+    }
+
+    #totalOrdersBox,#totalSalesBox{
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        padding: 1%;
+        border-radius: 20px;
+    }
+</style>
 <script src="js/istocken.js"></script>
 
 <body>
@@ -47,9 +60,41 @@
     </div>
     </div>
     <div id="content">
+        <div id="totalOrdersBox">
+            <h3>Total Orders Received</h3>
+            <h4 id="totalOrders"></h4>
+        </div>
+        <div id="totalSalesBox">
+            <h3>Total Orders Received</h3>
+            <h4 id="totalSales"></h4>
+        </div>
     </div>
     </div>
     <script>
+        let totalOrderCount = document.getElementById("totalOrders");
+        let totalSalesCount = document.getElementById("totalSales");
+
+        fetch("http://localhost:9000/api/orders/get-orders",{
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionToken}`
+            }
+        })
+        .then(res => res.json())
+        .then((data)=>{
+            totalOrderCount.innerText = data.data.length;
+        })
+
+        fetch("http://localhost:9000/api/sales/get-sales",{
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionToken}`
+            }
+        })
+        .then(res => res.json())
+        .then((data)=>{
+            totalSalesCount.innerText = data.data.length;
+        })
     </script>
     <script src="js/navcss.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
