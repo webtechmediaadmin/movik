@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Page</title>
+</head>
+
+<body>
+    <div>
+        <form id="orderForm">
+            <label for="productID">Product Name:</label>
+            <select id="productID" name="productID" required>
+                <option value="">Select a product</option>
+            </select>
+            <br />
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" required />
+            <br />
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required />
+            <br />
+
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+    <script>
+        // Fetch products from the API and populate the dropdown
+        async function fetchProducts() {
+            try {
+                const response = await fetch("http://localhost:9000/api/products/get-product"); // Corrected URL
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const products = await response.json();
+                const productSelect = document.getElementById("productID");
+
+                products.data.forEach((product) => {
+                    const option = document.createElement("option");
+                    option.value = product.id;
+                    option.textContent = product.name;
+                    productSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error("There was a problem with the fetch operation:", error);
+            }
+        }
+
+        // Call fetchProducts when the page loads
+        document.addEventListener("DOMContentLoaded", fetchProducts);
+
+        // Handle form submission
+        document.getElementById("orderForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const productID = document.getElementById("productID").value;
+            const quantity = document.getElementById("quantity").value;
+            const date = document.getElementById("date").value;
+
+            fetch("http://localhost:9000/api/orders/create-orders", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${sessionToken}`, // Replace with your actual token
+                },
+                body: JSON.stringify({ productID, quantity, date }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.status) {
+                        alert("Order placed successfully!");
+                    } else {
+                        alert("Error placing order: " + data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error("There was a problem with the fetch operation:", error);
+                    alert("Error placing order. Please try again later.");
+                });
+        });
+    </script>
+    <script src="js/istocken.js"></script>
+
+</body>
+
+</html>

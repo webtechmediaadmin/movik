@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Order Page</title>
+    <script src="js/istocken.js"></script>
+
+    <title>Sales Page</title>
 </head>
 
 <body>
     <div>
-        <form id="orderForm">
+        <form id="salesForm">
             <label for="productID">Product Name:</label>
             <select id="productID" name="productID" required>
                 <option value="">Select a product</option>
@@ -24,11 +26,16 @@
             <input type="date" id="date" name="date" required />
             <br />
 
+            <label for="date">Total Price:</label>
+            <input type="text" id="totalPrice" name="tprice" required />
+            <br />
+
             <button type="submit">Place Order</button>
         </form>
     </div>
 
     <script>
+
         // Fetch products from the API and populate the dropdown
         async function fetchProducts() {
             try {
@@ -53,28 +60,31 @@
         // Call fetchProducts when the page loads
         document.addEventListener("DOMContentLoaded", fetchProducts);
 
+
         // Handle form submission
-        document.getElementById("orderForm").addEventListener("submit", function (event) {
+        document.getElementById("salesForm").addEventListener("submit", function (event) {
             event.preventDefault();
 
             const productID = document.getElementById("productID").value;
             const quantity = document.getElementById("quantity").value;
             const date = document.getElementById("date").value;
+            const totalPrice = document.getElementById("totalPrice").value;
 
-            fetch("http://localhost:9000/api/orders/create-orders", {
+
+            fetch("http://localhost:9000/api/sales/create-sales", {
                 method: "POST",
                 headers: {
+                    Authorization: `Bearer ${sessionToken}`,
                     "Content-Type": "application/json",
-                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInJvbGUiOiJkZWFsZXIiLCJpYXQiOjE3MTc0MTE5NTZ9.y2C_rqdeV1zGLmpIp1qcNswEOsi9sCrQpMm_uMhLgZE", // Replace with your actual token
                 },
-                body: JSON.stringify({ productID, quantity, date }),
+                body: JSON.stringify({ productID, quantity, date, totalPrice }),
             })
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.status) {
-                        alert("Order placed successfully!");
+                        alert("Sales Added successfully!");
                     } else {
-                        alert("Error placing order: " + data.message);
+                        alert("Error In Adding Sales: " + data.message);
                     }
                 })
                 .catch((error) => {
@@ -82,8 +92,8 @@
                     alert("Error placing order. Please try again later.");
                 });
         });
+
     </script>
-    <script src="js/istocken.js"></script>
 
 </body>
 

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <script src="../js/istocken.js"></script>
+
+    <title>Admin View Manager</title>
+</head>
+
+<body>
+    <div id="main-container">
+        <!-- Top Navigation Bar -->
+        <div id="topNav">
+            <div id="hamburger">&#9776;</div>
+            <div>
+                <h1 id="welcomeName"></h1>
+            </div>
+            <div id="imageClick">
+                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            </div>
+        </div>
+        <div id="hiddenFeatures">
+            <div>Your Account</div>
+            <div id="logOut">Logout</div>
+        </div>
+        <!-- Side Navigation Bar -->
+        <div id="sideNav">
+            <button class="closeBtn">&times;</button>
+            <ul>
+                <li><i class="fas fa-home"></i><a href="./admin-home.html">Home</a></li>
+                <li><i class="fas fa-user-cog"></i> <a href="manager-create.html">Create Manager</a></li>
+                <li><i class="fas fa-eye"></i><a href="./admin-view-mng.html">View Manager</a></li>
+                <li><i class="fab fa-salesforce"></i><a href="./admin-mg-sales.html">View Sales</a></li>
+                <li><i class="fab fa-first-order-alt"></i><a href="./admin-mg-orders.html">View Orders</a></li>
+            </ul>
+        </div>
+        <!-- MAIN CONTENT OF THE HOME PAGE -->
+        <!-- <div id="content">
+            <div class="content-box blu">
+                <img src="img/video-posted.png" alt="">
+                <h1>Total Video Posted</h1>
+                <p id="videoPostedCount"></p>
+            </div> -->
+    </div>
+    </div>
+    <div id="content">
+        <table class="responsive-table">
+            <!-- Responsive Table Header Section -->
+            <thead class="responsive-table__head">
+                <tr class="responsive-table__row manager-view">
+                    <th class="responsive-table__head__title responsive-table__head__title--name">Id
+                        <svg version="1.1" class="up-arrow" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
+                            style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                            <path
+                                d="M374.176,110.386l-104-104.504c-0.006-0.006-0.013-0.011-0.019-0.018c-7.818-7.832-20.522-7.807-28.314,0.002c-0.006,0.006-0.013,0.011-0.019,0.018l-104,104.504c-7.791,7.829-7.762,20.493,0.068,28.285    c7.829,7.792,20.492,7.762,28.284-0.067L236,68.442V492c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20V68.442l69.824,70.162c7.792,7.829,20.455,7.859,28.284,0.067C381.939,130.878,381.966,118.214,374.176,110.386z" />
+                        </svg>
+                    </th>
+                    <th class="responsive-table__head__title responsive-table__head__title--status">Name</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--status">Email Id</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--types">Address</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--update">Role</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--country">Actions</th>
+                </tr>
+            </thead>
+            <!-- Responsive Table Body Section -->
+            <tbody class="responsive-table__body" id="adminView-Mng">
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+    <script src="js/navcss.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function fetchManagerView() {
+            try {
+                const response = await fetch("http://localhost:9000/api/manager/specific-manager", {
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const mgView = await response.json();
+                const adminViewMng = document.getElementById("adminView-Mng");
+
+                mgView.data.forEach((mgView, index) => {
+                    console.log(mgView)
+                    const row = document.createElement("tr");
+                    row.classList.add("responsive-table__row");
+
+                    row.innerHTML = `
+                        <td class="responsive-table__body__text responsive-table__body__text--name">${mgView.id}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--status">${mgView.name}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--status">${mgView.email}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">${mgView.address}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">${mgView.role}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">
+                            <button type="button"  class="btn btn-success" onClick="editData('${mgView.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
+                            <button type="button" onClick="deleteProduct('${mgView.id}')" class="btn btn-danger" id="deleteBtn">Delete</button>
+                        </td>
+                    `;
+
+                    adminViewMng.appendChild(row);
+                });
+            } catch (error) {
+                console.error("There was a problem with the fetch operation:", error);
+            }
+        }
+        document.addEventListener("DOMContentLoaded", fetchManagerView);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
