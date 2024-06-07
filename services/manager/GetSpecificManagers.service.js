@@ -5,7 +5,7 @@ async function GetSpecificMangersService(adminID) {
     try {
 
         const managerList = await ManagerModel.findAll({
-            where: adminID,
+            where: { adminID: adminID },
             include: [
                 { model: AdminModel }
             ]
@@ -24,6 +24,5 @@ async function GetSpecificMangersService(adminID) {
         };
     }
 }
-
 
 module.exports = GetSpecificMangersService;

@@ -65,6 +65,8 @@
                     </th>
                     <th class="responsive-table__head__title responsive-table__head__title--status">Name</th>
                     <th class="responsive-table__head__title responsive-table__head__title--types">Address</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--types">Email Id</th>
+
                     <th class="responsive-table__head__title responsive-table__head__title--update">Role</th>
                     <th class="responsive-table__head__title responsive-table__head__title--country">Actions</th>
                 </tr>
@@ -94,6 +96,7 @@
                 const managerBody = document.getElementById("managerBody");
 
                 mgData.data.forEach((mgData, index) => {
+                    console.log(mgData);
                     const row = document.createElement("tr");
                     row.classList.add("responsive-table__row");
 
@@ -102,6 +105,8 @@
 
 
                         <td class="responsive-table__body__text responsive-table__body__text--status">${mgData.name}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--status">${mgData.email}</td>
+
 
                         <td class="responsive-table__body__text responsive-table__body__text--update">${mgData.address}</td>
 
