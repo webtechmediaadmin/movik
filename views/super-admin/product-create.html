@@ -36,7 +36,7 @@
             <ul>
                 <li><i class="fas fa-home"></i><a href="./home.html">Home</a></li>
                 <li><i class="fas fa-user"></i> <a href="./admin-create.html">Create Admin</a></li>
-                <li><i class="fas fa-user-cog"></i> <a href="./manager-view.html">Create Manager</a></li>
+                <li><i class="fas fa-user-cog"></i> <a href="./manager-create.html">Create Manager</a></li>
                 <li><i class="fas fa-eye"></i> <a href="./manager-view.html">View Manager</a></li>
                 <li><i class="fab fa-salesforce"></i><a href="./view-sales.html">View Sales</a></li>
                 <li><i class="fab fa-first-order-alt"></i><a href="./view-orders.html">View Orders</a></li>
@@ -99,7 +99,7 @@
             fetch("http://localhost:9000/api/products/create-product", {
                 method: "POST",
                 headers: {
-                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInJvbGUiOiJzdXBlci1hZG1pbiIsImlhdCI6MTcxNzQ4MDQwMn0.v2wxAytDJ9BIlK0ygJk0sTYFexWiOdgexfAmU-43yBo",
+                    Authorization: `Bearer ${sessionStorage}`,
                 },
                 body: formData
             })
