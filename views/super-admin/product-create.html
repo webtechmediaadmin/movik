@@ -99,7 +99,7 @@
             fetch("http://localhost:9000/api/products/create-product", {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${sessionStorage}`,
+                    Authorization: `Bearer ${sessionToken}`,
                 },
                 body: formData
             })
@@ -113,7 +113,9 @@
         document.getElementById('create-prod').addEventListener('submit', (e) => {
             e.preventDefault();
             productCreate();
+            window.location.href = "./product-view.html";
         });
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

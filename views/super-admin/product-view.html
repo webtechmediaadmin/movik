@@ -47,7 +47,7 @@
         </div>
         <!-- MAIN CONTENT OF THE HOME PAGE -->
         <div id="content">
-            <table class="responsive-table table table-striped table-bordered">
+            <table>
                 <!-- Responsive Table Header Section -->
                 <thead>
                     <tr>
@@ -128,10 +128,10 @@
     <script>
 
         function deleteProduct(id) {
-            fetch(`http://localhost:9000/api/products/get-product/${id}`, {
+            fetch(`http://localhost:9000/api/products/delete-product/${id}`, {
                 method: "DELETE",
                 headers: {
-                    Authorization: `Bearer ${sessionStorage}`,
+                    Authorization: `Bearer ${sessionToken}`,
                     "Content-Type": "application/json",
                 },
             })
@@ -145,7 +145,7 @@
                 });
         }
 
-        function editData(id) { 
+        function editData(id) {
             fetch(`http://localhost:9000/api/products/edit-product/${id}`, {
                 method: "GET",
                 headers: {

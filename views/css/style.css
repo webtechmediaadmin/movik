@@ -432,7 +432,6 @@ table tr {
 table th,
 table td {
     padding: .625em;
-    text-align: center;
 }
 
 table th {
@@ -440,7 +439,7 @@ table th {
     letter-spacing: .1em;
     text-align: left;
     text-transform: capitalize;
-    font-size: 21px;
+    font-size: 18px;
     font-weight: 600;
     font-family: system-ui;
 }
@@ -562,14 +561,21 @@ th {
     text-align: left;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+}
+
 #content {
     padding: 1%;
     display: flex;
-    width: 80%;
+    width: 84%;
     gap: 5%;
+    margin-left: 16%;
     justify-content: space-around;
     padding: 0px 40px 40px 40px;
-    margin: 74px auto;
 }
 
 #totalOrdersBox,
@@ -584,4 +590,17 @@ th {
     font-family: system-ui;
     color: #47971e;
     font-weight: 500;
+}
+
+tr.responsive-table__row td {
+    font-size: 16px;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+button#editBtn,
+#deleteBtn {
+    font-size: 15px;
+    /* padding: 8px 26px; */
+    font-family: monospace;
 }
