@@ -361,6 +361,8 @@ form .button input:hover {
     height: 61px;
     border-radius: 50%;
     object-fit: cover;
+    box-shadow: 0px -2px 15px 3px #f2efef;
+    padding: 6px;
 }
 
 #profileImg:hover {
@@ -541,6 +543,7 @@ table th {
 
 div#sideNav ul li i {
     color: #45951a;
+    font-size: 14px;
 }
 
 #sideNav ul li {
@@ -579,17 +582,38 @@ table {
 }
 
 #totalOrdersBox,
-#totalSalesBox {
+#totalSalesBox,
+#totalSalesAmount {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 1%;
-    border-radius: 20px;
+    padding: 10px;
+    border-radius: 2px;
 }
 
-#content h3 {
-    font-size: 30px;
+#totalSalesAmountInLastMonth {
+    padding: 15px 10px;
+    height: 21vh;
+    background: #368e06;
+    border-radius: 6px;
+}
+
+#totalSalesAmountInLastMonth h3 {
+    font-size: 22px;
+    color: white;
+}
+
+div#totalSalesAmountInLastMonth h4 {
+    color: white;
+    text-decoration: underline;
+    font-size: 25px;
+    padding-top: 13px;
+}
+
+.data-box h3 {
+    font-size: 24px;
     font-family: system-ui;
-    color: #47971e;
-    font-weight: 500;
+    color: #368f06;
+    font-weight: 600;
+    text-shadow: -1px 1px 2px #0b0b0be6;
 }
 
 tr.responsive-table__row td {
@@ -603,4 +627,15 @@ button#editBtn,
     font-size: 15px;
     /* padding: 8px 26px; */
     font-family: monospace;
+}
+
+.form-css {
+    box-shadow: 2px 5px 10px #a09e9e82;
+    border-radius: 8px;
+}
+
+.data-box {
+    display: flex;
+    padding-top: 22vh;
+    justify-content: space-between;
 }

@@ -47,21 +47,31 @@
     </div>
     </div>
     <div id="content">
-        <div id="totalOrdersBox">
-            <h3>Total Orders Received</h3>
-            <h4 id="totalOrders"></h4>
-        </div>
-        <div id="totalSalesBox">
-            <h3>Total Sales Received</h3>
-            <h4 id="totalSales"></h4>
-        </div>
-        <div id="totalSalesAmount">
-            <h3>Total Amount Sales</h3>
-            <h4 id="totalSalesDigits"></h4>
-        </div>
-        <div id="totalSalesAmountInLastMonth">
-            <h3>Total Amount Sales In Last Month</h3>
-            <h4 id="totalSalesDigitsInLastMonth"></h4>
+        <div class="row data-box">
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <div id="totalOrdersBox">
+                    <h3>Total Orders Received</h3>
+                    <h4 id="totalOrders"></h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <div id="totalSalesBox">
+                    <h3>Total Sales Received</h3>
+                    <h4 id="totalSales"></h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <div id="totalSalesAmount">
+                    <h3>Total Amount Sales</h3>
+                    <h4 id="totalSalesDigits"></h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <div id="totalSalesAmountInLastMonth">
+                    <h3>Total Amount Sales In Last Month</h3>
+                    <h4 id="totalSalesDigitsInLastMonth"></h4>
+                </div>
+            </div>
         </div>
     </div>
     </div>
@@ -98,7 +108,7 @@
 
                 const lastMonthDate = new Date(currentDate);
                 lastMonthDate.setMonth(currentDate.getMonth() - 1);
-                
+
 
                 data.data.forEach((item) => {
                     totalSum += item.totalPrice;
