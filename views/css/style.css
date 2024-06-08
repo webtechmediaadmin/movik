@@ -300,6 +300,31 @@ form .button input:hover {
     }
 }
 
+@media only screen and (max-width: 767px) {
+    .container .title {
+        font-size: 27px;
+    }
+
+    element.style {
+        transition: margin-left 0.5s ease 0s;
+        margin-left: 0%;
+        width: 100%;
+    }
+
+    #content {
+        padding: 0px 14px 40px 15px !important;
+    }
+
+    #sideNav {
+        padding-top: 14% !important;
+        z-index: 1 !important;
+    }
+
+    #sideNav a {
+        padding: 24px 12px !important;
+    }
+}
+
 /* Side Navigation Bar Styles */
 
 #sideNav {
