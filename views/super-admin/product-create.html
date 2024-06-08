@@ -96,40 +96,47 @@
     <script src="../js/navcss.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        function productCreate() {
-            const formData = new FormData();
+        async function productCreate() {
+    try {
+        const formData = new FormData();
 
-            // Append form fields to FormData
-            formData.append("name", document.getElementById("name").value);
-            formData.append(
-                "inventoryCount",
-                document.getElementById("inventory-count").value
-            );
-            formData.append("slug", document.getElementById("slug").value);
+        // Append form fields to FormData
+        formData.append("name", document.getElementById("name").value);
+        formData.append("inventoryCount", document.getElementById("inventory-count").value);
+        formData.append("slug", document.getElementById("slug").value);
 
-            // Append the image file to FormData
-            const imageFile = document.getElementById("img").files[0];
-            if (imageFile) {
-                formData.append("image", imageFile);
-            } else {
-                console.error("No image file selected");
-                return;
-            }
-
-            fetch("http://localhost:9000/api/products/create-product", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${sessionToken}`,
-                },
-                body: formData,
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                })
-                .catch((error) => console.error("Error:", error));
+        // Append the image file to FormData
+        const imageFile = document.getElementById("img").files[0];
+        if (imageFile) {
+            formData.append("image", imageFile);
+        } else {
+            console.error("No image file selected");
+            return;
         }
+
+        const response = await fetch("http://localhost:9000/api/products/create-product", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${sessionToken}`,
+            },
+            body: formData,
+        });
+
+        const data = await response.json();
+        console.log(data);
+
+        if (response.ok) {
+            alert("Product created successfully");
+            // Optionally, you can clear the form or redirect the user to another page
+        } else {
+            alert("Error creating product: " + data.message);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while creating the product");
+    }
+}
+
 
         document.getElementById("create-prod").addEventListener("submit", (e) => {
             e.preventDefault();
