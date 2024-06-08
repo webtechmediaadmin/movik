@@ -52,9 +52,11 @@
             <!-- Responsive Table Header Section -->
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Dealer/Distributor</th>
+                    <th scope="col">Product Name</th>
                     <th scope="col">Date</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col">Status</th>
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
@@ -86,9 +88,11 @@
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                        <td data-label="Id">${orders.id}</td>
+                        <td data-label="Id">${orders.manager.name}</td>
+                        <td data-label="Id">${orders.product.name}</td>
                          <td data-label="Date">${orders.date}</td>
                         <td data-label="Quantity">${orders.quantity}</td>
+                        <td data-label="Quantity">${orders.status}</td>
                     `;
 
                     orderData.appendChild(row);
