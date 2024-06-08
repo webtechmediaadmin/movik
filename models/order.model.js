@@ -40,7 +40,7 @@ OrderModel.belongsTo(ManagerModel,{
     onUpdate: 'CASCADE'
 })
 
-ManagerModel.belongsTo(OrderModel,{
+ManagerModel.hasMany(OrderModel,{
     foreignKey: 'managerID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
@@ -52,7 +52,7 @@ OrderModel.belongsTo(ProductModel,{
     onUpdate: 'CASCADE'
 })
 
-ProductModel.belongsTo(OrderModel,{
+ProductModel.hasMany(OrderModel,{
     foreignKey: 'productID',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'

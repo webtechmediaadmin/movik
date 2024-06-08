@@ -51,7 +51,6 @@
                 <!-- Responsive Table Header Section -->
                 <thead>
                     <tr>
-                        <th scope="col">S.No</th>
                         <th scope="col">Name</th>
                         <th scope="col">Image</th>
                         <th scope="col">Inventory Count</th>
@@ -105,7 +104,6 @@
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                         <td data-label="Id">${index + 1}</td>
                          <td data-label="Name">${product.name}</td>
                          <td data-label="Image"><img src='http://localhost:9000/${product.image}' alt="${product.name}" style="width: 50px; height: 50px;"></td>
                          <td data-label="Inventory Count">${product.inventoryCount}</td>
