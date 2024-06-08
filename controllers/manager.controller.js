@@ -1,3 +1,4 @@
+const DeleteManagerService = require("../services/manager/DeleteManager.service");
 const GetManagersService = require("../services/manager/GetManagers.service");
 const GetSpecificMangersService = require("../services/manager/GetSpecificManagers.service");
 const LoginManagerService = require("../services/manager/loginManager.service");
@@ -84,5 +85,25 @@ async function GetSpecificManagerController(req, res) {
     }
 }
 
+async function DeleteManagerController(req, res) {
+    try {
+        const id = req.params.id;
 
-module.exports = { LoginManagerController, GetMyProfileController, GetManagerController, GetSpecificManagerController };
+        const deleteManager = await DeleteManagerService(id);
+
+        return res.status(deleteManager.status ? 200 : 404).json({
+            status: deleteManager.status,
+            message: deleteManager.message,
+            data: deleteManager.data
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+
+module.exports = { LoginManagerController, GetMyProfileController, GetManagerController, GetSpecificManagerController, DeleteManagerController };

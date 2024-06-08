@@ -5,7 +5,7 @@ async function DeleteOrderService(id) {
     try {
         const deleteOrderDetails = await OrderModel.findOne({ where: { id: id } });
 
-        if (!fetchOrderDetails) {
+        if (!deleteOrderDetails) {
             return {
                 status: true,
                 message: "Order not found"
