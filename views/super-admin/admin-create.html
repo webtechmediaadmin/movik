@@ -106,8 +106,7 @@
                 fetch("http://localhost:9000/api/create-admin", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInJvbGUiOiJzdXBlci1hZG1pbiIsImlhdCI6MTcxNzQ5ODgyNn0.gj1B6sWQtZHB_a0_v17iWPt4vZyuaRx3kJxIPDdMfq4`,
-                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionToken}`,
                     },
                     body: JSON.stringify(obj)
                 })

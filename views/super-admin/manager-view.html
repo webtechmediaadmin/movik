@@ -121,6 +121,25 @@
             }
         }
         document.addEventListener("DOMContentLoaded", fetchManagerData);
+
+        // delete the items
+        function deleteProduct(id) {
+            fetch(`http://localhost:9000/api/products/delete-product/${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${sessionToken}`,
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    // window.load();
+                })
+                .catch((error) => {
+                    console.error("Error", error);
+                });
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

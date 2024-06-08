@@ -62,7 +62,6 @@
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Address</th>
                     <th scope="col">Email Id</th>
                     <th scope="col">Role</th>
                     <th scope="col">Actions</th>
@@ -80,7 +79,7 @@
     <script>
         async function fetchManagerData() {
             try {
-                const response = await fetch("http://localhost:9000/api/manager", {
+                const response = await fetch("http://localhost:9000/api/get-admin", {
                     headers: {
                         'Authorization': `Bearer ${sessionToken}`,
                         'Content-Type': 'application/json'
@@ -105,7 +104,6 @@
                          <td data-label="Email">${mgData.email}</td>
 
 
-                       <td data-label="Address">${mgData.address}</td>
 
                          <td data-label="Role">${mgData.role}</td>
                           <td data-label="Actions">
