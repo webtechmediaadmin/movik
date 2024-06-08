@@ -106,6 +106,7 @@
                 fetch("http://localhost:9000/api/create-admin", {
                     method: "POST",
                     headers: {
+                        "Content-Type":"application/json",
                         Authorization: `Bearer ${sessionToken}`,
                     },
                     body: JSON.stringify(obj)
