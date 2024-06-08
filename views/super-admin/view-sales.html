@@ -52,7 +52,7 @@
             <!-- Responsive Table Header Section -->
             <thead class="responsive-table__head">
                 <tr class="responsive-table__row table-grid">
-                    <th scope="col"> Id</th>
+                    <th scope="col"> Dealer/Distributor</th>
                     <th scope="col"> Product Name</th>
                     <th scope="col"> Date</th>
                     <th scope="col"> Address</th>
@@ -91,7 +91,7 @@
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                         <td data-label="Id">${sales.id}</td>
+                         <td data-label="Id">${sales.manager.name}</td>
                         <td data-label="Nam">${sales.product.name}</td>
                         <td data-label="Date">${sales.date}</td>
                         <td data-label="Address">${sales.manager.address}</td>
