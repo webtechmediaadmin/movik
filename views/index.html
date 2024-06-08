@@ -110,18 +110,16 @@
                                         if (data.message == "Wrong Credentials") {
                                             alert(data.message);
                                         } else {
-                                            fetch(
-                                                "http://localhost:9000/api/manager/login-manager",
-                                                {
-                                                    method: "POST",
-                                                    headers: {
-                                                        "Content-Type": "application/json",
-                                                    },
-                                                    body: JSON.stringify({
-                                                        email: username,
-                                                        password: pass,
-                                                    }),
-                                                }
+                                            fetch("http://localhost:9000/api/manager/login-manager", {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type": "application/json",
+                                                },
+                                                body: JSON.stringify({
+                                                    email: username,
+                                                    password: pass,
+                                                }),
+                                            }
                                             )
                                                 .then((res) => res.json())
                                                 .then((data) => {
@@ -130,7 +128,8 @@
                                                     } else {
                                                         sessionStorage.setItem("token", data.token);
                                                         sessionStorage.setItem("role", data.data.role);
-                                                        window.location.href = "./manager/manager-home.html";
+                                                        window.location.href =
+                                                            "./manager/manager-home.html";
                                                     }
                                                 });
                                         }
