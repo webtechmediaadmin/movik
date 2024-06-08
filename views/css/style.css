@@ -556,12 +556,32 @@ div#sideNav ul li i {
     margin-top: 4%;
 }
 
-#content {
-    padding: 0px 40px 40px 40px;
-}
-
 .responsive-table td,
 th {
     font-size: 15px;
     text-align: left;
+}
+
+#content {
+    padding: 1%;
+    display: flex;
+    width: 80%;
+    gap: 5%;
+    justify-content: space-around;
+    padding: 0px 40px 40px 40px;
+    margin: 74px auto;
+}
+
+#totalOrdersBox,
+#totalSalesBox {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 1%;
+    border-radius: 20px;
+}
+
+#content h3 {
+    font-size: 30px;
+    font-family: system-ui;
+    color: #47971e;
+    font-weight: 500;
 }

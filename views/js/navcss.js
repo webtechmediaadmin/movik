@@ -5,7 +5,7 @@ const closeBtn = document.querySelector(".closeBtn");
 hamburger.addEventListener("click", () => {
     sideNav.style.width = "250px";
     content.style.transition = "margin-left 0.5s";
-    content.style.marginLeft = '20%';
+    content.style.marginLeft = '13%';
 });
 
 closeBtn.addEventListener("click", () => {
