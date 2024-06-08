@@ -141,11 +141,11 @@
                     // window.load();
                 })
                 .catch((error) => {
-                    console.error('Error', error);
+                    console.error("Error", error);
                 });
         }
 
-        function editData(id) {
+        function editData(id) { 
             fetch(`http://localhost:9000/api/products/edit-product/${id}`, {
                 method: "GET",
                 headers: {
