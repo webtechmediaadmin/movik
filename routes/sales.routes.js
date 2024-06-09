@@ -7,7 +7,7 @@ const { CreateSalesController, GetSalesController, EditSalesController, DeleteSa
 const salesRoutes = express.Router();
 
 salesRoutes.post('/create-sales', authentication, authorize(["dealer", "distributor"]), CreateSalesController);
-salesRoutes.get('/get-sales', authentication, authorize(["super-admin", "admin", "dealer", "distributor"]), GetSalesController);
+salesRoutes.get('/  ', authentication, authorize(["super-admin", "admin", "dealer", "distributor"]), GetSalesController);
 salesRoutes.patch('/edit-sales/:id', authentication, authorize(["dealer", "distributor"]), EditSalesController);
 salesRoutes.delete('/delete-sales/:id', authentication, authorize(["dealer", "distributor"]), DeleteSalesController);
 salesRoutes.get('/as-per-admin', authentication, authorize(["admin"]), GetSalesAsAdminController);

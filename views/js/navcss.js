@@ -19,8 +19,8 @@ closeBtn.addEventListener("click", () => {
 
 // logout the page
 
-// function logout() {
-//     localStorage.removeItem('sessionToken');
-//     window.location.href = '/index.html';
-// }
-// document.getElementById('imageClick').addEventListener('click', logout);
+function logout() {
+    localStorage.removeItem('sessionToken');
+    window.location.href = "/views/index.html";
+}
+document.getElementById('imageClick').addEventListener('click', logout);
