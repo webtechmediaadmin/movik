@@ -6,7 +6,7 @@ const { CreateProductController, EditProductController, DeleteProductController,
 const productRoutes = express.Router();
 
 productRoutes.post('/create-product', authentication, authorize(["super-admin"]), upload.single('image'), CreateProductController);
-productRoutes.patch('/edit-product/:id', authentication, authorize(["super-admin"]), EditProductController);
+productRoutes.patch('/edit-product/:id', authentication, authorize(["super-admin"]), upload.single('image'), EditProductController);
 productRoutes.delete('/delete-product/:id', authentication, authorize(["super-admin"]), DeleteProductController);
 productRoutes.get('/get-product', GetProductController);
 
