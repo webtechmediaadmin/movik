@@ -22,7 +22,7 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick">
+            <div id="imageClick" onclick="logout()">
                 <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
             </div>
         </div>
@@ -39,6 +39,7 @@
                 <li><i class="fas fa-eye"></i></i> <a href="./view-orders.html">View Orders</a></li>
                 <li><i class="fab fa-salesforce"></i><a href="./sales-page.html">Create Sales</a></li>
                 <li><i class="fab fa-salesforce"></i><a href="./view-sales.html">View Sales</a></li>
+
             </ul>
         </div>
     </div>
@@ -49,11 +50,11 @@
             <!-- Responsive Table Header Section -->
             <thead>
                 <tr>
-                    <th scope="col">Dealer/Distributor</th>
                     <th scope="col">Product Name</th>
                     <th scope="col">Date</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
@@ -85,13 +86,14 @@
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                        <td data-label="Id">${orders.manager.name}</td>
                         <td data-label="Id">${orders.product.name}</td>
                          <td data-label="Date">${orders.date}</td>
                         <td data-label="Quantity">${orders.quantity}</td>
-                        <td data-label="Quantity">${orders.status}</td>
+                         <td data-label="Actions">
+                            <button type="button"  class="btn btn-success btns"  data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
+                        </td>
                     `;
-
+                    
                     orderData.appendChild(row);
                 });
             } catch (error) {
