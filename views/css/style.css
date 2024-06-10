@@ -305,11 +305,15 @@ form .button input:hover {
         font-size: 27px;
     }
 
-    element.style {
+    #sideNav {
+        width: 0px!important ;
+    }
+
+    /* element.style {
         transition: margin-left 0.5s ease 0s;
         margin-left: 0%;
         width: 100%;
-    }
+    } */
 
     #content {
         padding: 0px 14px 40px 15px !important;
@@ -667,10 +671,10 @@ button#editBtn,
     padding-top: 22vh;
     justify-content: space-between;
 }
+
 select#productID {
     width: 100%;
     padding: 9px;
     border: 1.5px solid #b3afaf9e;
     border-radius: 3px;
 }
-

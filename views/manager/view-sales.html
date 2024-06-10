@@ -54,7 +54,7 @@
                     <th scope="col">Product Name</th>
                     <th scope="col">Date</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
@@ -90,9 +90,10 @@
                         <td data-label="Id">${sales.product.name}</td>
                          <td data-label="Date">${sales.date}</td>
                         <td data-label="Quantity">${sales.quantity}</td>
-                        <td data-label="Quantity">${sales.status}</td>
-                    `;
+                        <td data-label="Quantity">
+                               <button type="button"  class="btn btn-success btns"  data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button></td>
 
+                    `;
                     salesData.appendChild(row);
                 });
             } catch (error) {
