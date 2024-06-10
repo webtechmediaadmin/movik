@@ -20,7 +20,7 @@ closeBtn.addEventListener("click", () => {
 // logout the page
 
 function logout() {
-    localStorage.removeItem('sessionToken');
+    sessionStorage.clear();
     window.location.href = "/";
 }
 document.getElementById('imageClick').addEventListener('click', logout);

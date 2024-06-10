@@ -110,16 +110,18 @@
                                         if (data.message == "Wrong Credentials") {
                                             alert(data.message);
                                         } else {
-                                            fetch("http://localhost:9000/api/manager/login-manager", {
-                                                method: "POST",
-                                                headers: {
-                                                    "Content-Type": "application/json",
-                                                },
-                                                body: JSON.stringify({
-                                                    email: username,
-                                                    password: pass,
-                                                }),
-                                            }
+                                            fetch(
+                                                "http://localhost:9000/api/manager/login-manager",
+                                                {
+                                                    method: "POST",
+                                                    headers: {
+                                                        "Content-Type": "application/json",
+                                                    },
+                                                    body: JSON.stringify({
+                                                        email: username,
+                                                        password: pass,
+                                                    }), 
+                                                }
                                             )
                                                 .then((res) => res.json())
                                                 .then((data) => {
