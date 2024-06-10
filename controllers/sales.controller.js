@@ -2,6 +2,7 @@ const CreateSalesService = require("../services/sales/CreateSales.service");
 const DeleteSalesService = require("../services/sales/DeleteSales.service");
 const EditSalesService = require("../services/sales/EditSales.service");
 const GetSalesService = require("../services/sales/GetSales.service");
+const GetSalesAsPerManager = require("../services/sales/GetSalesAsPerManager.service");
 const GetSpecificSalesService = require("../services/sales/GetSpecificSales.service");
 
 async function CreateSalesController(req, res) {
@@ -47,7 +48,7 @@ async function GetSalesController(req, res) {
 
 async function GetSalesAsAdminController(req, res) {
     try {
-        const adminID  = req.userID;
+        const adminID = req.userID;
 
         const fetchSales = await GetSpecificSalesService(adminID);
 
@@ -55,6 +56,25 @@ async function GetSalesAsAdminController(req, res) {
             status: fetchSales.status,
             message: fetchSales.message,
             data: fetchSales.data
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+async function GetSalesAsPerManagerController(req, res) {
+    try {
+        const managerID = req.userID;
+        const FetchSales = await GetSalesAsPerManager(managerID);
+
+        return res.status(FetchSales.status ? 200 : 404).json({
+            status: FetchSales.status,
+            message: FetchSales.message,
+            data: FetchSales.data
         })
     } catch (error) {
         console.error(error);
@@ -106,4 +126,4 @@ async function DeleteSalesController(req, res) {
 }
 
 
-module.exports = { CreateSalesController, GetSalesController, GetSalesAsAdminController, EditSalesController, DeleteSalesController };
+module.exports = { CreateSalesController, GetSalesController, GetSalesAsAdminController, GetSalesAsPerManagerController, EditSalesController, DeleteSalesController };
