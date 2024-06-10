@@ -256,7 +256,7 @@ form input[type="radio"] {
 /* submit button */
 form .button {
     height: 45px;
-    margin: 45px 0;
+    margin: 33px 0;
 }
 
 form .button input {
@@ -362,8 +362,11 @@ form .button input:hover {
     top: 10px;
     right: 10px;
     font-size: 30px;
+    background: black;
     color: white;
     cursor: pointer;
+    outline: navajowhite;
+    border: none;
 }
 
 /* topnav-bar */
@@ -664,3 +667,10 @@ button#editBtn,
     padding-top: 22vh;
     justify-content: space-between;
 }
+select#productID {
+    width: 100%;
+    padding: 9px;
+    border: 1.5px solid #b3afaf9e;
+    border-radius: 3px;
+}
+
