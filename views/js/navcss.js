@@ -21,6 +21,6 @@ closeBtn.addEventListener("click", () => {
 
 function logout() {
     localStorage.removeItem('sessionToken');
-    window.location.href = "/views/index.html";
+    window.location.href = "/";
 }
 document.getElementById('imageClick').addEventListener('click', logout);
