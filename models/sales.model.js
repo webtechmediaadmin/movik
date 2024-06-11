@@ -28,9 +28,21 @@ const SalesModel = connection.define('sales', {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
+    buyerName: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    buyerPhoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    buyerAddress: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     date: {
         type: DataTypes.DATEONLY,
-        defaultValue: DataTypes.DATEONLY
+        defaultValue: DataTypes.NOW
     }
 });
 

@@ -1,8 +1,8 @@
 const SalesModel = require("../../models/sales.model");
 
-async function CreateSalesService(managerID, productID, quantity, totalPrice, date) {
+async function CreateSalesService(managerID, productID, quantity, totalPrice, date, buyerName, buyerPhoneNumber, buyerAddress) {
     try {
-        const newSale = await SalesModel.create({ managerID, productID, quantity, totalPrice, date });
+        const newSale = await SalesModel.create({ managerID, productID, quantity, totalPrice, date, buyerName, buyerPhoneNumber, buyerAddress });
 
         return {
             status: true,

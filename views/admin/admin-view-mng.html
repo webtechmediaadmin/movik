@@ -104,6 +104,10 @@
                         </td>
                     `;
 
+                    row.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        window.location = `./manager-detail.html?token=${sessionToken}&managerID=${mgView.id}`
+                    })
                     adminViewMng.appendChild(row);
                 });
             } catch (error) {

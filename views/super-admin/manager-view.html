@@ -95,6 +95,7 @@
                 mgData.data.forEach((mgData, index) => {
                     console.log(mgData);
                     const row = document.createElement("tr");
+
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
@@ -114,6 +115,11 @@
                         </td>
                     `;
 
+
+                    row.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        window.location = `./manager-detail.html?token=${sessionToken}&managerID=${mgData.id}`
+                    })
                     managerBody.appendChild(row);
                 });
             } catch (error) {

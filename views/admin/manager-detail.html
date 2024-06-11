@@ -184,6 +184,7 @@
             })
                 .then((res) => res.json())
                 .then((data) => {
+                    console.log(data);
                     if (data.data && data.data.length > 0) {
                         data.data.forEach(order => {
                             let row = document.createElement('tr');
@@ -210,14 +211,13 @@
         }
 
         function getLastSales() {
-            fetch(`http://localhost:9000/api/sales/get-sales/?managerID=${managerID}`, {
+            fetch(`http://localhost:9000/api/sales/get-sales/?id=${managerID}`, {
                 headers: {
                     Authorization: `Bearer ${sessionToken}`,
                 },
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data)
                     if (data.data && data.data.length > 0) {
                         data.data.forEach(sale => {
                             let row = document.createElement('tr');
@@ -227,7 +227,7 @@
                                 <td>${sale.buyerName}</td>
                                 <td>${sale.buyerName}</td>
                                 <td>${sale.buyerAddress}</td>
-                                <td>${sale.totalPrice}</td>
+                                <td>${sale.totalAmount}</td>
                                 <td>${new Date(sale.date).toLocaleDateString()}</td>
                             `;
                             salesTableBody.appendChild(row);

@@ -7,10 +7,10 @@ const GetSpecificSalesService = require("../services/sales/GetSpecificSales.serv
 
 async function CreateSalesController(req, res) {
     try {
-        const { productID, quantity, totalPrice, date } = req.body;
+        const { productID, quantity, totalPrice, date, buyerName, buyerPhoneNumber, buyerAddress } = req.body;
         const managerID = req.userID;
 
-        const salesCreation = await CreateSalesService(managerID, productID, quantity, totalPrice, date);
+        const salesCreation = await CreateSalesService(managerID, productID, quantity, totalPrice, date, buyerName, buyerPhoneNumber, buyerAddress);
 
         return res.status(salesCreation.status ? 200 : 404).json({
             status: salesCreation.status,
