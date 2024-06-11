@@ -1,3 +1,4 @@
+const AdminModel = require("../models/admin.model");
 const GetAdminService = require("../services/admin/GetAdmin.service");
 const CreateAdmin = require("../services/admin/createAdmin.service");
 const EditMyProfile = require("../services/super-admin/editMyProfile.service");
@@ -5,6 +6,8 @@ const LoginSuperAdmin = require("../services/super-admin/loginSuperAdmin.service
 const GetMyProfileService = require("../services/super-admin/myProfile.service");
 const RegisterSuperAdmin = require("../services/super-admin/registerSuperAdmin.service");
 const multer = require('multer');
+const fs = require('fs').promises;
+
 
 const upload = multer({
     storage: multer.diskStorage({
@@ -124,6 +127,7 @@ async function UpdateProfileDetails(req, res) {
     try {
         const adminID = req.userID;
         const { name, password } = req.body;
+
 
         let image;
         if (req.file) {

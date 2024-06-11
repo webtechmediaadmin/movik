@@ -83,10 +83,7 @@
             <label for="edit-email">Email:</label>
             <input type="email" id="edit-email" name="email" />
 
-            <label for="edit-password">Role:</label>
-            <input type="text" id="edit-password" name="password" />
-
-            <label for="edit-image">Profile Image URL:</label>
+            <label for="edit-image">Choose a Profile     Image</label>
             <input type="file" id="edit-image" name="image" />
 
             <button type="button" onclick="updateProfile()">Save</button>
@@ -118,7 +115,7 @@
                 // Pre-fill the form with current data
                 document.getElementById('edit-name').value = data.data.name || "";
                 document.getElementById('edit-email').value = data.data.email || "";
-                document.getElementById('edit-password').value = data.data.password || "";
+                
                 
             } catch (error) {
                 console.error('Error fetching profile:', error);
@@ -133,7 +130,6 @@
         async function updateProfile() {
             const updatedData = {
                 name: document.getElementById('edit-name').value,
-                password: document.getElementById('edit-password').value,
                 image: document.getElementById('edit-image').value
             };
 
