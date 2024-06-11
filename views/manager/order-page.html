@@ -81,7 +81,7 @@
         // Fetch products from the API and populate the dropdown
         async function fetchProducts() {
             try {
-                const response = await fetch("http://localhost:9000/api/products/get-product"); // Corrected URL
+                const response = await fetch("http://localhost:9000/api/products/get-product?status=1"); // Corrected URL
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }

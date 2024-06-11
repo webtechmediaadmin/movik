@@ -1,7 +1,7 @@
 const AdminModel = require("../../models/admin.model");
 const ManagerModel = require("../../models/manager.model");
 
-async function GetManagersService(id, adminID) {
+async function GetManagersService(id, adminID, deactivatedBySuperAdmin) {
     try {
         let whereClause = {};
 
@@ -11,6 +11,10 @@ async function GetManagersService(id, adminID) {
 
         if (adminID) {
             whereClause.adminID = adminID;
+        }
+
+        if (deactivatedBySuperAdmin) {
+            whereClause.deactivatedBySuperAdmin = deactivatedBySuperAdmin;
         }
 
         const managerList = await ManagerModel.findAll({

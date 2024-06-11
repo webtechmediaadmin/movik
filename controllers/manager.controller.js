@@ -47,9 +47,9 @@ async function GetMyProfileController(req, res) {
 
 async function GetManagerController(req, res) {
     try {
-        const { id, adminID } = req.query;
+        const { id, adminID, deactivatedBySuperAdmin } = req.query;
 
-        const fetchManagers = await GetManagersService(id, adminID);
+        const fetchManagers = await GetManagersService(id, adminID, deactivatedBySuperAdmin);
 
         return res.status(fetchManagers.status ? 200 : 404).json({
             status: fetchManagers.status,
