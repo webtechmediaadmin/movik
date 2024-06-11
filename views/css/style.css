@@ -93,7 +93,8 @@ form button {
     transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
     font-size: 1em;
     padding: var(--spacing1);
-    width: 100%;
+    width: 18%;
+    margin-left: 7px !important;
 }
 
 form button:hover {
@@ -177,9 +178,13 @@ h1.logo img {
 }
 
 .container .title {
-    font-size: 31px;
-    font-weight: 500;
+    font-size: 26px;
+    font-weight: 600;
+    display: flex;
+    background: #b1d3db;
     position: relative;
+    padding: 5px 0px 0px 12px;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .container form .user__details {
@@ -627,7 +632,7 @@ table {
     background-color: #009688;
     position: relative;
     height: 19vh;
-    width:300px;
+    width: 300px;
 }
 
 .mg-box i {
@@ -635,6 +640,7 @@ table {
     padding: 9px 8px;
     font-size: 29px;
 }
+
 .data i {
     position: absolute;
     top: 26px;
@@ -647,6 +653,7 @@ table {
     font-size: 29px;
     box-shadow: 2px 5px 10px #808080ad;
 }
+
 #totalSalesAmountInLastMonth {
     border-radius: 2px;
     background-color: #009688;
@@ -690,6 +697,7 @@ button#editBtn,
 .form-css {
     box-shadow: 2px 5px 10px #a09e9e82;
     border-radius: 8px;
+    padding: 0px !important;
 }
 
 .data-box {
@@ -715,10 +723,12 @@ select#productID {
     width: 200px;
     padding-left: 17px;
 }
+
 .data {
     display: flex;
     align-items: flex-end;
 }
+
 h4#totalSalesDigits {
     position: absolute;
     top: 24px;
@@ -726,13 +736,16 @@ h4#totalSalesDigits {
     color: white;
     font-size: 23px;
 }
-h4#totalSales, h4#totalOrders {
+
+h4#totalSales,
+h4#totalOrders {
     position: absolute;
     top: 21px;
     right: 29px;
     color: white;
     font-size: 26px;
 }
+
 button#deleteBtn {
     position: absolute;
 }
@@ -743,14 +756,14 @@ button#deleteBtn {
     padding: 16px;
     font-size: 16px;
     border: none;
-  }
-  
-  .dropdown {
+}
+
+.dropdown {
     position: relative;
     display: inline-block;
-  }
-  
-  .dropdown-content {
+}
+
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
@@ -762,19 +775,32 @@ button#deleteBtn {
     border-radius: 3px;
 
 }
-  
-  .dropdown-content a {
+
+.dropdown-content a {
     color: black;
     padding: 6px 16px;
     text-decoration: none;
     display: block;
     font-size: 16px;
     font-weight: 500;
-  }
-  
-  .dropdown-content a:hover {background-color: #ddd;}
-  
-  .dropdown:hover .dropdown-content {display: block;}
-  
-  .dropdown:hover .dropbtn {background-color: #3e8e41;}
-  
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+form#createAdminData {
+    padding: 10px;
+}
+
+.title i {
+    font-size: 32px;
+}
