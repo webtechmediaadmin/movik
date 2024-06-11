@@ -86,7 +86,7 @@ form .active-error+input:not(:focus) {
     border-color: var(--error);
 }
 
-form button {
+/* form button {
     color: white;
     background: #3e8913 !important;
     cursor: pointer;
@@ -95,7 +95,7 @@ form button {
     padding: var(--spacing1);
     width: 18%;
     margin-left: 7px !important;
-}
+} */
 
 form button:hover {
     background: var(--brand2);
@@ -201,9 +201,11 @@ form .user__details .input__box {
 }
 
 .user__details .input__box .details {
-    font-weight: 500;
+    font-weight: 400;
     margin-bottom: 5px;
     display: block;
+    font-size: 18px;
+    color: #424141;
 }
 
 .user__details .input__box input {
@@ -264,11 +266,6 @@ form input[type="radio"] {
 }
 
 /* submit button */
-form .button {
-    height: 45px;
-    margin: 33px 0;
-}
-
 form .button input {
     height: 100%;
     width: 100%;
@@ -281,7 +278,22 @@ form .button input {
     background: linear-gradient(135deg, #71b7e6, #9b59b6);
     transition: all 0.3s ease;
 }
-
+#regi-btn, #login-btn {
+    background: #e79f06;
+    color: white;
+    font-weight: 400;
+    height: 38px;
+    font-size: 17px;
+    margin-right: 10px;
+    padding: 0px 17px;
+}
+#login-btn {
+    background: #009688;
+}
+#login-btn a{
+    color: white;
+    text-decoration: none;
+}
 form .button input:hover {
     background: linear-gradient(-135deg, #71b7e6, #9b59b6);
 }
@@ -314,15 +326,19 @@ form .button input:hover {
     .container .title {
         font-size: 27px;
     }
+    .mg-box {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        padding: 10px;
+        border-radius: 2px;
+        background-color: #009688;
+        position: relative;
+        height: 19vh;
+        width: 300px;
+        margin: 21px auto;
+    
 
     /* #sideNav {
         width: 0px !important;
-    } */
-
-    /* element.style {
-        transition: margin-left 0.5s ease 0s;
-        margin-left: 0%;
-        width: 100%;
     } */
 
     #content {
@@ -338,7 +354,7 @@ form .button input:hover {
         padding: 24px 12px !important;
     }
 }
-
+}
 /* Side Navigation Bar Styles */
 
 #sideNav {
@@ -802,5 +818,31 @@ form#createAdminData {
 }
 
 .title i {
-    font-size: 32px;
+    font-size: 38px;
+}
+.title h2 {
+    font-size: 21px;
+    font-weight: 600;
+    padding-top: 14px;
+}
+.btn-css {
+    display: flex;
+    flex-direction: row;
+}
+.form-sec img {
+    width: 196px;
+    margin: 0px auto;
+}
+#submit-btn {
+    background: #398512;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+form#ManagerRegistration {
+    padding: 10px;
+}
+form#create-prod {
+    padding: 10px;
 }

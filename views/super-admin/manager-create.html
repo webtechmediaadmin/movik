@@ -35,15 +35,18 @@
         <!-- Side Navigation Bar -->
         <div id="sideNav">
             <button class="closeBtn">&times;</button>
+            <img src="../images/heading-logo.png" alt="">
             <ul>
                 <li><i class="fas fa-home"></i><a href="./home.html">Home</a></li>
                 <li><i class="fas fa-user"></i> <a href="./admin-create.html">Create Admin</a></li>
+                <li><i class="fas fa-user"></i> <a href="./view-admin.html">View Admin</a></li>
                 <li><i class="fas fa-user-cog"></i> <a href="./manager-create.html">Create Manager</a></li>
                 <li><i class="fas fa-eye"></i> <a href="./manager-view.html">View Manager</a></li>
                 <li><i class="fab fa-salesforce"></i><a href="./view-sales.html">View Sales</a></li>
                 <li><i class="fab fa-first-order-alt"></i><a href="./view-orders.html">View Orders</a></li>
                 <li><i class="fas fa-eye"></i><a href="./product-create.html">Create Product</a></li>
                 <li><i class="fas fa-upload"></i><a href="./product-view.html">View Product</a></li>
+
             </ul>
         </div>
         <!-- MAIN CONTENT OF THE HOME PAGE -->
@@ -59,7 +62,9 @@
         <div class="container form-css mb-3 mt-5">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="title">Manager Registration</div>
+                    <div class="title"><i class="fas fa-lock-open"></i>
+                        <h2>Manager Registration</h2>
+                    </div>
                     <form id="ManagerRegistration">
                         <div class="user__details">
                             <div class="input__box">
@@ -100,7 +105,11 @@
                                 </label>
                             </div>
                         </div>
-                        <button type="submit" id="regi-btn" class="button">Register</button>
+                        <div class="btn-css">
+                            <button type="submit" id="regi-btn" class="button">Register</button>
+                            <button type="submit" id="login-btn" class="button"><a
+                                    href="../index.html">Login</a></button>
+                        </div>
                     </form>
                 </div>
             </div>
