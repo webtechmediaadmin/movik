@@ -34,6 +34,10 @@ const ManagerModel = connection.define('managers', {
             model: AdminModel,
             key: 'id',
         },
+    },
+    deactivatedBySuperAdmin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
     }
 });
 

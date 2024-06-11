@@ -11,7 +11,8 @@ async function DeleteManagerService(id) {
             }
         }
 
-        await deleteManagerDetails.destroy();
+        deleteManagerDetails.deactivatedBySuperAdmin = !deleteManagerDetails.deactivatedBySuperAdmin;
+        await deleteManagerDetails.save();
 
         return {
             status: true,

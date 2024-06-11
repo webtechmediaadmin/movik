@@ -3,6 +3,7 @@ const DeleteProductsService = require("../services/products/DeleteProduct.servic
 const EditProductsService = require("../services/products/EditProduct.service");
 const GetProductsService = require("../services/products/GetProducts.service");
 const multer = require('multer');
+const StatusChangeService = require("../services/products/StatusChanger.service");
 
 const upload = multer({
     storage: multer.diskStorage({
@@ -18,8 +19,8 @@ const upload = multer({
 
 async function GetProductController(req, res) {
     try {
-        const { id, slug } = req.query;
-        const fetchProduct = await GetProductsService(id, slug);
+        const { id, slug, status } = req.query;
+        const fetchProduct = await GetProductsService(id, slug, status);
 
         return res.status(fetchProduct.status ? 200 : 404).json({
             status: fetchProduct.status,
@@ -105,5 +106,24 @@ async function DeleteProductController(req, res) {
     }
 }
 
+async function StatusChangeController(req, res) {
+    try {
+        const id = req.params.id;
 
-module.exports = { GetProductController, CreateProductController, EditProductController, DeleteProductController, upload };
+        const statusChanger = await StatusChangeService(id);
+
+        return res.status(statusChanger.status ? 200 : 404).json({
+            status: statusChanger.status,
+            message: statusChanger.message
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+
+module.exports = { GetProductController, CreateProductController, EditProductController, DeleteProductController, StatusChangeController, upload };

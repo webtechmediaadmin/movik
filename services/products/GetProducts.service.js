@@ -1,6 +1,6 @@
 const ProductModel = require("../../models/product.model");
 
-async function GetProductsService(id, slug) {
+async function GetProductsService(id, slug, status) {
     try {
         let whereClause = {};
 
@@ -10,6 +10,10 @@ async function GetProductsService(id, slug) {
 
         if (slug) {
             whereClause.slug = slug;
+        }
+
+        if (status) {
+            whereClause.status = status;
         }
 
         const productList = await ProductModel.findAll({

@@ -130,10 +130,14 @@
                                                     if (data.status == false) {
                                                         alert(data.message);
                                                     } else {
-                                                        sessionStorage.setItem("token", data.token);
-                                                        sessionStorage.setItem("role", data.data.role);
-                                                        window.location.href =
-                                                            "./manager/manager-home.html";
+                                                        if (data.data.deactivatedBySuperAdmin == true) {
+                                                            alert("Your account has been deactivated!")
+                                                        } else {
+                                                            sessionStorage.setItem("token", data.token);
+                                                            sessionStorage.setItem("role", data.data.role);
+                                                            window.location.href =
+                                                                "./manager/manager-home.html";
+                                                        }
                                                     }
                                                 });
                                         }
