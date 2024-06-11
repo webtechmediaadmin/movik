@@ -22,8 +22,12 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick" onclick="logout()">
-                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            <div id="imageClick" class="dropdown" onclick="logout()">
+                <img id="profileImg" class="dropbtn" src="../images/avatar5.png.crdownload" alt="Profile Image" />
+                <div class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                  </div>
             </div>
         </div>
         <!-- <div id="hiddenFeatures">
@@ -52,20 +56,20 @@
     <div id="content">
         <div class="row data-box">
             <div class="col-lg-3 col-md-3 col-sm-12">
-                <div id="totalOrdersBox">
+                <div id="totalOrdersBox" class="mg-box">
                     <i class="fas fa-cart-arrow-down"></i>
                     <h3>Total Orders Received</h3>
-                    <div class="data-box">
+                    <div class="data">
                     <h4 id="totalOrders"></h4>
                     <i class="fas fa-sort-up"></i>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12">
-                <div id="totalSalesBox">
+                <div id="totalSalesBox" class="mg-box">
                     <i class="fas fa-chart-line"></i>
                     <h3>Total Sales Received</h3>
-                    <div class="data-box">
+                    <div class="data">
                     <h4 id="totalSales"></h4>
                     <i class="fas fa-sort-up"></i>
                     </div>
@@ -73,10 +77,10 @@
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12">
-                <div id="totalSalesAmount">
+                <div id="totalSalesAmount" class="mg-box">
                     <i class="fas fa-rupee-sign"></i>
                     <h3>Total Amount Sales</h3>
-                    <div class="data-box">
+                    <div class="data">
                     <h4 id="totalSalesDigits"></h4>
                     <i class="fas fa-sort-up"></i>
                     </div>
@@ -84,10 +88,10 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12">
-                <div id="totalSalesAmountInLastMonth">
+                <div id="totalSalesAmountInLastMonth" class="mg-box">
                     <i class="fas fa-sort-amount-up"></i>
-                    <div class="data-box">
-                    <h3>Total Amount Sales In Last Month</h3>
+                    <div class="data">
+                    <h3>Total Amt Sales In Last Month</h3>
                     <h4 id="totalSalesDigitsInLastMonth"></h4>
                     <i class="fas fa-sort-up"></i>
                     </div>

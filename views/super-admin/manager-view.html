@@ -123,7 +123,7 @@
                     <th scope="col">Email Id</th>
                     <th scope="col">Role</th>
                     <th scope="col">Deactivated</th>
-                    <th scope="col">Actions</th>
+                    <th colspan="2" scope="col">Actions</th>
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
@@ -174,9 +174,8 @@
                              </label>
                          </td>
                           <td data-label="Actions">
-                            <button type="button"  class="btn btn-success btns" onClick="editData('${mgData.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
-                            
-                            <button type="button" onClick="checkHistory('${mgData.id}')" class="btn btn-danger btns" id="">View More</button>
+                            <button type="button" class="btn btn-success btns" onClick="editData('${mgData.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
+                            <button type="button" onClick="checkHistory('${mgData.id}')" class="btn btn-danger btns" id="deleteBtn">View More</button>
                         </td>
                     `;
 

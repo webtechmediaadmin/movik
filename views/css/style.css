@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
+
 * {
     padding: 0px;
     margin: 0px;
@@ -308,9 +310,9 @@ form .button input:hover {
         font-size: 27px;
     }
 
-    #sideNav {
+    /* #sideNav {
         width: 0px !important;
-    }
+    } */
 
     /* element.style {
         transition: margin-left 0.5s ease 0s;
@@ -356,7 +358,8 @@ form .button input:hover {
     font-family: system-ui;
     color: white;
     display: block;
-    font-size: 16px;
+    font-family: "Mukta", sans-serif;
+    font-size: 17px;
     transition: 0.5s;
 }
 
@@ -392,11 +395,11 @@ form .button input:hover {
 }
 
 #profileImg {
-    width: 69px;
-    height: 61px;
-    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    border-radius: 9%;
     object-fit: cover;
-    box-shadow: 0px -2px 15px 3px #f2efef;
+    border-radius: 50%;
     padding: 6px;
 }
 
@@ -477,6 +480,7 @@ table th {
     text-align: left;
     text-transform: capitalize;
     font-size: 18px;
+    background: #d9edf7;
     font-weight: 600;
     font-family: system-ui;
 }
@@ -616,57 +620,57 @@ table {
     padding: 0px 40px 40px 40px;
 }
 
-#totalOrdersBox,
-#totalSalesBox,
-#totalSalesAmount{
+.mg-box {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 10px;
     border-radius: 2px;
     background-color: #009688;
     position: relative;
+    height: 19vh;
+    width:300px;
 }
 
-#totalOrdersBox,
-#totalSalesBox,
-#totalSalesAmount,
-#totalSalesDigits i {
+.mg-box i {
     color: white;
     padding: 9px 8px;
-    font-size: 24px;
+    font-size: 29px;
+}
+.data i {
+    position: absolute;
+    top: 26px;
+    right: 0;
 }
 
-#totalOrders,
-#totalSales,
-#totalSalesDigits {
-    /* position: absolute; */
-    top: 6px;
-    right: 20px;
-    font-size: 20px;
-}
-
-#totalSalesAmountInLastMonth {
-    padding: 15px 10px;
-    background: #368e06;
-    border-radius: 6px;
-}
-
-#totalSalesAmountInLastMonth h3 {
-    font-size: 22px;
+#totalSalesAmountInLastMonth i {
     color: white;
+    padding: 9px 8px;
+    font-size: 29px;
+    box-shadow: 2px 5px 10px #808080ad;
+}
+#totalSalesAmountInLastMonth {
+    border-radius: 2px;
+    background-color: #009688;
+    position: relative;
+    height: 19vh;
+    padding: 2px 8px;
 }
 
 div#totalSalesAmountInLastMonth h4 {
     color: white;
-    text-decoration: underline;
-    font-size: 25px;
+    /* text-decoration: underline; */
+    font-size: 24px;
     padding-top: 13px;
+    position: absolute;
+    right: 27px;
+    top: 10px;
 }
 
 .data-box h3 {
     font-size: 24px;
-    font-family: system-ui;
+    font-family: 'Mukta';
     color: white;
-    font-weight: 600;
+    font-weight: 500;
+    padding-top: 12px;
 }
 
 tr.responsive-table__row td {
@@ -680,6 +684,7 @@ button#editBtn,
     font-size: 15px;
     /* padding: 8px 26px; */
     font-family: monospace;
+    margin-left: 10px;
 }
 
 .form-css {
@@ -689,7 +694,7 @@ button#editBtn,
 
 .data-box {
     display: flex;
-    padding-top: 22vh;
+    padding-top: 7%;
     justify-content: flex-end;
     align-items: flex-end;
 }
@@ -710,3 +715,66 @@ select#productID {
     width: 200px;
     padding-left: 17px;
 }
+.data {
+    display: flex;
+    align-items: flex-end;
+}
+h4#totalSalesDigits {
+    position: absolute;
+    top: 24px;
+    right: 23px;
+    color: white;
+    font-size: 23px;
+}
+h4#totalSales, h4#totalOrders {
+    position: absolute;
+    top: 21px;
+    right: 29px;
+    color: white;
+    font-size: 26px;
+}
+button#deleteBtn {
+    position: absolute;
+}
+
+
+.dropbtn {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    width: 142px;
+    top: 68px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: -15px;
+    border-radius: 3px;
+
+}
+  
+  .dropdown-content a {
+    color: black;
+    padding: 6px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}
+  
