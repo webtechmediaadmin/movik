@@ -99,8 +99,9 @@ form button:hover {
 }
 
 form label {
-    font-size: 0.9em;
+    font-size: 17px;
     color: var(--text2);
+    font-family: inherit;
 }
 
 .container-2 {
@@ -110,7 +111,9 @@ form label {
     display: flex;
     flex-direction: column;
     gap: var(--spacing3);
-    min-width: max(400px, 50vw);
+    width: 64%;
+    margin: 0px auto;
+    border-radius: 2px;
 }
 
 .pen-description {
@@ -131,10 +134,10 @@ form label {
 /* navbar-css */
 
 .form-sec {
-    padding: 200px 0px;
+    padding: 0px 0px;
     /* background: red; */
     width: 50%;
-    margin: 0px auto;
+    margin: 40px auto;
 }
 
 .navbar-container input[type="checkbox"] {
@@ -151,7 +154,7 @@ h1.logo img {
 
 .form-sec h3 {
     color: white;
-    font-size: 42px;
+    font-size: 36px;
     font-weight: 500;
     font-family: system-ui;
 }
@@ -305,11 +308,15 @@ form .button input:hover {
         font-size: 27px;
     }
 
-    element.style {
+    #sideNav {
+        width: 0px !important;
+    }
+
+    /* element.style {
         transition: margin-left 0.5s ease 0s;
         margin-left: 0%;
         width: 100%;
-    }
+    } */
 
     #content {
         padding: 0px 14px 40px 15px !important;
@@ -619,7 +626,6 @@ table {
 
 #totalSalesAmountInLastMonth {
     padding: 15px 10px;
-    height: 21vh;
     background: #368e06;
     border-radius: 6px;
 }
@@ -667,6 +673,7 @@ button#editBtn,
     padding-top: 22vh;
     justify-content: space-between;
 }
+
 select#productID {
     width: 100%;
     padding: 9px;
@@ -674,3 +681,7 @@ select#productID {
     border-radius: 3px;
 }
 
+.login-img {
+    margin: 0px auto;
+    width: 175px;
+}

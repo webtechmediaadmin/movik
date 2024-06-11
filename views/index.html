@@ -43,10 +43,12 @@
     <div id="main-content" style="display: none">
         <!-- Your main content goes here -->
         <div class="form-sec">
+            <img src="images/movik-logo.png" alt="" class="login-img">
             <form class="container-2" id="login-form" novalidate>
+
                 <div>
                     <h3>Welcome Back</h3>
-                    <div class="greeting">We're so excited to see you again!</div>
+                    <!-- <div class="greeting">We're so excited to see you again!</div> -->
                 </div>
                 <div>
                     <div>
@@ -120,7 +122,7 @@
                                                     body: JSON.stringify({
                                                         email: username,
                                                         password: pass,
-                                                    }), 
+                                                    }),
                                                 }
                                             )
                                                 .then((res) => res.json())
