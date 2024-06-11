@@ -343,7 +343,7 @@ form .button input:hover {
     left: 0;
     background-color: #000;
     overflow-x: hidden;
-    padding-top: 5%;
+    padding-top: 6%;
     padding-left: 0px;
     transition: 0.5s;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
@@ -353,10 +353,10 @@ form .button input:hover {
 #sideNav a {
     padding: 14px 11px;
     text-decoration: none;
-    /* font-size: 25px; */
+    font-family: system-ui;
     color: white;
     display: block;
-    font-size: 17px;
+    font-size: 16px;
     transition: 0.5s;
 }
 
@@ -618,10 +618,30 @@ table {
 
 #totalOrdersBox,
 #totalSalesBox,
-#totalSalesAmount {
+#totalSalesAmount{
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 10px;
     border-radius: 2px;
+    background-color: #009688;
+    position: relative;
+}
+
+#totalOrdersBox,
+#totalSalesBox,
+#totalSalesAmount,
+#totalSalesDigits i {
+    color: white;
+    padding: 9px 8px;
+    font-size: 24px;
+}
+
+#totalOrders,
+#totalSales,
+#totalSalesDigits {
+    /* position: absolute; */
+    top: 6px;
+    right: 20px;
+    font-size: 20px;
 }
 
 #totalSalesAmountInLastMonth {
@@ -645,9 +665,8 @@ div#totalSalesAmountInLastMonth h4 {
 .data-box h3 {
     font-size: 24px;
     font-family: system-ui;
-    color: #368f06;
+    color: white;
     font-weight: 600;
-    text-shadow: -1px 1px 2px #0b0b0be6;
 }
 
 tr.responsive-table__row td {
@@ -671,7 +690,8 @@ button#editBtn,
 .data-box {
     display: flex;
     padding-top: 22vh;
-    justify-content: space-between;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 select#productID {
@@ -684,4 +704,9 @@ select#productID {
 .login-img {
     margin: 0px auto;
     width: 175px;
+}
+
+#sideNav img {
+    width: 200px;
+    padding-left: 17px;
 }
