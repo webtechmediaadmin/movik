@@ -35,6 +35,10 @@ const ManagerModel = connection.define('managers', {
             key: 'id',
         },
     },
+    managerPhoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     deactivatedBySuperAdmin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,

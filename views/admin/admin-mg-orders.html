@@ -61,7 +61,8 @@
                     <th class="responsive-table__head__title responsive-table__head__title--update">Date</th>
                     <th class="responsive-table__head__title responsive-table__head__title--update">Address</th>
                     <th class="responsive-table__head__title responsive-table__head__title--country">Quantity</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--types">Total Price</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--types">Status</th>
+                    <th class="responsive-table__head__title responsive-table__head__title--types">Actions</th>
                     <!-- <th rowspan="2" class="responsive-table__head__title responsive-table__head__title--country">Dealers
                     </th> -->
                 </tr>
@@ -100,7 +101,8 @@
                         <td class="responsive-table__body__text responsive-table__body__text--update">${mgOrders.date}</td>
                         <td class="responsive-table__body__text responsive-table__body__text--types">${mgOrders.manager.address}</td>
                         <td class="responsive-table__body__text responsive-table__body__text--update">${mgOrders.quantity}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--update">${mgOrders.totalPrice}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">${mgOrders.status}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update"><button>Edit Order Status</button></td>
                     `;
 
                     mgOrdersData.appendChild(row);

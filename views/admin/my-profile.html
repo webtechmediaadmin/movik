@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-item {
+            margin-bottom: 15px;
+        }
+
+        .profile-item label {
+            font-weight: bold;
+            display: block;
+        }
+
+        .profile-item span {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .profile-image {
+            max-width: 100px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>My Profile</h1>
+        <div class="profile-item">
+            <label for="name">Name:</label>
+            <span id="name"></span>
+        </div>
+        <div class="profile-item">
+            <label for="email">Email:</label>
+            <span id="email"></span>
+        </div>
+        <div class="profile-item">
+            <label for="role">Role:</label>
+            <span id="role"></span>
+        </div>
+        <div class="profile-item">
+            <label for="image">Profile Image:</label>
+            <img id="image" class="profile-image" alt="Profile Image" />
+        </div>
+    </div>
+    <script src="../js/istocken.js"></script>
+    <script>
+        async function fetchProfile() {
+            try {
+                let response = await fetch("http://localhost:9000/api/admin/my-profile", {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                let data = await response.json();
+                console.log(data);
+                document.getElementById('name').textContent = data.data.name || "N/A";
+                document.getElementById('email').textContent = data.data.email || "N/A";
+                document.getElementById('role').textContent = data.data.role || "N/A";
+                // document.getElementById('address').textContent = data.data.address || "N/A";
+                // document.getElementById('adminName').textContent = data.data.admin.name || "N/A";
+                document.getElementById('image').src = data.data.image || "https://th.bing.com/th/id/OIP.kUxY3nn_Tig7j9T92rsFJQHaF6?w=860&h=686&rs=1&pid=ImgDetMain"; // default image if none provided
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                alert('Error fetching profile. Please try again');
+            }
+        }
+
+        fetchProfile();
+    </script>
+
+</html>

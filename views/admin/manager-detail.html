@@ -161,7 +161,7 @@
                             manager.image ||
                             "https://th.bing.com/th/id/OIP.kUxY3nn_Tig7j9T92rsFJQHaF6?w=860&h=686&rs=1&pid=ImgDetMain";
                         managerEmail.innerText = manager.email;
-                        managerNumber.innerText = manager.phoneNumber;
+                        managerNumber.innerText = manager.managerPhoneNumber == null ? "Not Provided Yet" : manager.managerPhoneNumber;
                         managerRole.innerText = manager.role;
                         managerAdminName.innerText = manager.admin ? manager.admin.name : "Admin Name is not provided";
                     } else {
@@ -227,7 +227,7 @@
                                 <td>${sale.buyerName}</td>
                                 <td>${sale.buyerName}</td>
                                 <td>${sale.buyerAddress}</td>
-                                <td>${sale.totalAmount}</td>
+                                <td>${sale.totalPrice}</td>
                                 <td>${new Date(sale.date).toLocaleDateString()}</td>
                             `;
                             salesTableBody.appendChild(row);

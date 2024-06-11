@@ -55,7 +55,8 @@
             margin-bottom: 20px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px;
             border: 1px solid #ddd;
             text-align: left;
@@ -78,7 +79,6 @@
             text-align: center;
             font-style: italic;
         }
-
     </style>
 </head>
 
@@ -154,6 +154,7 @@
             })
                 .then((res) => res.json())
                 .then((data) => {
+                    console.log(data);
                     if (data.data && data.data[0]) {
                         let manager = data.data[0];
                         managerName.innerText = manager.name;
@@ -161,9 +162,14 @@
                             manager.image ||
                             "https://th.bing.com/th/id/OIP.kUxY3nn_Tig7j9T92rsFJQHaF6?w=860&h=686&rs=1&pid=ImgDetMain";
                         managerEmail.innerText = manager.email;
-                        managerNumber.innerText = manager.phoneNumber;
+                        managerNumber.innerText =
+                            manager.managerPhoneNumber == null
+                                ? "Not Provided Yet"
+                                : manager.managerPhoneNumber;
                         managerRole.innerText = manager.role;
-                        managerAdminName.innerText = manager.admin ? manager.admin.name : "Admin Name is not provided";
+                        managerAdminName.innerText = manager.admin.name == null
+                            ? "Admin Name is not provided"
+                            : manager.admin.name;
                     } else {
                         console.error(
                             "Manager data is not in the expected format:",
@@ -177,50 +183,58 @@
         }
 
         function getLastOrders() {
-            fetch(`http://localhost:9000/api/orders/get-orders/?managerID=${managerID}`, {
-                headers: {
-                    Authorization: `Bearer ${sessionToken}`,
-                },
-            })
+            fetch(
+                `http://localhost:9000/api/orders/get-orders/?managerID=${managerID}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${sessionToken}`,
+                    },
+                }
+            )
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.data && data.data.length > 0) {
-                        data.data.forEach(order => {
-                            let row = document.createElement('tr');
+                        data.data.forEach((order) => {
+                            let row = document.createElement("tr");
                             row.innerHTML = `
                                 <td>${order.product.name}</td>
                                 <td>${order.quantity}</td>
                                 <td>${order.status}</td>
-                                <td>${new Date(order.date).toLocaleDateString()}</td>
+                                <td>${new Date(
+                                order.date
+                            ).toLocaleDateString()}</td>
                             `;
                             ordersTableBody.appendChild(row);
                         });
                     } else {
-                        let row = document.createElement('tr');
+                        let row = document.createElement("tr");
                         row.innerHTML = `<td colspan="4">No data available</td>`;
                         ordersTableBody.appendChild(row);
                     }
                 })
                 .catch((error) => {
                     console.error("Error fetching orders data:", error);
-                    let row = document.createElement('tr');
+                    let row = document.createElement("tr");
                     row.innerHTML = `<td colspan="4">No data available</td>`;
                     ordersTableBody.appendChild(row);
                 });
         }
 
         function getLastSales() {
-            fetch(`http://localhost:9000/api/sales/get-sales/?managerID=${managerID}`, {
-                headers: {
-                    Authorization: `Bearer ${sessionToken}`,
-                },
-            })
+            fetch(
+                `http://localhost:9000/api/sales/get-sales/?managerID=${managerID}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${sessionToken}`,
+                    },
+                }
+            )
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data)
+                    console.log(data);
                     if (data.data && data.data.length > 0) {
-                        data.data.forEach(sale => {
-                            let row = document.createElement('tr');
+                        data.data.forEach((sale) => {
+                            let row = document.createElement("tr");
                             row.innerHTML = `
                                 <td>${sale.product.name}</td>
                                 <td>${sale.quantity}</td>
@@ -228,19 +242,21 @@
                                 <td>${sale.buyerName}</td>
                                 <td>${sale.buyerAddress}</td>
                                 <td>${sale.totalPrice}</td>
-                                <td>${new Date(sale.date).toLocaleDateString()}</td>
+                                <td>${new Date(
+                                sale.date
+                            ).toLocaleDateString()}</td>
                             `;
                             salesTableBody.appendChild(row);
                         });
                     } else {
-                        let row = document.createElement('tr');
+                        let row = document.createElement("tr");
                         row.innerHTML = `<td colspan="7">No data available</td>`;
                         salesTableBody.appendChild(row);
                     }
                 })
                 .catch((error) => {
                     console.error("Error fetching sales data:", error);
-                    let row = document.createElement('tr');
+                    let row = document.createElement("tr");
                     row.innerHTML = `<td colspan="6">No data available</td>`;
                     salesTableBody.appendChild(row);
                 });
