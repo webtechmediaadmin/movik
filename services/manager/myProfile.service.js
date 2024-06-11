@@ -1,8 +1,9 @@
 const ManagerModel = require("../../models/manager.model");
+const AdminModel = require("../../models/admin.model");
 
 async function GetMyProfileService(userID) {
     try {
-        const user = await ManagerModel.findOne({ where: { id: userID } });
+        const user = await ManagerModel.findOne({ where: { id: userID }, include: { model: AdminModel } });
 
         if (!user) {
             return {

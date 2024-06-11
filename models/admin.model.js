@@ -17,6 +17,10 @@ const AdminModel = connection.define('admins', {
     role: {
         type: DataTypes.ENUM("super-admin", "admin"),
         defaultValue: 'admin'
+    },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: true,
     }
 })
 

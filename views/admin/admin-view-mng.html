@@ -12,7 +12,63 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <script src="../js/istocken.js"></script>
 
-    <title>Admin View Manager</title>
+    <title>View Manager</title>
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+        }
+
+        input:checked+.slider {
+            background-color: #2196f3;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #2196f3;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
 </head>
 
 <body>
@@ -52,19 +108,22 @@
     </div>
     </div>
     <div id="content">
-        <table class="responsive-table">
+        <table>
             <!-- Responsive Table Header Section -->
-            <thead class="responsive-table__head">
 
-                <th scope="col">Name</th>
-                <th scope="col">Email Id</th>
-                <th scope="col">Address</th>
-                <th scope="col">Role</th>
-                <th scope="col">Actions</th>
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Email Id</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Deactivated</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
-            <tbody class="responsive-table__body" id="adminView-Mng">
+            <tbody class="responsive-table__body" id="managerBody">
             </tbody>
         </table>
     </div>
@@ -73,7 +132,7 @@
     <script src="../js/navcss.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        async function fetchManagerView() {
+        async function fetchManagerData() {
             try {
                 const response = await fetch("http://localhost:9000/api/manager/specific-manager", {
                     headers: {
@@ -84,37 +143,77 @@
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
-                const mgView = await response.json();
-                const adminViewMng = document.getElementById("adminView-Mng");
+                const mgData = await response.json();
+                const managerBody = document.getElementById("managerBody");
 
-                mgView.data.forEach((mgView, index) => {
-                    console.log(mgView)
+                mgData.data.forEach((mgData, index) => {
+                    console.log(mgData);
                     const row = document.createElement("tr");
+
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                        <td data-label="Id">${mgView.id}</td>
-                        <td data-label="Name">${mgView.name}</td>
-                        <td data-label="Email">${mgView.email}</td>
-                        <td data-label="Address">${mgView.address}</td>
-                        <td data-label="Role">${mgView.role}</td>
-                        <td data-label="Actions">
-                            <button type="button"  class="btn btn-success" onClick="editData('${mgView.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
-                            <button type="button" onClick="deleteProduct('${mgView.id}')" class="btn btn-danger" id="deleteBtn">Delete</button>
+                          <td data-label="Id">${index + 1}</td>
+
+
+                 <td data-label="Name">${mgData.name}</td>
+                 
+                 
+                 <td data-label="Address">${mgData.address}</td>
+                 <td data-label="Email">${mgData.email}</td>
+
+                         <td data-label="Role">${mgData.role}</td>
+                         <td data-label="Status">
+                             <label class="switch">
+                                 <input type="checkbox" ${mgData.deactivatedBySuperAdmin ? 'checked' : ''} onchange="deleteManager('${mgData.id}', this.checked)">
+                                 <span class="slider round"></span>
+                             </label>
+                         </td>
+                          <td data-label="Actions">
+                            <button type="button"  class="btn btn-success btns" onClick="editData('${mgData.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
+                            
+                            <button type="button" onClick="checkHistory('${mgData.id}')" class="btn btn-danger btns" id="deleteBtn">View More</button>
                         </td>
                     `;
 
-                    row.addEventListener("click", (e) => {
-                        e.preventDefault();
-                        window.location = `./manager-detail.html?token=${sessionToken}&managerID=${mgView.id}`
-                    })
-                    adminViewMng.appendChild(row);
+                    managerBody.appendChild(row);
                 });
             } catch (error) {
                 console.error("There was a problem with the fetch operation:", error);
             }
         }
-        document.addEventListener("DOMContentLoaded", fetchManagerView);
+        function checkHistory(id) {
+            window.location = `./manager-detail.html?token=${sessionToken}&managerID=${id}`
+        }
+
+        async function deleteManager(id) {
+            try {
+                const response = await fetch(`http://localhost:9000/api/manager/delete-manager/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                
+            } catch (error) {
+                console.error("There was a problem with the delete operation:", error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchManagerData);
+
+        
+
+        editForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(editForm);
+            updateCategoryData(formData);
+        });
+        
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
