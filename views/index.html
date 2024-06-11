@@ -15,37 +15,12 @@
         </div>
     </div>
 
-    <!-- navbar-start -->
-    <!-- <nav class="navbar">
-        <div class="navbar-container container">
-            <input type="checkbox" name="" id="">
-            <div class="hamburger-lines">
-                <span class="line line1"></span>
-                <span class="line line2"></span>
-                <span class="line line3"></span>
-            </div>
-            <ul class="menu-items">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Category</a></li>
-                <li><a href="#">Menu</a></li>
-                <li><a href="#">Testimonial</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-            <h1 class="logo">
-                <img src="images/movik-logo.png" alt="">
-            </h1>
-        </div>
-    </nav> -->
-    <!-- navbar-end -->
-
     <!-- Main Content -->
     <div id="main-content" style="display: none">
         <!-- Your main content goes here -->
         <div class="form-sec">
-            <img src="images/movik-logo.png" alt="" class="login-img">
+            <img src="images/movik-logo.png" alt="" class="login-img" />
             <form class="container-2" id="login-form" novalidate>
-
                 <div>
                     <h3>Welcome Back</h3>
                     <!-- <div class="greeting">We're so excited to see you again!</div> -->
@@ -82,83 +57,66 @@
             }, 2000); // Simulate a 2-second loading time
         });
 
-        function loginpanel() {
-            let username = document.getElementById("username").value;
-            let pass = document.getElementById("password").value;
+        async function loginpanel() {
+            const username = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
 
-            fetch("http://localhost:9000/api/super-admin-login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email: username, password: pass }),
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    if (data.status == false) {
-                        if (data.message == "Wrong Credentials") {
-                            alert(data.message);
-                        } else {
-                            fetch("http://localhost:9000/api/admin/login-admin", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({ email: username, password: pass }),
-                            })
-                                .then((res) => res.json())
-                                .then((data) => {
-                                    if (data.status == false) {
-                                        if (data.message == "Wrong Credentials") {
-                                            alert(data.message);
-                                        } else {
-                                            fetch(
-                                                "http://localhost:9000/api/manager/login-manager",
-                                                {
-                                                    method: "POST",
-                                                    headers: {
-                                                        "Content-Type": "application/json",
-                                                    },
-                                                    body: JSON.stringify({
-                                                        email: username,
-                                                        password: pass,
-                                                    }),
-                                                }
-                                            )
-                                                .then((res) => res.json())
-                                                .then((data) => {
-                                                    if (data.status == false) {
-                                                        alert(data.message);
-                                                    } else {
-                                                        if (data.data.deactivatedBySuperAdmin == true) {
-                                                            alert("Your account has been deactivated!")
-                                                        } else {
-                                                            sessionStorage.setItem("token", data.token);
-                                                            sessionStorage.setItem("role", data.data.role);
-                                                            window.location.href =
-                                                                "./manager/manager-home.html";
-                                                        }
-                                                    }
-                                                });
-                                        }
-                                    } else {
-                                        sessionStorage.setItem("token", data.token);
-                                        sessionStorage.setItem("role", data.data.role);
-                                        window.location.href = "/admin/admin-home.html";
-                                    }
-                                });
-                        }
-                    } else {
-                        sessionStorage.setItem("token", data.token);
-                        sessionStorage.setItem("role", data.data.role);
-                        window.location.href = "./super-admin/home.html";
-                    }
+            const loginRequest = async (url) => {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email: username, password: pass }),
                 });
+                return response.json();
+            };
+
+            let data = await loginRequest("http://localhost:9000/api/super-admin-login");
+
+            if (data.status === false) {
+                if (data.message === "Wrong Credentials") {
+                    alert(data.message);
+                    return;
+                } else {
+                    data = await loginRequest("http://localhost:9000/api/admin/login-admin");
+
+                    if (data.status === false) {
+                        if (data.message === "Wrong Credentials") {
+                            alert(data.message);
+                            return;
+                        } else {
+                            data = await loginRequest("http://localhost:9000/api/manager/login-manager");
+
+                            if (data.status === false) {
+                                alert(data.message);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (data.data.deactivatedBySuperAdmin) {
+                alert("Your account has been deactivated!");
+            } else {
+                sessionStorage.setItem("token", data.token);
+                sessionStorage.setItem("role", data.data.role);
+                // Redirect to another page or show logged-in content here
+                // Redirect based on role
+                if (data.data.role === "super-admin") {
+                    window.location.href = "./super-admin/home.html";
+                } else if (data.data.role === "admin") {
+                    window.location.href = "./admin/admin-home.html";
+                } else if (data.data.role === "dealer" || data.data.role === "distributor") {
+                    window.location.href = "./manager/manager-home.html";
+                }
+            }
         }
 
-        document.getElementById("login-form").addEventListener("submit", (e) => {
+        document.getElementById("login-form").addEventListener("submit", async (e) => {
             e.preventDefault();
-            loginpanel();
+            await loginpanel();
         });
     </script>
 
