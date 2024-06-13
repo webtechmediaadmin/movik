@@ -13,6 +13,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="../js/istocken.js"></script>
     <title>Create Products</title>
+    <style>
+        .input__box input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #f9f9f9;
+        }
+
+        @media (max-width: 667px) {
+            .input__box input[type="file"] {
+                display: flex;
+                font-size: 16px;
+                padding: 10px;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 
 <body style="background: linear-gradient(135deg, #71b7e6, #9b59b6)">
@@ -78,7 +98,7 @@
                                 <input type="file" name="image" id="img" accept="image/*" required />
                             </div>
                         </div>
-                        <button type="submit" id="regi-btn" class="button">Submit</button>
+                        <button type="submit" id="regi-btn" class="button btn_d">Submit</button>
                     </form>
                 </div>
             </div>

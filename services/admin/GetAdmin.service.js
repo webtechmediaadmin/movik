@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const AdminModel = require("../../models/admin.model");
 
 async function GetAdminService(id) {
@@ -8,6 +9,7 @@ async function GetAdminService(id) {
             whereClause.id = id;
         }
 
+        whereClause.role = { [Op.ne]: "super-admin" };
 
         const adminList = await AdminModel.findAll({
             where: whereClause
@@ -26,6 +28,5 @@ async function GetAdminService(id) {
         };
     }
 }
-
 
 module.exports = GetAdminService;

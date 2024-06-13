@@ -11,7 +11,8 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <script src="../js/istocken.js"></script>
-    <title>Admin Manager Orders</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert -->
+    <title>View Orders</title>
 </head>
 
 <body>
@@ -23,7 +24,8 @@
                 <h1 id="welcomeName"></h1>
             </div>
             <div id="imageClick">
-                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png" alt="Profile Image" />
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png"
+                    alt="Profile Image" />
                 <div id="dropdownContent" class="dropdown-content">
                     <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
                     <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
@@ -39,83 +41,158 @@
             <button class="closeBtn">&times;</button>
             <ul>
                 <!-- <li><i class="fas fa-home"></i><a href="./admin-home.html">Home</a></li> -->
-                <li><i class="fas fa-user-cog"></i> <a href="manager-create.html">Create Manager</a></li>
+                <li><i class="fas fa-user-cog"></i> <a href="./manager-create.html">Create Manager</a></li>
                 <li><i class="fas fa-eye"></i><a href="./admin-view-mng.html">View Manager</a></li>
                 <li><i class="fab fa-salesforce"></i><a href="./admin-mg-sales.html">View Sales</a></li>
                 <li><i class="fab fa-first-order-alt"></i><a href="./admin-mg-orders.html">View Orders</a></li>
             </ul>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Data From Here</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="mb-2">
+                            <label for="edit-status" class="form-label">Status</label>
+                            <select id="edit-status" class="form-control">
+                                <option value="">Choose Current Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="in-transit">In-transit</option>
+                                <option value="cancelled">Cancelled</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="content">
         <table class="responsive-table">
             <!-- Responsive Table Header Section -->
-            <thead class="responsive-table__head">
-                <tr class="responsive-table__row table-grid">
-                    <th class="responsive-table__head__title responsive-table__head__title--name">Id
-                        <svg version="1.1" class="up-arrow" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
-                            style="enable-background:new 0 0 512 512;" xml:space="preserve">
-                            <path
-                                d="M374.176,110.386l-104-104.504c-0.006-0.006-0.013-0.011-0.019-0.018c-7.818-7.832-20.522-7.807-28.314,0.002c-0.006,0.006-0.013,0.011-0.019,0.018l-104,104.504c-7.791,7.829-7.762,20.493,0.068,28.285    c7.829,7.792,20.492,7.762,28.284-0.067L236,68.442V492c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20V68.442l69.824,70.162c7.792,7.829,20.455,7.859,28.284,0.067C381.939,130.878,381.966,118.214,374.176,110.386z" />
-                        </svg>
-                    </th>
-                    <th class="responsive-table__head__title responsive-table__head__title--status">Product Name</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--update">Date</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--update">Address</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--country">Quantity</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--types">Status</th>
-                    <th class="responsive-table__head__title responsive-table__head__title--types">Actions</th>
-                    <!-- <th rowspan="2" class="responsive-table__head__title responsive-table__head__title--country">Dealers
-                    </th> -->
+            <thead>
+                <tr>
+                    <th scope="col">Dealer/Distributor</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
-            <tbody class="responsive-table__body" id="mgOrdersData">
+            <tbody class="responsive-table__body" id="orderData">
             </tbody>
         </table>
     </div>
-    </div>
 
     <script>
-        async function fetchMgSales() {
+        // const sessionToken = "your-session-token"; // Replace with your actual session token
+        let currentEditId = null;
+
+        async function fetchOrders() {
             try {
-                const response = await fetch("http://localhost:9000/api/orders/as-per-admin", {
+                const res = await fetch("http://localhost:9000/api/orders/as-per-admin", {
                     headers: {
                         'Authorization': `Bearer ${sessionToken}`,
                         'Content-Type': 'application/json'
                     }
                 });
-                if (!response.ok) {
+                if (!res.ok) {
                     throw new Error("Network response was not ok");
                 }
-                const mgOrders = await response.json();
-                console.log(mgOrders);
-                const mgOrdersData = document.getElementById("mgOrdersData");
+                const orders = await res.json();
+                const orderData = document.getElementById("orderData");
 
-                mgOrders.data.forEach((mgOrders, index) => {
-                    console.log(mgOrders)
+                orders.data.forEach((order) => {
                     const row = document.createElement("tr");
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                        <td class="responsive-table__body__text responsive-table__body__text--name">${mgOrders.id}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--status">${mgOrders.product.name}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--update">${mgOrders.date}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--types">${mgOrders.manager.address}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--update">${mgOrders.quantity}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--update">${mgOrders.status}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--update"><button>Edit Order Status</button></td>
+                        <td data-label="Dealer/Distributor">${order.manager.name}</td>
+                        <td data-label="Product Name">${order.product.name}</td>
+                        <td data-label="Date">${order.date}</td>
+                        <td data-label="Quantity">${order.quantity}</td>
+                        <td data-label="Status">${order.status}</td>
+                        <td class="responsive-table__body__text responsive-table__body__text--update">
+                            <button class="btnn-1" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="editData('${order.id}')">Edit Order Status</button>
+                        </td>
                     `;
 
-                    mgOrdersData.appendChild(row);
+                    orderData.appendChild(row);
                 });
             } catch (error) {
                 console.error("There was a problem with the fetch operation:", error);
             }
         }
-        document.addEventListener("DOMContentLoaded", fetchMgSales);
+
+        function editData(id) {
+            currentEditId = id;
+            fetch(`http://localhost:9000/api/orders/get-orders?id=${id}`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${sessionToken}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    const order = data.data[0];
+                    document.getElementById("edit-status").value = order.status;
+                })
+                .catch((error) => console.error('Error fetching order data:', error));
+        }
+
+        async function updateData(event) {
+            event.preventDefault();
+            const status = document.getElementById("edit-status").value;
+
+            const obj = { status };
+
+            try {
+                const res = await fetch(`http://localhost:9000/api/orders/order-update/${currentEditId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionToken}`
+                    },
+                    body: JSON.stringify(obj)
+                });
+                const data = await res.json();
+
+                if (data.status) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Updated successfully!',
+                        text: 'Order Updated successfully!',
+                    }).then(() => location.reload());
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error in Order Update!',
+                        text: 'Error in Order Update!',
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error in Order Update!',
+                    text: 'An error occurred while updating the order.',
+                });
+                console.error('Error updating order:', error);
+            }
+        }
+
+        document.getElementById("editForm").addEventListener("submit", updateData);
+        document.addEventListener("DOMContentLoaded", fetchOrders);
     </script>
     <script src="../js/script.js"></script>
     <script src="../js/navcss.js"></script>

@@ -1,6 +1,8 @@
 const AdminModel = require("../models/admin.model");
 const GetAdminService = require("../services/admin/GetAdmin.service");
 const CreateAdmin = require("../services/admin/createAdmin.service");
+const EditAdminService = require("../services/admin/editAdmin.service");
+const EditManagerService = require("../services/manager/editManager.service");
 const EditMyProfile = require("../services/super-admin/editMyProfile.service");
 const LoginSuperAdmin = require("../services/super-admin/loginSuperAdmin.service");
 const GetMyProfileService = require("../services/super-admin/myProfile.service");
@@ -149,5 +151,49 @@ async function UpdateProfileDetails(req, res) {
     }
 }
 
+async function UpdateAdminDetails(req, res) {
+    try {
+        const id = req.params.id;
+        const { name, email } = req.body;
 
-module.exports = { RegisterSuperAdminController, LoginSuperAdminController, GetMyProfileController, CreateAdminController, FetchAdminController, UpdateProfileDetails, upload };
+
+        const fetchAdmins = await EditAdminService(id, name, email);
+
+        return res.status(fetchAdmins.status ? 200 : 404).json({
+            status: fetchAdmins.status,
+            message: fetchAdmins.message,
+            data: fetchAdmins.status ? fetchAdmins.data : null
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+async function UpdateManagerDetailsController(req, res) {
+    try {
+        const id = req.params.id;
+        const { name, email, address, managerPhoneNumber } = req.body;
+
+
+        const fetchManager = await EditManagerService(id, name, email, address, managerPhoneNumber);
+
+        return res.status(fetchManager.status ? 200 : 404).json({
+            status: fetchManager.status,
+            message: fetchManager.message,
+            data: fetchManager.status ? fetchManager.data : null
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+
+module.exports = { RegisterSuperAdminController, LoginSuperAdminController, GetMyProfileController, CreateAdminController, FetchAdminController, UpdateProfileDetails, UpdateAdminDetails, UpdateManagerDetailsController, upload };

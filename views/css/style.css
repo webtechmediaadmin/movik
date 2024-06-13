@@ -384,6 +384,9 @@ form .button input:hover {
     #sideNav a {
         padding: 24px 12px !important;
     }
+    .gender_d{
+        margin-top: 163px !important;
+    }
 }
 }
 /* Side Navigation Bar Styles */
@@ -546,7 +549,16 @@ table th {
     flex-wrap: wrap;
 }
 
+.inpit_f{
+    width: 213% !important;
+}
 
+@media (max-width:776px) {
+    .inpit_f{
+        width: 100% !important;
+    }
+    
+}
 
 @media screen and (max-width: 600px) {
     table {
@@ -832,10 +844,15 @@ button#deleteBtn {
 
 @media (max-width: 768px) {
    .btn-left{
-    margin-left: 50px !important;
+    margin-left: 30px !important;
+    font-size: 12px !important;
    }
    .btn-right{
-    margin-left: 20px !important;
+    margin-left: 15px !important;
+    font-size: 12px !important;
+   }
+   .btn_d{
+    margin-top: 51px !important;
    }
 }
 .btn-a{
@@ -921,4 +938,18 @@ form#ManagerRegistration {
 }
 form#create-prod {
     padding: 10px;
+}
+
+/* --------------------------- apna -------------------- */
+
+@media (max-width: 768px) {
+    .btn-b{
+        margin-top: 63px !important;
+    }
+    .manager_m{
+        margin-top: 14px !important;
+    }
+    .role_b{
+        margin-top: 138px !important;
+    }
 }
