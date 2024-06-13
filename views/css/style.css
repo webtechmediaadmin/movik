@@ -119,6 +119,21 @@ form label {
     border-radius: 2px;
 }
 
+@media (max-width: 767px) {
+    .container-2 {
+        background: var(--background2);
+        padding: var(--spacing3);
+        border-radius: var(--spacing2);
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing3);
+        width: 162%;
+        margin: 0px auto;
+        border-radius: 2px;
+        margin-left: -86px;
+    }
+}
+
 .pen-description {
     max-width: min-content;
 }
@@ -314,11 +329,27 @@ form .button input:hover {
 
     .container form .user__details {
         max-height: 300px;
-        overflow-y: scroll;
+        /* overflow-y: scroll; */
     }
 
     .user__details::-webkit-scrollbar {
         width: 0;
+    }
+}
+
+.btn_bb{
+
+    margin-left: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+@media (max-width: 767px) {
+    .min_he{
+        min-height: 683px;
+    }
+    .btn_bb{
+        margin-top: 247px !important;
+        margin-left: 10px !important;
     }
 }
 
@@ -337,9 +368,9 @@ form .button input:hover {
         margin: 21px auto;
     
 
-    /* #sideNav {
-        width: 0px !important;
-    } */
+    /* #sid`eNav { */
+        /* width: 0px !important; */
+    /* } */
 
     #content {
         padding: 0px 14px 40px 15px !important;
@@ -494,10 +525,14 @@ table th,
 table td {
     padding: .625em;
 }
-
+.btnn-1{
+    padding: 5px 5px !important;
+    background-color: #45951a;
+    color: white;
+}
 table th {
     font-size: .85em;
-    letter-spacing: .1em;
+    /* letter-spacing: .1em; */
     text-align: left;
     text-transform: capitalize;
     font-size: 18px;
@@ -505,6 +540,13 @@ table th {
     font-weight: 600;
     font-family: system-ui;
 }
+
+.form_1{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
 
 @media screen and (max-width: 600px) {
     table {
@@ -733,6 +775,7 @@ select#productID {
 .login-img {
     margin: 0px auto;
     width: 175px;
+    display: flex;
 }
 
 #sideNav img {
@@ -763,7 +806,40 @@ h4#totalOrders {
 }
 
 button#deleteBtn {
-    position: absolute;
+    /* position: absolute; */
+    display: flex;
+    width: 150px;
+}
+
+@media (max-width: 767px) {
+    button#deleteBtn {
+        /* position: absolute; */
+        /* display: flex; */
+        width: 114px;
+    }
+    .ma_1{
+        transition: margin-left 0.5s ease 0s;
+        margin-left: -6%;
+        width: 112%;
+        min-height: 530px;
+    }
+}
+
+.btn-1{
+    display: flex;
+    width: 220px;
+}
+
+@media (max-width: 768px) {
+   .btn-left{
+    margin-left: 50px !important;
+   }
+   .btn-right{
+    margin-left: 20px !important;
+   }
+}
+.btn-a{
+    display: flex;
 }
 
 

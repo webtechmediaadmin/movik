@@ -11,6 +11,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <script src="../js/istocken.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>View Orders</title>
 </head>
 
@@ -22,8 +23,13 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick" onclick="logout()">
-                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            <div id="imageClick">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png"
+                    alt="Profile Image" />
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
             </div>
         </div>
         <div id="hiddenFeatures">
@@ -34,37 +40,56 @@
         <div id="sideNav">
             <button class="closeBtn">&times;</button>
             <ul>
-                <li><i class="fas fa-home"></i><a href="./manager-home.html">Home</a></li>
-                <li><i class="fas fa-eye"></i></i> <a href="./order-page.html">Place Order</a></li>
-                <li><i class="fas fa-eye"></i></i> <a href="./view-orders.html">View Orders</a></li>
+                <li><i class="fas fa-eye"></i> <a href="./order-page.html">Place Order</a></li>
+                <li><i class="fas fa-eye"></i> <a href="./view-orders.html">View Orders</a></li>
                 <li><i class="fab fa-salesforce"></i><a href="./sales-page.html">Create Sales</a></li>
                 <li><i class="fab fa-salesforce"></i><a href="./view-sales.html">View Sales</a></li>
-
             </ul>
         </div>
-    </div>
     </div>
 
     <div id="content">
         <table class="responsive-table">
-            <!-- Responsive Table Header Section -->
             <thead>
                 <tr>
                     <th scope="col">Product Name</th>
                     <th scope="col">Date</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Actions</th>
-
                 </tr>
             </thead>
-            <!-- Responsive Table Body Section -->
-            <tbody class="responsive-table__body" id="orderData">
-            </tbody>
+            <tbody class="responsive-table__body" id="orderData"></tbody>
         </table>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Data From Here</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="mb-2">
+                            <label for="edit-product" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="edit-product" disabled>
+                        </div>
+                        <div class="mb-2">
+                            <label for="edit-quantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="edit-quantity" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
+        const token = sessionToken; // Replace with your actual session token
+        let currentEditId = null;
+
         async function fetchOrders() {
             try {
                 const res = await fetch("http://localhost:9000/api/orders", {
@@ -77,30 +102,88 @@
                     throw new Error("Network response was not ok");
                 }
                 const orders = await res.json();
-                console.log(orders);
                 const orderData = document.getElementById("orderData");
 
-                orders.data.forEach((orders, index) => {
-                    console.log(orders)
+                orders.data.forEach((order) => {
                     const row = document.createElement("tr");
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                        <td data-label="Id">${orders.product.name}</td>
-                         <td data-label="Date">${orders.date}</td>
-                        <td data-label="Quantity">${orders.quantity}</td>
-                         <td data-label="Actions">
-                            <button type="button"  class="btn btn-success btns"  data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
+                        <td data-label="Product Name">${order.product.name}</td>
+                        <td data-label="Date">${order.date}</td>
+                        <td data-label="Quantity">${order.quantity}</td>
+                        <td data-label="Actions">
+                            <button type="button" class="btn btn-success btns" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="editData('${order.id}')">Edit</button>
                         </td>
                     `;
-                    
                     orderData.appendChild(row);
                 });
             } catch (error) {
                 console.error("There was a problem with the fetch operation:", error);
             }
         }
-        document.addEventListener("DOMContentLoaded", fetchOrders);
+
+        function editData(id) {
+            currentEditId = id;
+            fetch(`http://localhost:9000/api/orders/get-orders?id=${id}`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${sessionToken}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    document.getElementById("edit-product").value = data.data[0].product.name;
+                    document.getElementById("edit-quantity").value = data.data[0].quantity;
+                })
+                .catch((error) => console.error('Error fetching order data:', error));
+        }
+
+        async function updateData(event) {
+            event.preventDefault();
+            const quantity = document.getElementById("edit-quantity").value;
+
+            const obj = { quantity };
+
+            try {
+                const res = await fetch(`http://localhost:9000/api/orders/edit-orders/${currentEditId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionToken}`
+                    },
+                    body: JSON.stringify(obj)
+                });
+                const data = await res.json();
+
+                if (data.status) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Updated successfully!',
+                        text: 'Order Updated successfully!',
+                    }).then(() => location.reload());
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error in Order Update!',
+                        text: 'Error in Order Update!',
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error in Order Update!',
+                    text: 'An error occurred while updating the order.',
+                });
+                console.error('Error updating order:', error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchOrders();
+            document.getElementById("editForm").addEventListener("submit", updateData);
+        });
     </script>
     <script src="../js/script.js"></script>
     <script src="../js/navcss.js"></script>

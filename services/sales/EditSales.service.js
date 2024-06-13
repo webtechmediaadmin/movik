@@ -1,6 +1,6 @@
 const SalesModel = require("../../models/sales.model");
 
-async function EditSalesService(id, productID, quantity, totalPrice, date) {
+async function EditSalesService(id, productID, quantity, totalPrice, buyerName, buyerPhoneNumber, buyerAddress) {
     try {
         const fetchSalesItem = await SalesModel.findOne({ where: { id: id } });
 
@@ -11,10 +11,15 @@ async function EditSalesService(id, productID, quantity, totalPrice, date) {
             }
         }
 
-        fetchSalesItem.productID = productID;
+        if (productID){
+            fetchSalesItem.productID = productID;
+        }
+
         fetchSalesItem.quantity = quantity;
         fetchSalesItem.totalPrice = totalPrice;
-        fetchSalesItem.date = date;
+        fetchSalesItem.buyerName = buyerName;
+        fetchSalesItem.buyerPhoneNumber = buyerPhoneNumber;
+        fetchSalesItem.buyerAddress = buyerAddress;
 
         await fetchSalesItem.save();
 

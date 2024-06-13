@@ -66,6 +66,8 @@ async function EditProductController(req, res) {
         let id = req.params.id;
 
         let { name, slug, inventoryCount } = req.body;
+        let image;
+        
         if (req.file) {
             image = 'uploads/products/' + req.file.filename;
         }

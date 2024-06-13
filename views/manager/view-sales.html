@@ -11,6 +11,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <script src="../js/istocken.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert -->
     <title>View Orders</title>
 </head>
 
@@ -22,8 +23,13 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick" onclick="logout()">
-                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            <div id="imageClick">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png"
+                    alt="Profile Image" />
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
             </div>
         </div>
         <div id="hiddenFeatures">
@@ -34,12 +40,11 @@
         <div id="sideNav">
             <button class="closeBtn">&times;</button>
             <ul>
-                <li><i class="fas fa-home"></i><a href="./manager-home.html">Home</a></li>
-                <li><i class="fas fa-eye"></i></i> <a href="./order-page.html">Place Order</a></li>
-                <li><i class="fas fa-eye"></i></i> <a href="./view-orders.html">View Orders</a></li>
+                <!-- <li><i class="fas fa-home"></i><a href="./manager-home.html">Home</a></li> -->
+                <li><i class="fas fa-eye"></i> <a href="./order-page.html">Place Order</a></li>
+                <li><i class="fas fa-eye"></i> <a href="./view-orders.html">View Orders</a></li>
                 <li><i class="fab fa-salesforce"></i><a href="./sales-page.html">Create Sales</a></li>
                 <li><i class="fab fa-salesforce"></i><a href="./view-sales.html">View Sales</a></li>
-
             </ul>
         </div>
     </div>
@@ -50,10 +55,12 @@
             <!-- Responsive Table Header Section -->
             <thead>
                 <tr>
-                    <th scope="col">Dealer/Distributor</th>
+                    <!-- <th scope="col">Dealer/Distributor</th> -->
                     <th scope="col">Product Name</th>
-                    <th scope="col">Date</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Buyer Name</th>
+                    <th scope="col">Buyer Phone Number</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -64,7 +71,47 @@
     </div>
     </div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Update Data From Here
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="mb-2">
+                            <label for="edit-quantity" class="form-label">Quantity</label>
+                            <input type="text" class="form-control" id="edit-quantity" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="edit-totalPrice" class="form-label">Total Price</label>
+                            <input type="text" class="form-control" id="edit-totalPrice" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="edit-buyerName" class="form-label">Buyer Name</label>
+                            <input type="text" class="form-control" id="edit-buyerName" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="edit-buyerPhoneNumber" class="form-label">Buyer Phone Number</label>
+                            <input type="text" class="form-control" id="edit-buyerPhoneNumber" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="edit-buyerAddress" class="form-label">Buyer Address</label>
+                            <input type="text" class="form-control" id="edit-buyerAddress" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        let currentEditId = null;
+
         async function fetchSales() {
             try {
                 const res = await fetch("http://localhost:9000/api/sales", {
@@ -77,22 +124,21 @@
                     throw new Error("Network response was not ok");
                 }
                 const sales = await res.json();
-                console.log(sales);
                 const salesData = document.getElementById("orderData");
 
-                sales.data.forEach((sales, index) => {
-                    console.log(sales)
+                sales.data.forEach((sale) => {
                     const row = document.createElement("tr");
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                        <td data-label="Id">${sales.manager.name}</td>
-                        <td data-label="Id">${sales.product.name}</td>
-                         <td data-label="Date">${sales.date}</td>
-                        <td data-label="Quantity">${sales.quantity}</td>
-                        <td data-label="Quantity">
-                               <button type="button"  class="btn btn-success btns"  data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button></td>
-
+                        <td data-label="Product Name">${sale.product.name}</td>
+                        <td data-label="Quantity">${sale.quantity}</td>
+                        <td data-label="Total Price">${sale.totalPrice}</td>
+                        <td data-label="Buyer Name">${sale.buyerName}</td>
+                        <td data-label="Buyer Phone Number">${sale.buyerPhoneNumber}</td>
+                        <td data-label="Actions">
+                            <button type="button" class="btn btn-success btns" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="editData('${sale.id}')">Edit</button>
+                        </td>
                     `;
                     salesData.appendChild(row);
                 });
@@ -100,7 +146,80 @@
                 console.error("There was a problem with the fetch operation:", error);
             }
         }
+
         document.addEventListener("DOMContentLoaded", fetchSales);
+
+        function editData(id) {
+            currentEditId = id;
+            fetch(`http://localhost:9000/api/sales/get-sales?id=${id}`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${sessionToken}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    const sale = data.data[0];
+                    document.getElementById("edit-quantity").value = sale.quantity;
+                    document.getElementById("edit-totalPrice").value = sale.totalPrice;
+                    document.getElementById("edit-buyerName").value = sale.buyerName;
+                    document.getElementById("edit-buyerPhoneNumber").value = sale.buyerPhoneNumber;
+                    document.getElementById("edit-buyerAddress").value = sale.buyerAddress;
+                });
+        }
+
+        async function updateData(event) {
+            event.preventDefault();
+            const quantity = document.getElementById("edit-quantity").value;
+            const totalPrice = document.getElementById("edit-totalPrice").value;
+            const buyerName = document.getElementById("edit-buyerName").value;
+            const buyerPhoneNumber = document.getElementById("edit-buyerPhoneNumber").value;
+            const buyerAddress = document.getElementById("edit-buyerAddress").value;
+
+            const obj = {
+                quantity,
+                totalPrice,
+                buyerName,
+                buyerPhoneNumber,
+                buyerAddress
+            };
+
+            try {
+                const res = await fetch(`http://localhost:9000/api/sales/edit-sales/${currentEditId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionToken}`
+                    },
+                    body: JSON.stringify(obj)
+                });
+                const data = await res.json();
+
+                if (data.status) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sales Updated successfully!',
+                        text: 'Sales Updated successfully!',
+                    }).then(() => location.reload());
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error in Sales Update!',
+                        text: 'Error in Sales Update!',
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error in Sales Update!',
+                    text: 'An error occurred while updating the sales.',
+                });
+                console.error('Error updating sales:', error);
+            }
+        }
+
+        document.getElementById("editForm").addEventListener("submit", updateData);
     </script>
     <script src="../js/script.js"></script>
     <script src="../js/navcss.js"></script>

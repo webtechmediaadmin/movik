@@ -89,7 +89,7 @@ async function GetOrderAsAdminController(req, res) {
 async function EditOrderController(req, res) {
     try {
         const id = req.params.id;
-        const quantity = req.body;
+        const { quantity } = req.body;
 
         const editOrder = await EditOrderService(id, quantity);
 
@@ -109,7 +109,7 @@ async function EditOrderController(req, res) {
 async function EditOrderSuperAdminController(req, res) {
     try {
         const id = req.params.id;
-        const status = req.body;
+        const { status } = req.body;
 
         const editOrder = await EditOrderSuperAdminService(id, status);
 

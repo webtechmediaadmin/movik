@@ -22,8 +22,12 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick" onclick="logout()">
-                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            <div id="imageClick">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png" alt="Profile Image" />
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
             </div>
         </div>
         <div id="hiddenFeatures">

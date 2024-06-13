@@ -79,8 +79,12 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick" onclick="logout()">
-                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            <div id="imageClick">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png" alt="Profile Image" />
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
             </div>
         </div>
         <div id="hiddenFeatures">
@@ -88,7 +92,7 @@
             <div id="logOut">Logout</div>
         </div>
         <!-- Side Navigation Bar -->
-        <div id="sideNav">
+        <div id="sideNav" style="z-index: 999;">
             <button class="closeBtn">&times;</button>
             <img src="../images/heading-logo.png" alt="">
             <ul>
@@ -169,16 +173,16 @@
                  <td data-label="Email">${mgData.email}</td>
 
                          <td data-label="Role">${mgData.role}</td>
-                         <td data-label="Status">
+                         <td data-label="Deactivated">
                              <label class="switch">
                                  <input type="checkbox" ${mgData.deactivatedBySuperAdmin ? 'checked' : ''} onchange="deleteManager('${mgData.id}', this.checked)">
                                  <span class="slider round"></span>
                              </label>
                          </td>
-                          <td data-label="Actions">
-                            <button type="button"  class="btn btn-success btns" onClick="editData('${mgData.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
+                          <td data-label="Actions" class="btn-1">
+                            <button type="button"  class="btn btn-success btns btn-left" onClick="editData('${mgData.id}')" data-bs-toggle="modal" data-bs-target="#exampleModal" id="editBtn">Edit</button>
                             
-                            <button type="button" onClick="checkHistory('${mgData.id}')" class="btn btn-danger btns" id="deleteBtn">View More</button>
+                            <button type="button" onClick="checkHistory('${mgData.id}')" class="btn btn-danger btns btn-right" id="deleteBtn">View More</button>
                         </td>
                     `;
 
