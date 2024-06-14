@@ -59,8 +59,6 @@
                     <th class="responsive-table__head__title responsive-table__head__title--update">Address</th>
                     <th class="responsive-table__head__title responsive-table__head__title--country">Quantity</th>
                     <th class="responsive-table__head__title responsive-table__head__title--types">Total Price</th>
-                    <!-- <th rowspan="2" class="responsive-table__head__title responsive-table__head__title--country">Dealers
-                    </th> -->
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
@@ -86,6 +84,17 @@
                 console.log(mgSales);
                 const mgSalesData = document.getElementById("mgSalesData");
 
+                if (mgSales.data.length === 0) {
+                    const row = document.createElement("tr");
+                    const cell = document.createElement("td");
+                    cell.colSpan = 6;
+                    cell.className = 'text-center';
+                    cell.textContent = "No data available";
+                    row.appendChild(cell);
+                    mgSalesData.appendChild(row);
+                    return;
+                }
+
                 mgSales.data.forEach((mgSales, index) => {
                     console.log(mgSales.data)
                     const row = document.createElement("tr");
@@ -98,7 +107,6 @@
                         <td class="responsive-table__body__text responsive-table__body__text--types" data-label="Address">${mgSales.manager.address}</td>
                         <td class="responsive-table__body__text responsive-table__body__text--update" data-label="Quantity">${mgSales.quantity}</td>
                         <td class="responsive-table__body__text responsive-table__body__text--update" data-label="Total Price">${mgSales.totalPrice}</td>
-
                     `;
 
                     mgSalesData.appendChild(row);

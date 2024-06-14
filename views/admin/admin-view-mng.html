@@ -179,6 +179,17 @@
                 const mgData = await response.json();
                 const managerBody = document.getElementById("managerBody");
 
+                if (mgData.data.length === 0) {
+                    const row = document.createElement("tr");
+                    const cell = document.createElement("td");
+                    cell.colSpan = 6;
+                    cell.className = 'text-center';
+                    cell.textContent = "No dealers/distributors available";
+                    row.appendChild(cell);
+                    managerBody.appendChild(row);
+                    return;
+                }
+
                 mgData.data.forEach((mgData, index) => {
                     console.log(mgData);
                     const row = document.createElement("tr");

@@ -112,6 +112,17 @@
                 const orders = await res.json();
                 const orderData = document.getElementById("orderData");
 
+                if (orders.data.length === 0) {
+                    const row = document.createElement("tr");
+                    const cell = document.createElement("td");
+                    cell.colSpan = 6;
+                    cell.className = 'text-center';
+                    cell.textContent = "No data available";
+                    row.appendChild(cell);
+                    orderData.appendChild(row);
+                    return;
+                }
+
                 orders.data.forEach((order) => {
                     const row = document.createElement("tr");
                     row.classList.add("responsive-table__row");

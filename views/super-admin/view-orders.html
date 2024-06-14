@@ -122,15 +122,21 @@
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                        <td data-label="Dealer/Distributor">${order.manager.name}</td>
-                        <td data-label="Product Name">${order.product.name}</td>
-                        <td data-label="Date">${order.date}</td>
-                        <td data-label="Quantity">${order.quantity}</td>
-                        <td data-label="Status">${order.status}</td>
-                        <td class="responsive-table__body__text responsive-table__body__text--update">
-                            <button class="btnn-1" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="editData('${order.id}')">Edit Order Status</button>
-                        </td>
-                    `;
+    <td data-label="Dealer/Distributor">${order.manager.name}</td>
+    <td data-label="Product Name">${order.product.name}</td>
+    <td data-label="Date">${order.date}</td>
+    <td data-label="Quantity">${order.quantity}</td>
+    <td data-label="Status">${order.status}</td>
+    <td class="responsive-table__body__text responsive-table__body__text--update">
+        ${
+            order.status === 'delivered'
+                ? `<button class="btnn-1 btn-blue" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>Delivered</button>`
+                : `<button class="btnn-1" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="editData('${order.id}')">Edit Order Status</button>`
+        }
+    </td>
+`;
+
+
 
                     orderData.appendChild(row);
                 });
