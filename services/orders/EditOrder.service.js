@@ -12,6 +12,13 @@ async function EditOrderService(id, quantity) {
             }
         }
 
+        if(fetchOrderDetails.status != "pending"){
+            return {
+                status: false,
+                message: "Your order has been processed! Place a different order!"
+            }
+        }
+
         fetchOrderDetails.quantity = quantity;
         await fetchOrderDetails.save();
 

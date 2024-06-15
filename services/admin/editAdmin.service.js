@@ -1,6 +1,7 @@
 const AdminModel = require("../../models/admin.model");
+const bcrypt = require('bcrypt');
 
-async function EditAdminService(id, name, email) {
+async function EditAdminService(id, name, email, password) {
     try {
         const adminData = await AdminModel.findOne({ where: { id: id } });
 
@@ -17,6 +18,12 @@ async function EditAdminService(id, name, email) {
 
         if (email) {
             adminData.email = email;
+        }
+
+        // Hash the new password if provided
+        if (password) {
+            const hashPassword = await bcrypt.hash(password, 6); // Increasing the cost factor to 10 for better security
+            managerData.password = hashPassword;
         }
 
         await adminData.save();

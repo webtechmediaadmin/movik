@@ -1,3 +1,4 @@
+const EditAdminService = require("../services/admin/editAdmin.service");
 const LoginAdmin = require("../services/admin/loginAdmin.service");
 const GetMyProfileService = require("../services/admin/myProfile.service");
 const CreateManagerService = require("../services/manager/createManager.service");
@@ -65,6 +66,27 @@ async function CreateManagerController(req, res) {
     }
 }
 
+async function UpdateAdminDetailsController(req, res) {
+    try {
+        const id = req.userID;
+        const { name, email, password } = req.body;
 
 
-module.exports = { LoginAdminController, GetMyProfileController, CreateManagerController };
+        const fetchAdmins = await EditAdminService(id, name, email, password);
+
+        return res.status(fetchAdmins.status ? 200 : 404).json({
+            status: fetchAdmins.status,
+            message: fetchAdmins.message,
+            data: fetchAdmins.status ? fetchAdmins.data : null
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+
+module.exports = { LoginAdminController, GetMyProfileController, CreateManagerController, UpdateAdminDetailsController };

@@ -1,6 +1,7 @@
 const ManagerModel = require("../../models/manager.model");
+const bcrypt = require('bcrypt');
 
-async function EditManagerService(id, name, email, address, managerPhoneNumber) {
+async function EditManagerService(id, name, email, address, password, managerPhoneNumber) {
     try {
         const managerData = await ManagerModel.findOne({ where: { id: id } });
 
@@ -21,6 +22,12 @@ async function EditManagerService(id, name, email, address, managerPhoneNumber) 
 
         if (address) {
             managerData.address = address;
+        }
+
+        // Hash the new password if provided
+        if (password) {
+            const hashPassword = await bcrypt.hash(password, 6); // Increasing the cost factor to 10 for better security
+            managerData.password = hashPassword;
         }
 
         if (managerPhoneNumber) {
