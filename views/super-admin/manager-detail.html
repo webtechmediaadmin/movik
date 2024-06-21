@@ -451,7 +451,7 @@ form#create-prod {
 
         // Function to fetch manager data
         function managerData() {
-            fetch(`http://localhost:9000/api/manager/?id=${managerID}`, {
+            fetch(`https://movik.onrender.com/api/manager/?id=${managerID}`, {
                 headers: {
                     Authorization: `Bearer ${sessionToken}`,
                 },
@@ -488,7 +488,7 @@ form#create-prod {
 
         function getLastOrders() {
             fetch(
-                `http://localhost:9000/api/orders/get-orders/?managerID=${managerID}`,
+                `https://movik.onrender.com/api/orders/get-orders/?managerID=${managerID}`,
                 {
                     headers: {
                         Authorization: `Bearer ${sessionToken}`,
@@ -526,7 +526,7 @@ form#create-prod {
 
         function getLastSales() {
             fetch(
-                `http://localhost:9000/api/sales/get-sales/?managerID=${managerID}`,
+                `https://movik.onrender.com/api/sales/get-sales/?managerID=${managerID}`,
                 {
                     headers: {
                         Authorization: `Bearer ${sessionToken}`,

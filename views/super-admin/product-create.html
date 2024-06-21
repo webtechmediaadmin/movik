@@ -126,7 +126,7 @@
                     return;
                 }
 
-                const response = await fetch("http://localhost:9000/api/products/create-product", {
+                const response = await fetch("https://movik.onrender.com/api/products/create-product", {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${sessionToken}`,

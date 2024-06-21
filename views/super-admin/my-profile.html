@@ -388,7 +388,7 @@
     <script>
         async function fetchProfile() {
             try {
-                let response = await fetch("http://localhost:9000/api/super-admin/my-profile", {
+                let response = await fetch("https://movik.onrender.com/api/super-admin/my-profile", {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${sessionToken}`
@@ -403,7 +403,7 @@
                 document.getElementById('name').textContent = data.data.name || "N/A";
                 document.getElementById('email').textContent = data.data.email || "N/A";
                 document.getElementById('role').textContent = data.data.role || "N/A";
-                document.getElementById('image').src = `http://localhost:9000/${data.data.image}` || "https://th.bing.com/th/id/OIP.kUxY3nn_Tig7j9T92rsFJQHaF6?w=860&h=686&rs=1&pid=ImgDetMain";
+                document.getElementById('image').src = `https://movik.onrender.com/${data.data.image}` || "https://th.bing.com/th/id/OIP.kUxY3nn_Tig7j9T92rsFJQHaF6?w=860&h=686&rs=1&pid=ImgDetMain";
 
                 // Pre-fill the form with current data
                 document.getElementById('edit-Name').value = data.data.name || "";
@@ -422,7 +422,7 @@
             };
 
             try {
-                let response = await fetch("http://localhost:9000/api/update-my-profile", {
+                let response = await fetch("https://movik.onrender.com/api/update-my-profile", {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
@@ -460,7 +460,7 @@
             };
 
             try {
-                let response = await fetch("http://localhost:9000/api/update-password", {
+                let response = await fetch("https://movik.onrender.com/api/update-password", {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

@@ -72,21 +72,21 @@
                 return response.json();
             };
 
-            let data = await loginRequest("http://localhost:9000/api/super-admin-login");
+            let data = await loginRequest("https://movik.onrender.com/api/super-admin-login");
 
             if (data.status === false) {
                 if (data.message === "Wrong Credentials") {
                     alert(data.message);
                     return;
                 } else {
-                    data = await loginRequest("http://localhost:9000/api/admin/login-admin");
+                    data = await loginRequest("https://movik.onrender.com/api/admin/login-admin");
 
                     if (data.status === false) {
                         if (data.message === "Wrong Credentials") {
                             alert(data.message);
                             return;
                         } else {
-                            data = await loginRequest("http://localhost:9000/api/manager/login-manager");
+                            data = await loginRequest("https://movik.onrender.com/api/manager/login-manager");
 
                             if (data.status === false) {
                                 alert(data.message);

@@ -163,7 +163,7 @@
         async function fetchProducts() {
             try {
                 const response = await fetch(
-                    "http://localhost:9000/api/products/get-product"
+                    "https://movik.onrender.com/api/products/get-product"
                 );
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -177,7 +177,7 @@
 
                     row.innerHTML = `
                          <td data-label="Name">${product.name}</td>
-                         <td data-label="Image"><img src='http://localhost:9000/${product.image}' alt="${product.name}" style="width: 50px; height: 50px;"></td>
+                         <td data-label="Image"><img src='https://movik.onrender.com/${product.image}' alt="${product.name}" style="width: 50px; height: 50px;"></td>
                          <td data-label="Inventory Count">${product.inventoryCount}</td>
                          <td data-label="Slug">${product.slug}</td>
                          <td data-label="Status">
@@ -200,7 +200,7 @@
         document.addEventListener("DOMContentLoaded", fetchProducts);
 
         function statusChanger(id, status) {
-            fetch(`http://localhost:9000/api/products/status-changer/${id}`, {
+            fetch(`https://movik.onrender.com/api/products/status-changer/${id}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${sessionToken}`,
@@ -218,7 +218,7 @@
         }
 
         function deleteProduct(id) {
-            fetch(`http://localhost:9000/api/products/delete-product/${id}`, {
+            fetch(`https://movik.onrender.com/api/products/delete-product/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${sessionToken}`,
@@ -236,7 +236,7 @@
         }
 
         function editData(id) {
-            fetch(`http://localhost:9000/api/products/get-product/?id=${id}`)
+            fetch(`https://movik.onrender.com/api/products/get-product/?id=${id}`)
                 .then((res) => res.json())
                 .then((data) => {
                     const productValue = data.data[0];
@@ -264,7 +264,7 @@
             formData.append("slug", slug);
 
             try {
-                const response = await fetch(`http://localhost:9000/api/products/edit-product/${id}`, {
+                const response = await fetch(`https://movik.onrender.com/api/products/edit-product/${id}`, {
                     method: "PATCH",
                     headers: {
                         Authorization: `Bearer ${sessionToken}`,

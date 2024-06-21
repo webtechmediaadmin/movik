@@ -106,7 +106,7 @@
         let totalSalesDigits = document.getElementById("totalSalesDigits");
         let totalSalesDigitsInLastMonth = document.getElementById("totalSalesDigitsInLastMonth");
 
-        fetch("http://localhost:9000/api/orders/get-orders", {
+        fetch("https://movik.onrender.com/api/orders/get-orders", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionToken}`
@@ -117,7 +117,7 @@
                 totalOrderCount.innerText = data.data.length;
             })
 
-        fetch("http://localhost:9000/api/sales/get-sales", {
+        fetch("https://movik.onrender.com/api/sales/get-sales", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionToken}`

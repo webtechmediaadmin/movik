@@ -105,7 +105,7 @@
 
         async function fetchOrders() {
             try {
-                const res = await fetch("http://localhost:9000/api/orders/get-orders", {
+                const res = await fetch("https://movik.onrender.com/api/orders/get-orders", {
                     headers: {
                         'Authorization': `Bearer ${sessionToken}`,
                         'Content-Type': 'application/json'
@@ -147,7 +147,7 @@
 
         function editData(id) {
             currentEditId = id;
-            fetch(`http://localhost:9000/api/orders/get-orders?id=${id}`, {
+            fetch(`https://movik.onrender.com/api/orders/get-orders?id=${id}`, {
                 method: "GET",
                 headers: {
                     'Authorization': `Bearer ${sessionToken}`,
@@ -169,7 +169,7 @@
             const obj = { status };
 
             try {
-                const res = await fetch(`http://localhost:9000/api/orders/order-update/${currentEditId}`, {
+                const res = await fetch(`https://movik.onrender.com/api/orders/order-update/${currentEditId}`, {
                     method: 'PATCH',
                     headers: {
                         "Content-Type": "application/json",
