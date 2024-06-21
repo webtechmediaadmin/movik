@@ -21,7 +21,7 @@ closeBtn.addEventListener("click", () => {
 // logout the page
 
 function logout() {
-    sessionStorage.clear();
+    localStorage.clear();
     window.location.href = "/";
 }
 

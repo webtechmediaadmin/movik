@@ -5,6 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="../css/style.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" /> -->
+    <script src="../js/istocken.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,8 +43,8 @@
         }
 
         .profile-image {
-            max-width: 100px;
-            margin-top: 10px;
+            max-width: 186px;
+            margin-top: 17px;
         }
 
         .hidden {
@@ -51,46 +60,331 @@
             display: block;
             margin-top: 10px;
         }
+
+
+        .form_div {
+            position: absolute;
+            top: 57%;
+            left: 50%;
+            width: 60%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
+
+
+
+        @media (max-width: 768px) {
+            .form_div {
+                width: 100%;
+            }
+
+            .form_div {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                /* width: 60%; */
+                transform: translate(-50%, -50%);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 10px;
+                z-index: -1;
+            }
+        }
+
+        .image-size {
+            width: 200px;
+            height: 100px;
+            border: 1px solid black;
+        }
+
+        .rounded-1 {
+            width: 200px;
+            height: 200px;
+            border: 2px solid black;
+            border-radius: 50%;
+        }
+
+        .btn-style {
+            padding: 8px 40px;
+            margin-left: 20px;
+        }
+
+        .responsive_1 {}
+
+        .res_roll {
+            display: none;
+
+        }
+
+        .res_em {
+            margin-top: -72px;
+        }
+
+        .res_rol {
+            margin-top: -72px;
+        }
+
+        .choose_p {
+            font-size: 15px;
+        }
+
+
+
+
+        @media (max-width: 776px) {
+            .flex_dire {
+                display: flex;
+                flex-direction: column-reverse;
+            }
+
+            .res_2 {
+                margin-top: 256px;
+                z-index: 999;
+            }
+
+            .responsive_1 {
+                margin-top: 104px;
+            }
+
+            .res_roll {
+                display: block;
+                margin-top: -42px;
+            }
+
+            .res_img {
+                width: 150px;
+                height: 150px;
+                border-radius: 50% !important;
+                margin-left: 90px;
+            }
+
+            .res_img img {
+                width: 62%;
+                border-radius: 50% !important;
+                margin-left: 23px;
+                margin-top: 39px;
+            }
+
+            .my_hide {
+                display: none !important;
+            }
+
+            .choose_p {
+                margin-left: 102px;
+                font-size: 12px;
+            }
+
+            .mar_t {
+                margin-top: -90px;
+            }
+
+            .res_em {
+                margin-top: -42px;
+            }
+
+            .res_rol {
+                margin-top: -43px;
+            }
+
+            .btn-style {
+                margin-bottom: 56px;
+                margin-top: -30px;
+                margin-left: 112px;
+            }
+
+            .pass_chnage {
+                color: black;
+                padding: 5px 10px;
+                border-radius: 8px;
+            }
+        }
+
+
+
+        /* ------------ nevbar--------end */
     </style>
 </head>
 
 <body>
-    <div id="container">
-        <h1>My Profile</h1>
-        <button id="edit-button">Edit</button>
-        <div class="profile-item">
-            <label for="name">Name:</label>
-            <span id="name"></span>
+    <!-- --------navigation-------------------- -->
+    <div id="main-container">
+        <!-- Top Navigation Bar -->
+        <div id="topNav">
+            <div id="hamburger">&#9776;</div>
+            <div>
+                <h1 id="welcomeName"></h1>
+            </div>
+            <div id="imageClick">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png"
+                    alt="Profile Image" />
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
+            </div>
         </div>
-        <div class="profile-item">
-            <label for="email">Email:</label>
-            <span id="email"></span>
+        <div id="hiddenFeatures">
+            <div>Your Account</div>
+            <div id="logOut">Logout</div>
         </div>
-        <div class="profile-item">
-            <label for="role">Role:</label>
-            <span id="role"></span>
+        <!-- Side Navigation Bar -->
+        <div id="sideNav" style="z-index: 999;">
+            <button class="closeBtn">&times;</button>
+            <img src="../images/heading-logo.png" alt="">
+            <ul type="none">
+                <li><i class="fas fa-home"></i><a href="./home.html">Home</a></li>
+                <li><i class="fas fa-user"></i> <a href="./admin-create.html">Create Admin</a></li>
+                <li><i class="fas fa-user"></i> <a href="./view-admin.html">View Admin</a></li>
+                <li><i class="fas fa-user-cog"></i> <a href="./manager-create.html">Create Manager</a></li>
+                <li><i class="fas fa-eye"></i> <a href="./manager-view.html">View Manager</a></li>
+                <li><i class="fab fa-salesforce"></i><a href="./view-sales.html">View Sales</a></li>
+                <li><i class="fab fa-first-order-alt"></i><a href="./view-orders.html">View Orders</a></li>
+                <li><i class="fas fa-eye"></i><a href="./product-create.html">Create Product</a></li>
+                <li><i class="fas fa-upload"></i><a href="./product-view.html">View Product</a></li>
+
+            </ul>
         </div>
-        
-        <div class="profile-item">
-            <label for="image">Profile Image:</label>
-            <img id="image" class="profile-image" alt="Profile Image" />
-        </div>
-
-        <form id="edit-form" class="hidden">
-            <label for="edit-name">Name:</label>
-            <input type="text" id="edit-name" name="name" />
-
-            <label for="edit-email">Email:</label>
-            <input type="email" id="edit-email" name="email" />
-
-            <label for="edit-image">Choose a Profile     Image</label>
-            <input type="file" id="edit-image" name="image" />
-
-            <button type="button" onclick="updateProfile()">Save</button>
-        </form>
+        <!-- MAIN CONTENT OF THE HOME PAGE -->
+        <!-- <div id="content">
+            <div class="content-box blu">
+                <img src="img/video-posted.png" alt="">
+                <h1>Total Video Posted</h1>
+                <p id="videoPostedCount"></p>
+            </div> -->
     </div>
 
-    <script src="../js/istocken.js"></script>
+    <!-- --------navigation--end------------------ -->
+
+    <!-- Main Profile Container -->
+    <div class="container form_div">
+        <h1 class="text-center mb-3 mt-4 mb-5">My Profile</h1>
+        <div class="row flex_dire">
+            <div class="col-md-8 mar_t">
+                <div class="row mb-4 p-3 responsive_1">
+                    <div class="col-md-6">
+                        <div class="profile-item">
+                            <label for="name">Name:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-item">
+                            <span id="name"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4 p-3 res_em">
+                    <div class="col-md-6">
+                        <div class="profile-item">
+                            <label for="email">Email:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-item">
+                            <span id="email"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4 p-3 res_rol">
+                    <div class="col-md-6">
+                        <div class="profile-item">
+                            <label for="role">Role:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-item">
+                            <span id="role">role</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-4 p-3 res_roll">
+                    <div class="col-md-6">
+                        <div class="profile-item">
+                            <label for="exampleInputEmail1" class="form-label">Do We Want Change Password</label>
+                            <div id="emailHelp" class="form-text">
+                                <button class="pass_chnage" data-bs-toggle="modal" data-bs-target="#passwordModal">Click
+                                    Me</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <button type="submit" id="edit-button" class="btn btn-primary btn-style" data-bs-toggle="modal"
+                    data-bs-target="#editModal">Edit</button>
+
+            </div>
+            <div class="col-md-4 res_2">
+                <div class="profile-item rounded-1 res_img">
+                    <label for="image" class="my_hide">Profile Image:</label>
+                    <img id="image" class="profile-image" alt="Profile Image" />
+                </div>
+                <div class="choose_p">
+                    <label for="edit-image">Choose a Profile Image</label>
+                    <input type="file" id="edit-image" name="image" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Update Manager Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="mb-2">
+                            <label for="edit-Name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="edit-Name" name="name">
+                        </div>
+                        <div class="mb-2">
+                            <label for="edit-Email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="edit-Email" name="email">
+                        </div>
+                        <div class="mb-2 pt-2 pb-2">
+                            <div class="choose_pp">
+                                <label for="edit-image" class="pb-2">Choose a Profile Image</label>
+                                <input type="file" id="edit-image" name="image" />
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="updateProfile()">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passwordModalLabel">Update Password Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="passwordForm">
+                        <div class="mb-2">
+                            <label for="new-password" class="form-label">New Password</label>
+                            <input type="password" class="form-control" id="new-password">
+                        </div>
+                        <div class="mb-2">
+                            <label for="confirm-password" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm-password">
+                        </div>
+                        <button type="submit" class="btn btn-primary" onclick="updateProfile()">Update Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         async function fetchProfile() {
             try {
@@ -106,31 +400,25 @@
                 }
 
                 let data = await response.json();
-                console.log(data);
                 document.getElementById('name').textContent = data.data.name || "N/A";
                 document.getElementById('email').textContent = data.data.email || "N/A";
                 document.getElementById('role').textContent = data.data.role || "N/A";
-                document.getElementById('image').src = `http://localhost:9000/${data.data.image}` || "https://th.bing.com/th/id/OIP.kUxY3nn_Tig7j9T92rsFJQHaF6?w=860&h=686&rs=1&pid=ImgDetMain"; // default image if none provided
+                document.getElementById('image').src = `http://localhost:9000/${data.data.image}` || "https://th.bing.com/th/id/OIP.kUxY3nn_Tig7j9T92rsFJQHaF6?w=860&h=686&rs=1&pid=ImgDetMain";
 
                 // Pre-fill the form with current data
-                document.getElementById('edit-name').value = data.data.name || "";
-                document.getElementById('edit-email').value = data.data.email || "";
-                
-                
+                document.getElementById('edit-Name').value = data.data.name || "";
+                document.getElementById('edit-Email').value = data.data.email || "";
+
             } catch (error) {
                 console.error('Error fetching profile:', error);
                 alert('Error fetching profile. Please try again');
             }
         }
 
-        document.getElementById('edit-button').addEventListener('click', () => {
-            document.getElementById('edit-form').classList.toggle('hidden');
-        });
-
         async function updateProfile() {
             const updatedData = {
-                name: document.getElementById('edit-name').value,
-                image: document.getElementById('edit-image').value
+                name: document.getElementById('edit-Name').value,
+                email: document.getElementById('edit-Email').value
             };
 
             try {
@@ -150,15 +438,63 @@
                 let data = await response.json();
                 console.log(data);
                 alert('Profile updated successfully');
-                fetchProfile(); // Refresh the profile data
+                fetchProfile();
             } catch (error) {
                 console.error('Error updating profile:', error);
                 alert('Error updating profile. Please try again');
             }
         }
 
+        async function updatePassword(event) {
+            event.preventDefault();
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (newPassword !== confirmPassword) {
+                alert("Passwords do not match");
+                return;
+            }
+
+            const updatedPasswordData = {
+                password: newPassword
+            };
+
+            try {
+                let response = await fetch("http://localhost:9000/api/update-password", {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${sessionToken}`
+                    },
+                    body: JSON.stringify(updatedPasswordData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                let data = await response.json();
+                console.log(data);
+                alert('Password updated successfully');
+                document.getElementById('passwordModal').classList.remove('show');
+                document.body.classList.remove('modal-open');
+                document.querySelector('.modal-backdrop').remove();
+            } catch (error) {
+                console.error('Error updating password:', error);
+                alert('Error updating password. Please try again');
+            }
+        }
+
+        document.getElementById('passwordForm').addEventListener('submit', updatePassword);
+        document.getElementById('editForm').addEventListener('submit', updateProfile);
+
         fetchProfile();
     </script>
+
+    <script src="../js/navcss.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
