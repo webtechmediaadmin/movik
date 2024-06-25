@@ -1,7 +1,7 @@
 const ManagerModel = require("../../models/manager.model");
 const bcrypt = require('bcrypt');
 
-async function EditManagerService(id, name, email, address, password, managerPhoneNumber) {
+async function EditManagerService(id, name, email, address, password, managerPhoneNumber, image) {
     try {
         const managerData = await ManagerModel.findOne({ where: { id: id } });
 
@@ -39,6 +39,10 @@ async function EditManagerService(id, name, email, address, password, managerPho
                     message: 'Phone Number is not valid!'
                 };
             }
+        }
+
+        if (image) {
+            managerData.image = image;
         }
 
         await managerData.save();

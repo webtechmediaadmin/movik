@@ -4,6 +4,18 @@ const GetSpecificMangersService = require("../services/manager/GetSpecificManage
 const EditManagerService = require("../services/manager/editManager.service");
 const LoginManagerService = require("../services/manager/loginManager.service");
 const GetMyProfileService = require("../services/manager/myProfile.service");
+const multer = require('multer');
+
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'uploads/profile-images');
+        },
+        filename: function (req, file, cb) {
+            cb(null, Date.now() + '-' + file.originalname);
+        },
+    }),
+});
 
 async function LoginManagerController(req, res) {
     try {
@@ -112,8 +124,13 @@ async function UpdateManagerDetailsController(req, res) {
         const id = req.userID;
         const { name, email, address, password, managerPhoneNumber } = req.body;
 
+        let image;
+        if (req.file) {
+            image = 'uploads/profile-images/' + req.file.filename;
+        }
 
-        const fetchManager = await EditManagerService(id, name, email, address, password, managerPhoneNumber);
+
+        const fetchManager = await EditManagerService(id, name, email, address, password, managerPhoneNumber, image);
 
         return res.status(fetchManager.status ? 200 : 404).json({
             status: fetchManager.status,
@@ -129,4 +146,4 @@ async function UpdateManagerDetailsController(req, res) {
     }
 }
 
-module.exports = { LoginManagerController, GetMyProfileController, GetManagerController, GetSpecificManagerController, DeleteManagerController, UpdateManagerDetailsController };
+module.exports = { LoginManagerController, GetMyProfileController, GetManagerController, GetSpecificManagerController, DeleteManagerController, UpdateManagerDetailsController, upload };
