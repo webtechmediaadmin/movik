@@ -23,7 +23,7 @@ async function EditAdminService(id, name, email, password, image) {
         // Hash the new password if provided
         if (password) {
             const hashPassword = await bcrypt.hash(password, 6); // Increasing the cost factor to 10 for better security
-            managerData.password = hashPassword;
+            adminData.password = hashPassword;
         }
 
         if (image) {
