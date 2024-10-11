@@ -4,6 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <script src="../js/istocken.js"></script>
     <title>Your Profile</title>
     <style>
         body {
@@ -13,15 +22,18 @@
         #container {
             max-width: 600px;
             margin: 50px auto;
-            padding: 20px;
             border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .profile-item {
-            margin-bottom: 15px;
-        }
+    margin-bottom: 15px;
+    display: flex;
+    border-bottom: 1px solid #b1d3db73;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
 
         .profile-item label {
             font-weight: bold;
@@ -55,27 +67,72 @@
 </head>
 
 <body>
-    <div id="container">
-        <h1>My Profile</h1>
-        <button id="edit-button">Edit</button>
-        <div class="profile-item">
-            <label for="name">Name:</label>
-            <span id="name"></span>
-        </div>
-        <div class="profile-item">
-            <label for="email">Email:</label>
-            <span id="email"></span>
-        </div>
-        <div class="profile-item">
-            <label for="role">Role:</label>
-            <span id="role"></span>
-        </div>
-        
-        <div class="profile-item">
-            <label for="image">Profile Image:</label>
-            <img id="image" class="profile-image" alt="Profile Image" />
-        </div>
+    <div id="main-container">
+        <!-- Top Navigation Bar -->
+        <div id="topNav">
+            <div id="hamburger">&#9776;</div>
+            <div>
 
+                <h1 id="welcomeName"></h1>
+
+            </div>
+            <div id="imageClick" class="dropdown">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png"
+                    alt="Profile Image" />
+                <div class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
+            </div>
+        </div>
+        <!-- <div id="hiddenFeatures">
+            <div>Your Account</div>
+            <div id="logOut">Logout</div>
+        </div> -->
+        <!-- Side Navigation Bar -->
+        <div id="sideNav">
+            <button class="closeBtn">&times;</button>
+            <img src="../images/heading-logo.png" alt="">
+            <ul>
+                <li><i class="fas fa-home"></i><a href="./home.html">Home</a></li>
+                <li><i class="fas fa-user"></i> <a href="./admin-create.html">Create Admin</a></li>
+                <li><i class="fas fa-user"></i> <a href="./view-admin.html">View Admin</a></li>
+                <li><i class="fas fa-user-cog"></i> <a href="./manager-create.html">Create Manager</a></li>
+                <li><i class="fas fa-eye"></i> <a href="./manager-view.html">View Manager</a></li>
+                <li><i class="fab fa-salesforce"></i><a href="./view-sales.html">View Sales</a></li>
+                <li><i class="fab fa-first-order-alt"></i><a href="./view-orders.html">View Orders</a></li>
+                <li><i class="fas fa-eye"></i><a href="./product-create.html">Create Product</a></li>
+                <li><i class="fas fa-upload"></i><a href="./product-view.html">View Product</a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div id="container">
+        <div class="title"><i class="fas fa-id-card-alt"></i>&nbsp; <h2>My Profile</h2>
+        </div>
+        <div class="data-profile">
+
+            <div class="profile-item">
+                <label for="name">Name:</label>
+                <span id="name"></span>
+            </div>
+            <div class="profile-item">
+                <label for="email">Email:</label>
+                <span id="email"></span>
+            </div>
+            <div class="profile-item">
+                <label for="role">Role:</label>
+                <span id="role"></span>
+            </div>
+
+            <div class="profile-item">
+                <label for="image">Profile Image:</label>
+                <img id="image" class="profile-image" alt="Profile Image" />
+            </div>
+            <button id="edit-button"><i class="fas fa-pen"></i> Edit</button>
+
+        </div>
+        <!-- edit form -->
         <form id="edit-form" class="hidden">
             <label for="edit-name">Name:</label>
             <input type="text" id="edit-name" name="name" />
@@ -83,7 +140,7 @@
             <label for="edit-email">Email:</label>
             <input type="email" id="edit-email" name="email" />
 
-            <label for="edit-image">Choose a Profile     Image</label>
+            <label for="edit-image">Choose a Profile Image</label>
             <input type="file" id="edit-image" name="image" />
 
             <button type="button" onclick="updateProfile()">Save</button>
@@ -115,8 +172,8 @@
                 // Pre-fill the form with current data
                 document.getElementById('edit-name').value = data.data.name || "";
                 document.getElementById('edit-email').value = data.data.email || "";
-                
-                
+
+
             } catch (error) {
                 console.error('Error fetching profile:', error);
                 alert('Error fetching profile. Please try again');

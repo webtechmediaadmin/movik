@@ -177,7 +177,7 @@ h1.logo img {
     border-radius: 5px;
 }
 
-.container .title {
+.title {
     font-size: 26px;
     font-weight: 600;
     display: flex;
@@ -278,7 +278,9 @@ form .button input {
     background: linear-gradient(135deg, #71b7e6, #9b59b6);
     transition: all 0.3s ease;
 }
-#regi-btn, #login-btn {
+
+#regi-btn,
+#login-btn {
     background: #e79f06;
     color: white;
     font-weight: 400;
@@ -287,13 +289,16 @@ form .button input {
     margin-right: 10px;
     padding: 0px 17px;
 }
+
 #login-btn {
     background: #009688;
 }
-#login-btn a{
+
+#login-btn a {
     color: white;
     text-decoration: none;
 }
+
 form .button input:hover {
     background: linear-gradient(-135deg, #71b7e6, #9b59b6);
 }
@@ -326,6 +331,7 @@ form .button input:hover {
     .container .title {
         font-size: 27px;
     }
+
     .mg-box {
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         padding: 10px;
@@ -335,26 +341,27 @@ form .button input:hover {
         height: 19vh;
         width: 300px;
         margin: 21px auto;
-    
 
-    /* #sideNav {
+
+        /* #sideNav {
         width: 0px !important;
     } */
 
-    #content {
-        padding: 0px 14px 40px 15px !important;
-    }
+        #content {
+            padding: 0px 14px 40px 15px !important;
+        }
 
-    #sideNav {
-        padding-top: 14% !important;
-        z-index: 1 !important;
-    }
+        #sideNav {
+            padding-top: 14% !important;
+            z-index: 1 !important;
+        }
 
-    #sideNav a {
-        padding: 24px 12px !important;
+        #sideNav a {
+            padding: 24px 12px !important;
+        }
     }
 }
-}
+
 /* Side Navigation Bar Styles */
 
 #sideNav {
@@ -789,7 +796,6 @@ button#deleteBtn {
     z-index: 1;
     right: -15px;
     border-radius: 3px;
-
 }
 
 .dropdown-content a {
@@ -820,19 +826,23 @@ form#createAdminData {
 .title i {
     font-size: 38px;
 }
+
 .title h2 {
     font-size: 21px;
     font-weight: 600;
     padding-top: 14px;
 }
+
 .btn-css {
     display: flex;
     flex-direction: row;
 }
+
 .form-sec img {
     width: 196px;
     margin: 0px auto;
 }
+
 #submit-btn {
     background: #398512;
     color: white;
@@ -840,9 +850,38 @@ form#createAdminData {
     text-transform: uppercase;
     font-weight: 500;
 }
+
 form#ManagerRegistration {
     padding: 10px;
 }
+
 form#create-prod {
     padding: 10px;
+}
+
+.data-profile {
+    padding: 10px;
+}
+
+button#edit-button {
+    background: #3d8914;
+    padding: 4px 13px;
+    border-radius: 3px;
+    font-size: 20px;
+    color: white;
+}
+
+button#edit-button i {
+    font-size: 16px;
+}
+
+.data-profile {
+    padding: 31px 15px 10px 15px;
+}
+
+.modal-header {
+    padding: 5px 16px!important;
+}
+.modal-footer{
+    justify-content: flex-start;
 }
