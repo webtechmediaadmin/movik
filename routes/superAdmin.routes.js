@@ -1,5 +1,5 @@
 const express = require('express');
-const { RegisterSuperAdminController, LoginSuperAdminController, CreateAdminController, GetMyProfileController, FetchAdminController, UpdateProfileDetails, upload } = require('../controllers/superAdmin.controller');
+const { RegisterSuperAdminController, LoginSuperAdminController, CreateAdminController, GetMyProfileController, FetchAdminController, UpdateProfileDetails, upload, UpdateAdminDetails, UpdateManagerDetailsController } = require('../controllers/superAdmin.controller');
 const { authentication } = require('../middleware/authentication.middleware');
 const { authorize } = require('../middleware/authorization.middleware');
 
@@ -11,5 +11,8 @@ superAdminRoutes.post('/create-admin', authentication, authorize(["super-admin"]
 superAdminRoutes.get('/get-admin', authentication, authorize(["super-admin"]), FetchAdminController);
 superAdminRoutes.get('/super-admin/my-profile', authentication, authorize(["super-admin"]), GetMyProfileController);
 superAdminRoutes.patch('/update-my-profile', authentication, authorize(["super-admin"]), upload.single('image'), UpdateProfileDetails);
+superAdminRoutes.patch('/super-admin/update-admin/:id', authentication, authorize(["super-admin"]), UpdateAdminDetails);
+superAdminRoutes.patch('/super-admin/update-manager/:id', authentication, authorize(["super-admin", "admin"]), UpdateManagerDetailsController);
+
 
 module.exports = superAdminRoutes;

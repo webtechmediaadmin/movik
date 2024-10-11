@@ -13,6 +13,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="../js/istocken.js"></script>
     <title>Create Products</title>
+    <style>
+        .input__box input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #f9f9f9;
+        }
+
+        @media (max-width: 667px) {
+            .input__box input[type="file"] {
+                display: flex;
+                font-size: 16px;
+                padding: 10px;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 
 <body style="background: linear-gradient(135deg, #71b7e6, #9b59b6)">
@@ -23,8 +43,12 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick" onclick="logout()">
-                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            <div id="imageClick">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png" alt="Profile Image" />
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
             </div>
         </div>
         <div id="hiddenFeatures">
@@ -32,7 +56,7 @@
             <div id="logOut">Logout</div>
         </div>
         <!-- Side Navigation Bar -->
-        <div id="sideNav">
+        <div id="sideNav" style="z-index: 999;">
             <button class="closeBtn">&times;</button>
             <img src="../images/heading-logo.png" alt="">
             <ul>
@@ -74,7 +98,7 @@
                                 <input type="file" name="image" id="img" accept="image/*" required />
                             </div>
                         </div>
-                        <button type="submit" id="regi-btn" class="button">Submit</button>
+                        <button type="submit" id="regi-btn" class="button btn_d">Submit</button>
                     </form>
                 </div>
             </div>
@@ -102,7 +126,7 @@
                     return;
                 }
 
-                const response = await fetch("http://localhost:9000/api/products/create-product", {
+                const response = await fetch("https://movik.onrender.com/api/products/create-product", {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${sessionToken}`,

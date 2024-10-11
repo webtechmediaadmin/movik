@@ -1,8 +1,21 @@
 const DeleteManagerService = require("../services/manager/DeleteManager.service");
 const GetManagersService = require("../services/manager/GetManagers.service");
 const GetSpecificMangersService = require("../services/manager/GetSpecificManagers.service");
+const EditManagerService = require("../services/manager/editManager.service");
 const LoginManagerService = require("../services/manager/loginManager.service");
 const GetMyProfileService = require("../services/manager/myProfile.service");
+const multer = require('multer');
+
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'uploads/profile-images');
+        },
+        filename: function (req, file, cb) {
+            cb(null, Date.now() + '-' + file.originalname);
+        },
+    }),
+});
 
 async function LoginManagerController(req, res) {
     try {
@@ -106,4 +119,31 @@ async function DeleteManagerController(req, res) {
 }
 
 
-module.exports = { LoginManagerController, GetMyProfileController, GetManagerController, GetSpecificManagerController, DeleteManagerController };
+async function UpdateManagerDetailsController(req, res) {
+    try {
+        const id = req.userID;
+        const { name, email, address, password, managerPhoneNumber } = req.body;
+
+        let image;
+        if (req.file) {
+            image = 'uploads/profile-images/' + req.file.filename;
+        }
+
+
+        const fetchManager = await EditManagerService(id, name, email, address, password, managerPhoneNumber, image);
+
+        return res.status(fetchManager.status ? 200 : 404).json({
+            status: fetchManager.status,
+            message: fetchManager.message,
+            data: fetchManager.status ? fetchManager.data : null
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+module.exports = { LoginManagerController, GetMyProfileController, GetManagerController, GetSpecificManagerController, DeleteManagerController, UpdateManagerDetailsController, upload };

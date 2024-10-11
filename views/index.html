@@ -72,21 +72,21 @@
                 return response.json();
             };
 
-            let data = await loginRequest("http://localhost:9000/api/super-admin-login");
+            let data = await loginRequest("https://movik.onrender.com/api/super-admin-login");
 
             if (data.status === false) {
                 if (data.message === "Wrong Credentials") {
                     alert(data.message);
                     return;
                 } else {
-                    data = await loginRequest("http://localhost:9000/api/admin/login-admin");
+                    data = await loginRequest("https://movik.onrender.com/api/admin/login-admin");
 
                     if (data.status === false) {
                         if (data.message === "Wrong Credentials") {
                             alert(data.message);
                             return;
                         } else {
-                            data = await loginRequest("http://localhost:9000/api/manager/login-manager");
+                            data = await loginRequest("https://movik.onrender.com/api/manager/login-manager");
 
                             if (data.status === false) {
                                 alert(data.message);
@@ -100,16 +100,16 @@
             if (data.data.deactivatedBySuperAdmin) {
                 alert("Your account has been deactivated!");
             } else {
-                sessionStorage.setItem("token", data.token);
-                sessionStorage.setItem("role", data.data.role);
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("role", data.data.role);
                 // Redirect to another page or show logged-in content here
                 // Redirect based on role
                 if (data.data.role === "super-admin") {
                     window.location.href = "./super-admin/home.html";
                 } else if (data.data.role === "admin") {
-                    window.location.href = "./admin/admin-home.html";
+                    window.location.href = "./admin/manager-create.html";
                 } else if (data.data.role === "dealer" || data.data.role === "distributor") {
-                    window.location.href = "./manager/manager-home.html";
+                    window.location.href = "./manager/order-page.html";
                 }
             }
         }

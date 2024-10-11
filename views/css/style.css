@@ -119,6 +119,21 @@ form label {
     border-radius: 2px;
 }
 
+@media (max-width: 767px) {
+    .container-2 {
+        background: var(--background2);
+        padding: var(--spacing3);
+        border-radius: var(--spacing2);
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing3);
+        width: 162%;
+        margin: 0px auto;
+        border-radius: 2px;
+        margin-left: -86px;
+    }
+}
+
 .pen-description {
     max-width: min-content;
 }
@@ -319,11 +334,28 @@ form .button input:hover {
 
     .container form .user__details {
         max-height: 300px;
-        overflow-y: scroll;
+        /* overflow-y: scroll; */
     }
 
     .user__details::-webkit-scrollbar {
         width: 0;
+    }
+}
+
+.btn_bb {
+
+    margin-left: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+@media (max-width: 767px) {
+    .min_he {
+        min-height: 683px;
+    }
+
+    .btn_bb {
+        margin-top: 247px !important;
+        margin-left: 10px !important;
     }
 }
 
@@ -502,15 +534,37 @@ table td {
     padding: .625em;
 }
 
+.btnn-1 {
+    padding: 5px 5px !important;
+    background-color: #45951a;
+    color: white;
+}
+
 table th {
     font-size: .85em;
-    letter-spacing: .1em;
+    /* letter-spacing: .1em; */
     text-align: left;
     text-transform: capitalize;
     font-size: 18px;
     background: #d9edf7;
     font-weight: 600;
     font-family: system-ui;
+}
+
+.form_1 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.inpit_f {
+    width: 213% !important;
+}
+
+@media (max-width:776px) {
+    .inpit_f {
+        width: 100% !important;
+    }
+
 }
 
 @media screen and (max-width: 600px) {
@@ -740,6 +794,7 @@ select#productID {
 .login-img {
     margin: 0px auto;
     width: 175px;
+    display: flex;
 }
 
 #sideNav img {
@@ -770,7 +825,49 @@ h4#totalOrders {
 }
 
 button#deleteBtn {
-    position: absolute;
+    /* position: absolute; */
+    display: flex;
+    width: 150px;
+}
+
+@media (max-width: 767px) {
+    button#deleteBtn {
+        /* position: absolute; */
+        /* display: flex; */
+        width: 114px;
+    }
+
+    .ma_1 {
+        transition: margin-left 0.5s ease 0s;
+        margin-left: -6%;
+        width: 112%;
+        min-height: 530px;
+    }
+}
+
+.btn-1 {
+    display: flex;
+    width: 220px;
+}
+
+@media (max-width: 768px) {
+    .btn-left {
+        margin-left: 30px !important;
+        font-size: 12px !important;
+    }
+
+    .btn-right {
+        margin-left: 15px !important;
+        font-size: 12px !important;
+    }
+
+    .btn_d {
+        margin-top: 51px !important;
+    }
+}
+
+.btn-a {
+    display: flex;
 }
 
 
@@ -857,31 +954,4 @@ form#ManagerRegistration {
 
 form#create-prod {
     padding: 10px;
-}
-
-.data-profile {
-    padding: 10px;
-}
-
-button#edit-button {
-    background: #3d8914;
-    padding: 4px 13px;
-    border-radius: 3px;
-    font-size: 20px;
-    color: white;
-}
-
-button#edit-button i {
-    font-size: 16px;
-}
-
-.data-profile {
-    padding: 31px 15px 10px 15px;
-}
-
-.modal-header {
-    padding: 5px 16px!important;
-}
-.modal-footer{
-    justify-content: flex-start;
 }

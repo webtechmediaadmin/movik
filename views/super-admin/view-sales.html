@@ -22,8 +22,12 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick" onclick="logout()">
-                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            <div id="imageClick">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png" alt="Profile Image" />
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
             </div>
         </div>
         <div id="hiddenFeatures">
@@ -75,7 +79,7 @@
     <script>
         async function fetchSales() {
             try {
-                const response = await fetch("http://localhost:9000/api/sales/get-sales", {
+                const response = await fetch("https://movik.onrender.com/api/sales/get-sales", {
                     headers: {
                         'Authorization': `Bearer ${sessionToken}`,
                         'Content-Type': 'application/json'
@@ -94,8 +98,8 @@
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                         <td data-label="Id">${sales.manager.name}</td>
-                        <td data-label="Nam">${sales.product.name}</td>
+                         <td data-label="Name">${sales.manager.name}</td>
+                        <td data-label="Product Name">${sales.product.name}</td>
                         <td data-label="Date">${sales.date}</td>
                         <td data-label="Address">${sales.manager.address}</td>
                        <td data-label="Quantity">${sales.quantity}</td>

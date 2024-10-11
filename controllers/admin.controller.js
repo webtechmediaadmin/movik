@@ -1,6 +1,20 @@
+const EditAdminService = require("../services/admin/editAdmin.service");
 const LoginAdmin = require("../services/admin/loginAdmin.service");
 const GetMyProfileService = require("../services/admin/myProfile.service");
 const CreateManagerService = require("../services/manager/createManager.service");
+const multer = require('multer');
+
+
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'uploads/profile-images');
+        },
+        filename: function (req, file, cb) {
+            cb(null, Date.now() + '-' + file.originalname);
+        },
+    }),
+});
 
 async function LoginAdminController(req, res) {
     try {
@@ -65,6 +79,32 @@ async function CreateManagerController(req, res) {
     }
 }
 
+async function UpdateAdminDetailsController(req, res) {
+    try {
+        const id = req.userID;
+        const { name, email, password } = req.body;
+
+        let image;
+        if (req.file) {
+            image = 'uploads/profile-images/' + req.file.filename;
+        }
 
 
-module.exports = { LoginAdminController, GetMyProfileController, CreateManagerController };
+        const fetchAdmins = await EditAdminService(id, name, email, password, image);
+
+        return res.status(fetchAdmins.status ? 200 : 404).json({
+            status: fetchAdmins.status,
+            message: fetchAdmins.message,
+            data: fetchAdmins.status ? fetchAdmins.data : null
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: false,
+            message: 'Internal Server Error',
+        });
+    }
+}
+
+
+module.exports = { LoginAdminController, GetMyProfileController, CreateManagerController, UpdateAdminDetailsController, upload };

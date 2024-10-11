@@ -88,9 +88,9 @@ async function GetSalesAsPerManagerController(req, res) {
 async function EditSalesController(req, res) {
     try {
         const id = req.params.id;
-        const { productID, quantity, totalPrice, date } = req.body;
+        const { productID, quantity, totalPrice, buyerName, buyerPhoneNumber, buyerAddress } = req.body;
 
-        const editSales = await EditSalesService(id, productID, quantity, totalPrice, date);
+        const editSales = await EditSalesService(id, productID, quantity, totalPrice, buyerName, buyerPhoneNumber, buyerAddress);
 
         return res.status(editSales.status ? 200 : 404).json({
             status: editSales.status,

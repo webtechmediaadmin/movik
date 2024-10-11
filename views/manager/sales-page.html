@@ -11,7 +11,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <script src="../js/istocken.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert -->
     <title>Sales Page</title>
 </head>
 
@@ -23,8 +23,12 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick" onclick="logout()">
-                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            <div id="imageClick">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png" alt="Profile Image" />
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
             </div>
         </div>
         <div id="hiddenFeatures">
@@ -32,10 +36,10 @@
             <div id="logOut">Logout</div>
         </div>
         <!-- Side Navigation Bar -->
-        <div id="sideNav">
+        <div id="sideNav" style="z-index: 999;">
             <button class="closeBtn">&times;</button>
             <ul>
-                <li><i class="fas fa-home"></i><a href="./manager-home.html">Home</a></li>
+                <!-- <li><i class="fas fa-home"></i><a href="./manager-home.html">Home</a></li> -->
                 <li><i class="fas fa-eye"></i><a href="./order-page.html">Place Order</a></li>
                 <li><i class="fas fa-eye"></i><a href="./view-orders.html">View Orders</a></li>
                 <li><i class="fab fa-salesforce"></i><a href="./sales-page.html">Create Sales</a></li>
@@ -46,38 +50,38 @@
     <div id="content">
         <div class="container form-css mb-3 mt-5">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12 min_he">
                     <div class="title">Create Sales</div>
                     <form id="salesForm">
                         <div class="user__details">
-                            <div class="input__box">
+                            <div class="input__box mx-2">
                                 <span class="details">Product Name:</span>
                                 <select id="productID" name="productID" required>
                                     <option value="">Select a product</option>
                                 </select>
                             </div>
-                            <div class="input__box">
+                            <div class="input__box mx-2">
                                 <span class="details">Quantity:</span>
                                 <input type="number" id="quantity" name="quantity" min="1" required>
                             </div>
-                            <div class="input__box">
+                            <div class="input__box mx-2">
                                 <span class="details">Buyer Name</span>
                                 <input type="text" name="buyerName" id="buyerName">
                             </div>
-                            <div class="input__box">
+                            <div class="input__box mx-2">
                                 <span class="details">Buyer Phone Number</span>
                                 <input type="number" name="buyerPhoneNumber" id="buyerPhoneNumber">
                             </div>
-                            <div class="input__box">
+                            <div class="input__box mx-2">
                                 <span class="details">Buyer Address</span>
                                 <input type="text" name="buyerAddress" id="buyerAddress">
                             </div>
-                            <div class="input__box">
+                            <div class="input__box mx-2">
                                 <span class="details">Total Price:</span>
                                 <input type="text" id="totalPrice" name="tprice" required>
                             </div>
                         </div>
-                        <button type="submit" id="regi-btn" class="button">Place Order</button>
+                        <button type="submit" id="regi-btn" class="button  btn_bb">Place Order</button>
                     </form>
                 </div>
             </div>
@@ -133,9 +137,19 @@
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.status) {
-                        alert("Sales Added successfully!");
+                        // Use SweetAlert for success notification
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Sales Added successfully!',
+                            text: 'Sales Added successfully!',
+                        });
                     } else {
-                        alert("Error In Adding Sales: " + data.message);
+                        // Use SweetAlert for success notification
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error in creating Sales Report!',
+                            text: 'Error in creating Sales Report!',
+                        });
                     }
                 })
                 .catch((error) => {

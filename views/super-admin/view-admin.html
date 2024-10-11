@@ -11,7 +11,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <script src="../js/istocken.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert -->
     <title>View Manager</title>
 </head>
 
@@ -23,8 +23,12 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick" onclick="logout()">
-                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            <div id="imageClick">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png" alt="Profile Image" />
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
             </div>
         </div>
         <div id="hiddenFeatures">
@@ -55,7 +59,7 @@
 
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <!-- <th scope="col">Id</th> -->
                     <th scope="col">Name</th>
                     <th scope="col">Email Id</th>
                     <th scope="col">Role</th>
@@ -69,12 +73,47 @@
     </div>
     </div>
 
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Admin Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="mb-2">
+                            <label for="edit-Name" class="form-label"> Name</label>
+                            <input type="text" class="form-control" id="edit-Name" >
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="edit-Email" class="form-label"> Email</label>
+                            <input type="text" class="form-control" id="edit-Email" >
+                        </div>
+
+
+                        <!-- <div class="mb-2">
+                            <label for="edit-Role" class="form-label">Role</label>
+                            <input type="number" class="form-control" id="edit-Role" required>
+                        </div> -->
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="../js/navcss.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+        let currentEditId = null;
         async function fetchManagerData() {
             try {
-                const response = await fetch("http://localhost:9000/api/get-admin", {
+                const response = await fetch("https://movik.onrender.com/api/get-admin", {
                     headers: {
                         'Authorization': `Bearer ${sessionToken}`,
                         'Content-Type': 'application/json'
@@ -87,12 +126,10 @@
                 const managerBody = document.getElementById("managerBody");
 
                 mgData.data.forEach((mgData, index) => {
-                    console.log(mgData);
                     const row = document.createElement("tr");
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                          <td data-label="Id">${mgData.id}</td>
 
 
                  <td data-label="Name">${mgData.name}</td>
@@ -112,6 +149,65 @@
                 console.error("There was a problem with the fetch operation:", error);
             }
         }
+
+        function editData(id){
+            currentEditId = id;
+            fetch(`https://movik.onrender.com/api/get-admin?id=${id}`,{
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${sessionToken}`
+                }
+            })
+            .then(res => res.json())
+            .then((data)=>{
+                document.getElementById('edit-Name').value = data.data[0].name;
+                document.getElementById('edit-Email').value = data.data[0].email;
+            })
+        }
+
+        async function updateData(event) {
+            event.preventDefault();
+            const name = document.getElementById("edit-Name").value;
+            const email = document.getElementById("edit-Email").value;
+
+            const obj = { name,email };
+
+            try {
+                const res = await fetch(`https://movik.onrender.com/api/super-admin/update-admin/${currentEditId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionToken}`
+                    },
+                    body: JSON.stringify(obj)
+                });
+                const data = await res.json();
+
+                if (data.status) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Admin Updated successfully!',
+                        text: 'Admin Updated successfully!',
+                    }).then(() => location.reload());
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error in Admin Update!',
+                        text: 'Error in Admin Update!',
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error in Admin Update!',
+                    text: 'An error occurred while updating the Admin.',
+                });
+                console.error('Error updating Admin:', error);
+            }
+        }
+
+        document.getElementById("editForm").addEventListener("submit", updateData);
+
         document.addEventListener("DOMContentLoaded", fetchManagerData);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

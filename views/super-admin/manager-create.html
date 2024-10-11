@@ -24,8 +24,12 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick" onclick="logout()">
-                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            <div id="imageClick">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png" alt="Profile Image" />
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
             </div>
         </div>
         <div id="hiddenFeatures">
@@ -33,7 +37,7 @@
             <div id="logOut">Logout</div>
         </div>
         <!-- Side Navigation Bar -->
-        <div id="sideNav">
+        <div id="sideNav"  style="z-index: 999;">
             <button class="closeBtn">&times;</button>
             <img src="../images/heading-logo.png" alt="">
             <ul>
@@ -58,6 +62,7 @@
             </div> -->
     </div>
     </div>
+    
     <div id="content">
         <div class="container form-css mb-3 mt-5">
             <div class="row">
@@ -65,7 +70,7 @@
                     <div class="title"><i class="fas fa-lock-open"></i>
                         <h2>Manager Registration</h2>
                     </div>
-                    <form id="ManagerRegistration">
+                    <form id="ManagerRegistration" class="form_c">
                         <div class="user__details">
                             <div class="input__box">
                                 <span class="details">Name</span>
@@ -83,16 +88,17 @@
                                 <span class="details">Confirm Password</span>
                                 <input type="password" id="cpassword" placeholder="********" required>
                             </div>
-                            <div class="input__box">
+                            <div class="input__box ">
                                 <span class="details">Address</span>
-                                <textarea name="address" rows="5" cols="70" id="address"
-                                    placeholder="Enter Your Address"></textarea>
-                                <!-- <input type="text" id="cpassword" placeholder="Enter Your Address" required> -->
+                                <input name="address" class="inpit_f"  id="address"
+                                    placeholder="Enter Your Address"></input>
+
                             </div>
                         </div>
-                        <div class="gender__details">
-                            <span class="gender__title">Role</span>
-                            <div class="category" id="role">
+
+                        <div class="gender__details gender_d">
+                            <span class="gender__title role_b">Role</span>
+                            <div class="category manager_m" id="role">
                                 <label for="dealer">
                                     <input type="radio" id="dealer" name="role" value="dealer" required>
                                     <!-- <span class="dot one"></span> -->
@@ -116,6 +122,7 @@
 
         </div>
     </div>
+    
     </div>
 
     <script src="../js/navcss.js"></script>
@@ -140,7 +147,7 @@
 
             if (pass === cpass) {
                 console.log(obj)
-                fetch("http://localhost:9000/api/admin/create-manager", {
+                fetch("https://movik.onrender.com/api/admin/create-manager", {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${sessionToken}`,

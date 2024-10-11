@@ -11,6 +11,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <script src="../js/istocken.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert -->
     <title>View Orders</title>
 </head>
 
@@ -22,8 +23,13 @@
             <div>
                 <h1 id="welcomeName"></h1>
             </div>
-            <div id="imageClick" onclick="logout()">
-                <img id="profileImg" src="../images/movik-logo.png" alt="Profile Image" />
+            <div id="imageClick">
+                <img id="profileImg" class="dropbtn" src="http://thememinister.com/crm/assets/dist/img/avatar5.png"
+                    alt="Profile Image" />
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#"><i class="fas fa-user"></i> &nbsp; My Profile</a>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> &nbsp; Signout</a>
+                </div>
             </div>
         </div>
         <div id="hiddenFeatures">
@@ -44,10 +50,34 @@
                 <li><i class="fab fa-first-order-alt"></i><a href="./view-orders.html">View Orders</a></li>
                 <li><i class="fas fa-eye"></i><a href="./product-create.html">Create Product</a></li>
                 <li><i class="fas fa-upload"></i><a href="./product-view.html">View Product</a></li>
-                
             </ul>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Data From Here</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="mb-2">
+                            <label for="edit-status" class="form-label">Status</label>
+                            <select id="edit-status" class="form-control">
+                                <option value="">Choose Current Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="in-transit">In-transit</option>
+                                <option value="cancelled">Cancelled</option>
+                                <option value="delivered">Delivered</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="content">
@@ -60,6 +90,7 @@
                     <th scope="col">Date</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <!-- Responsive Table Body Section -->
@@ -67,12 +98,14 @@
             </tbody>
         </table>
     </div>
-    </div>
 
     <script>
+        // const sessionToken = "your-session-token"; // Replace with your actual session token
+        let currentEditId = null;
+
         async function fetchOrders() {
             try {
-                const res = await fetch("http://localhost:9000/api/orders/get-orders", {
+                const res = await fetch("https://movik.onrender.com/api/orders/get-orders", {
                     headers: {
                         'Authorization': `Bearer ${sessionToken}`,
                         'Content-Type': 'application/json'
@@ -82,21 +115,28 @@
                     throw new Error("Network response was not ok");
                 }
                 const orders = await res.json();
-                console.log(orders);
                 const orderData = document.getElementById("orderData");
 
-                orders.data.forEach((orders, index) => {
-                    console.log(orders)
+                orders.data.forEach((order) => {
                     const row = document.createElement("tr");
                     row.classList.add("responsive-table__row");
 
                     row.innerHTML = `
-                        <td data-label="Id">${orders.manager.name}</td>
-                        <td data-label="Id">${orders.product.name}</td>
-                         <td data-label="Date">${orders.date}</td>
-                        <td data-label="Quantity">${orders.quantity}</td>
-                        <td data-label="Quantity">${orders.status}</td>
-                    `;
+    <td data-label="Dealer/Distributor">${order.manager.name}</td>
+    <td data-label="Product Name">${order.product.name}</td>
+    <td data-label="Date">${order.date}</td>
+    <td data-label="Quantity">${order.quantity}</td>
+    <td data-label="Status">${order.status}</td>
+    <td class="responsive-table__body__text responsive-table__body__text--update">
+        ${
+            order.status === 'delivered'
+                ? `<button class="btnn-1 btn-blue" data-bs-toggle="modal" data-bs-target="#exampleModal" disabled>Delivered</button>`
+                : `<button class="btnn-1" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="editData('${order.id}')">Edit Order Status</button>`
+        }
+    </td>
+`;
+
+
 
                     orderData.appendChild(row);
                 });
@@ -104,6 +144,65 @@
                 console.error("There was a problem with the fetch operation:", error);
             }
         }
+
+        function editData(id) {
+            currentEditId = id;
+            fetch(`https://movik.onrender.com/api/orders/get-orders?id=${id}`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${sessionToken}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    const order = data.data[0];
+                    document.getElementById("edit-status").value = order.status;
+                })
+                .catch((error) => console.error('Error fetching order data:', error));
+        }
+
+        async function updateData(event) {
+            event.preventDefault();
+            const status = document.getElementById("edit-status").value;
+
+            const obj = { status };
+
+            try {
+                const res = await fetch(`https://movik.onrender.com/api/orders/order-update/${currentEditId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${sessionToken}`
+                    },
+                    body: JSON.stringify(obj)
+                });
+                const data = await res.json();
+
+                if (data.status) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Updated successfully!',
+                        text: 'Order Updated successfully!',
+                    }).then(() => location.reload());
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error in Order Update!',
+                        text: 'Error in Order Update!',
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error in Order Update!',
+                    text: 'An error occurred while updating the order.',
+                });
+                console.error('Error updating order:', error);
+            }
+        }
+
+        document.getElementById("editForm").addEventListener("submit", updateData);
         document.addEventListener("DOMContentLoaded", fetchOrders);
     </script>
     <script src="../js/script.js"></script>

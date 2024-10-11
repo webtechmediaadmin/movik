@@ -26,6 +26,7 @@ const OrderModel = connection.define('orders', {
     },
     date: {
         type: DataTypes.DATEONLY,
+        defaultValue: DataTypes.NOW,
         allowNull: true,
     },
     status: {

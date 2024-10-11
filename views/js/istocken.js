@@ -1,10 +1,10 @@
-let sessionToken = sessionStorage.getItem('token');
+let sessionToken = localStorage.getItem('token');
 
 if (!sessionToken) {
     alert('You are not logged in. Please try again');
     window.location.href = '/';
 } else {
-    let role = sessionStorage.getItem('role');
+    let role = localStorage.getItem('role');
     let state;
 
     if (role == "super-admin") {
@@ -34,7 +34,6 @@ if (!sessionToken) {
             }
 
             let data = await response.json();
-            console.log('Profile data:', data);
             return data;
         } catch (error) {
             console.error('Error fetching profile:', error);
